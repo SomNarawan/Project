@@ -20,8 +20,16 @@ switch ($action) {
     case "ClearWorking":
         $sql = "DELETE FROM working ";
         deletedata($sql);
+        $sql = "UPDATE `vehicle` SET `Status` = 'notuse' ";
+        updateData($sql);
         break;
-    case "getTextSelect":
+    case "setVehicle":
+        $VID = $_POST['VID'] ?? "";
+        $status = $_POST['status'] ?? "";
+        $sql = "UPDATE `vehicle` SET `Status` = '$status' WHERE `vehicle`.`VID` = $VID";
+        updateData($sql);
+        break;
+    case "getTextSelectName":
         $DID = $_POST['DID'] ?? "";
         $SPID = $_POST['SPID'] ?? "";
         $PID = $_POST['PID'] ?? "";
@@ -33,6 +41,20 @@ switch ($action) {
                 $text .= " selected ";
             }
             $text .= ">{$NAMEPEOPLE[$i]['PName']}</option>";
+        }
+        echo $text;
+
+        break;
+    case "getTextSelectVehicle":
+        $VID = $_POST['VID'] ?? "";
+        $VEHICLE = getVehicle($VID);
+        $text = "<option value=\"0\">เลือกรถ</option>";
+        for ($i = 1; $i < count($VEHICLE); $i++) {
+            $text .= "<option value=\"{$VEHICLE[$i]['VID']}\" ";
+            if ($VEHICLE[$i]['VID'] == $VID) {
+                $text .= " selected ";
+            }
+            $text .= ">{$VEHICLE[$i]['VName']}</option>";
         }
         echo $text;
 
