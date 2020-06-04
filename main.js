@@ -19,11 +19,7 @@ function Switchpage() {
             $(show2[i]).show();
         }
     }
-    if (check) {
-        check = false;
-    } else {
-        check = true;
-    }
+
 
 }
 $(document).ready(function() {
@@ -33,7 +29,12 @@ $(document).ready(function() {
         ClearWorking();
         location.reload();
     });
-    $(document).on("click", "#btnswitch", function() {
+    $(document).on("click", "#btnswitch1", function() {
+        check = true;
+        Switchpage();
+    });
+    $(document).on("click", "#btnswitch2", function() {
+        check = false;
         Switchpage();
     });
     $(document).on("change", ".slecetName", function() {
