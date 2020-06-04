@@ -142,11 +142,15 @@
                         <?php echo $SERVICE[$i]['SPName']; ?></td>
                     <?php for($k=0;$k<$comp;$k++){ ?>
                     <!-- <td style="background-color: black;"></td> -->
-                    <td><input class="form-control" style="width:90px" type="number" min=0 value="0"></td>
-                    <td><input class="form-control" style="width:90px" type="number" min=0 value="0"></td>
+                    <td style="border-bottom-width:3px; border-bottom-color: black;"><input class="form-control"
+                            style="width:90px" type="number" min=0 value="0"></td>
+                    <td style="border-bottom-width:3px; border-bottom-color: black;"><input class="form-control"
+                            style="width:90px" type="number" min=0 value="0"></td>
                     <!-- if -->
-                    <?php if($SERVICE[$i]['SPID'] == 13){ ?>
-                    <td style="border-right-width:3px; border-right-color: black;">
+                    <td
+                        style="border-bottom-width:3px; border-bottom-color: black; border-right-width:3px; border-right-color: black;">
+
+                        <?php if($SERVICE[$i]['SPID'] == 13){ ?>
                         <div class="form-inline">
                             <?php $PEOPLE = selectPeople(); ?>
                             <select class="form-control" name="province" id="province" required style="width:150px;">
@@ -167,10 +171,8 @@
                             <button class="set-button"><i class="fa fa-minus" style="background: #dc3545;"></i></button>
                         </div>
                         <input class="form-control" placeholder="เพิ่มเติม" type="text" style="width:300px">
-                    </td>
-                    <!-- else if -->
-                    <?php }else if($SERVICE[$i]['SPID'] == 16){ ?>
-                    <td style="border-right-width:3px; border-right-color: black;">
+                        <!-- else if -->
+                        <?php }else if($SERVICE[$i]['SPID'] == 16){ ?>
                         <div class="form-inline">
                             <?php $VEHICLE = selectVehicle(); ?>
                             <select class="form-control" name="regist" id="regist" required style="width:200px;">
@@ -196,10 +198,8 @@
                                     style="background: #dc3545;"></i></button>
                         </div>
                         <input class="form-control" placeholder="เพิ่มเติม" type="text" style="width:300px">
-                    </td>
-                    <!-- else -->
-                    <?php }else{ ?>
-                    <td style="border-right-width:3px; border-right-color: black;">
+                        <!-- else -->
+                        <?php }else{ ?>
                         <div class="form-inline">
                             <?php $PEOPLE = selectPeople(); ?>
                             <select class="form-control" name="province" id="province" required style="width:300px;">
@@ -214,9 +214,10 @@
                             <button class="set-button"><i class="fa fa-minus" style="background: #dc3545;"></i></button>
                         </div>
                         <input class="form-control" placeholder="เพิ่มเติม" type="text" style="width:300px">
+                        <?php } ?>
                     </td>
-                    <?php } 
-                    }?>
+
+                    <?php } ?>
                 </tr>
                 <?php } ?>
             </table>
