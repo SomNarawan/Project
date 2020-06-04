@@ -1,5 +1,9 @@
+<?php 
+    include_once("dbConnect.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,38 +13,183 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
+
 <body>
-    <div class="row">
-        <div class="col-lg-3">
-        </div>
-        <div class="col-lg-3">
-            วันที่ตรวจ 
-            <input type="date">
-        </div>
-        <div class="col-lg-3">
-            เวลาตรวจ 
-            <input type="time">
-        </div>
-        <div class="col-lg-3">
-            เวลารถออก 
-            <input type="time">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-3">
-            ชื่อบริษัท 
-            <input type="text">
-        </div>
-        <div>
-            จังหวัด 
-            <input type="text">
-        </div>
-        <div>
-            จำนวนบริษัท 
-            <input type="number">
-            <button>ตกลง</button>
+    <div class="container-fluid" style="position: absolute; top: 20px;">
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="form-inline col-lg-4">
+                        <label style="width:100px">วันที่ตรวจ</label>
+                        <input class="form-control" style="width:250px" type="date" required>
+                    </div>
+                    <div class="form-inline col-lg-4">
+                        <label style="width:100px">เวลาตรวจ</label>
+                        <input class="form-control" style="width:180px" type="time" required>
+                    </div>
+                    <div class="form-inline col-lg-4">
+                        <label style="width:100px">เวลารถออก</label>
+                        <input class="form-control" style="width:180px" type="time" required>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="form-inline col-lg-4">
+                        <label style="width:100px">ชื่อบริษัท</label>
+                        <input class="form-control" style="width:250px" type="text" required>
+                    </div>
+                    <div class="form-inline col-lg-4">
+                        <label style="width:100px">จังหวัด</label>
+                        <?php $PROVINCE = selectProvince(); ?>
+                        <select style="width:180px" class="form-control" name="province" id="province" required>
+                            <option value="0">เลือกจังหวัด</option>
+                            <?php for($i=1;$i<$PROVINCE[0]['numrow'];$i++){ ?>
+                            <option value="<?php echo $PROVINCE[$i]['AD1ID']; ?>">
+                                <?php echo $PROVINCE[$i]['Province']; ?>
+                            </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="form-inline col-lg-4">
+                        <label style="width:100px">จำนวนบริษัท</label>
+                        <input class="form-control" style="width:90px" type="number" value="0" required>
+                        <button class="btn btn-success" style="width:90px">ตกลง</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <button class="btn btn-info" style="width:100%; height:100%">ยืนยันข้อมูล</button>
+            </div>
+        </div><br>
+        <div align="center">
+            <table class="table-bordered">
+                <tr>
+                    <th>ลำดับ</th>
+                    <th>จุดบริการ</th>
+                    <th>จุดที่ตรวจ</th>
+                    <th>ยอดพนักงาน</th>
+                    <th><input class="form-control" type="text" style="width:260px">
+                        <div class="form-inline">
+                            <input class="form-control" type="time" style="width:100px;">
+                            <?php $PROVINCE = selectProvince(); ?>
+                            <select class="form-control" name="province" id="province" required
+                                style="width:160px;">
+                                <option value="0">เลือกจังหวัด</option>
+                                <?php for($i=1;$i<$PROVINCE[0]['numrow'];$i++){ ?>
+                                <option value="<?php echo $PROVINCE[$i]['AD1ID']; ?>">
+                                    <?php echo $PROVINCE[$i]['Province']; ?>
+                                </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </th>
+                    <th>จุดที่ตรวจ</th>
+                    <th>ยอดพนักงาน</th>
+                    <th><input class="form-control" type="text" style="width:260px">
+                        <div class="form-inline">
+                            <input class="form-control" type="time" style="width:100px;">
+                            <?php $PROVINCE = selectProvince(); ?>
+                            <select class="form-control" name="province" id="province" required
+                                style="width:160px;">
+                                <option value="0">เลือกจังหวัด</option>
+                                <?php for($i=1;$i<$PROVINCE[0]['numrow'];$i++){ ?>
+                                <option value="<?php echo $PROVINCE[$i]['AD1ID']; ?>">
+                                    <?php echo $PROVINCE[$i]['Province']; ?>
+                                </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </th>
+                    <th>จุดที่ตรวจ</th>
+                    <th>ยอดพนักงาน</th>
+                    <th><input class="form-control" type="text" style="width:260px">
+                        <div class="form-inline">
+                            <input class="form-control" type="time" style="width:100px;">
+                            <?php $PROVINCE = selectProvince(); ?>
+                            <select class="form-control" name="province" id="province" required
+                                style="width:160px;">
+                                <option value="0">เลือกจังหวัด</option>
+                                <?php for($i=1;$i<$PROVINCE[0]['numrow'];$i++){ ?>
+                                <option value="<?php echo $PROVINCE[$i]['AD1ID']; ?>">
+                                    <?php echo $PROVINCE[$i]['Province']; ?>
+                                </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </th>
+                    <th>จุดที่ตรวจ</th>
+                    <th>ยอดพนักงาน</th>
+                    <th><input class="form-control" type="text" style="width:260px">
+                        <div class="form-inline">
+                            <input class="form-control" type="time" style="width:100px;">
+                            <?php $PROVINCE = selectProvince(); ?>
+                            <select class="form-control" name="province" id="province" required
+                                style="width:160px;">
+                                <option value="0">เลือกจังหวัด</option>
+                                <?php for($i=1;$i<$PROVINCE[0]['numrow'];$i++){ ?>
+                                <option value="<?php echo $PROVINCE[$i]['AD1ID']; ?>">
+                                    <?php echo $PROVINCE[$i]['Province']; ?>
+                                </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </th>
+                    <th>จุดที่ตรวจ</th>
+                    <th>ยอดพนักงาน</th>
+                    <th><input class="form-control" type="text" style="width:260px">
+                        <div class="form-inline">
+                            <input class="form-control" type="time" style="width:100px;">
+                            <?php $PROVINCE = selectProvince(); ?>
+                            <select class="form-control" name="province" id="province" required
+                                style="width:160px;">
+                                <option value="0">เลือกจังหวัด</option>
+                                <?php for($i=1;$i<$PROVINCE[0]['numrow'];$i++){ ?>
+                                <option value="<?php echo $PROVINCE[$i]['AD1ID']; ?>">
+                                    <?php echo $PROVINCE[$i]['Province']; ?>
+                                </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </th>
+                    <th>จุดที่ตรวจ</th>
+                    <th>ยอดพนักงาน</th>
+                    <th><input class="form-control" type="text" style="width:260px">
+                        <div class="form-inline">
+                            <input class="form-control" type="time" style="width:100px;">
+                            <?php $PROVINCE = selectProvince(); ?>
+                            <select class="form-control" name="province" id="province" required
+                                style="width:160px;">
+                                <option value="0">เลือกจังหวัด</option>
+                                <?php for($i=1;$i<$PROVINCE[0]['numrow'];$i++){ ?>
+                                <option value="<?php echo $PROVINCE[$i]['AD1ID']; ?>">
+                                    <?php echo $PROVINCE[$i]['Province']; ?>
+                                </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+
+                </tr>
+
+
+            </table>
         </div>
     </div>
 
+
 </body>
+
 </html>
+
+<?php
+    function selectProvince(){
+        $sql = "SELECT * FROM `province`  
+        ORDER BY `province`.`Province` ASC";
+        $data = selectData($sql);
+        // print_r($PROVINCE);
+        return $data;
+    }
+?>
