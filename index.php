@@ -31,8 +31,9 @@
         background: #FFFFFF;
         border: 0px;
     }
-    .border-table{
-        border-width:3px;
+
+    .border-table {
+        border-width: 3px;
         border-color: black;
     }
     </style>
@@ -43,7 +44,7 @@
         <div class="row">
             <div class="col-lg-10">
                 <div class="row">
-                    <div class="form-inline col-lg-4"> 
+                    <div class="form-inline col-lg-4">
                         <label style="width:100px">วันที่ตรวจ</label>
                         <input class="form-control" style="width:250px" type="date" required>
                     </div>
@@ -77,7 +78,7 @@
                     <div class="form-inline col-lg-4">
                         <form class="form-inline" action="index.php" method="post">
 
-                            <label style="width:100px">จำนวนบริษัท</label>
+                            <label style="width:100px">จำนวนหน่วย</label>
                             <input class="form-control" id="num_company" name="num_company" style="width:90px"
                                 type="number" min=1 max=6 value="<?php echo $comp; ?>" required>
                             <button type="submit" class="btn btn-success" id="ok" name="ok"
@@ -89,8 +90,18 @@
             <div class="col-lg-2">
                 <button class="btn btn-info" style="width:100%; height:100%">ยืนยันข้อมูล</button>
             </div>
-        </div><br>
-        <div align="center">
+        </div>
+        <?php if($comp > 3){ ?>
+        <div class="row form-inline" style="margin-top: 20px;">
+            <div align="right" class="col-lg-6">
+                <button class="form-control btn-warning">หน่วยที่ 1 - 3</button>
+            </div>
+            <div class="col-lg-6">
+                <button class="form-control btn-warning">หน่วยที่ 4 - 6</button>
+            </div>
+        </div>
+        <?php } ?>
+        <div align="center" style="margin-top: 20px;">
             <table class="table-bordered border-table">
                 <!-- Head Table -->
                 <tr align="center" id="head_table" name="head_table">
@@ -100,9 +111,10 @@
                     <!-- <th style="background-color: black;"></th> -->
                     <th style="border-bottom-width:3px; border-bottom-color: black;">จุดที่ตรวจ</th>
                     <th style="border-bottom-width:3px; border-bottom-color: black;">ยอดพนักงาน</th>
-                    <th style="border-bottom-width:3px; border-bottom-color: black; border-right-width:3px; border-right-color: black;">
-                        <label>หน่วยที่<?php echo $k+1; ?></label>    
-                    <input style="font-weight: bold;" class="form-control" placeholder="กรอกชื่อบริษัท" type="text"
+                    <th
+                        style="border-bottom-width:3px; border-bottom-color: black; border-right-width:3px; border-right-color: black;">
+                        <label>หน่วยที่ <?php echo $k+1; ?></label>
+                        <input style="font-weight: bold;" class="form-control" placeholder="กรอกชื่อบริษัท" type="text"
                             style="width:400px">
                         <div class="form-inline">
                             <input class="form-control" type="time" style="width:200px; font-weight: bold;">
@@ -124,8 +136,10 @@
                 <?php $SERVICE = selectServicepoint(); 
                 for($i=1;$i<=$SERVICE[0]['numrow'];$i++){?>
                 <tr>
-                    <td align="center" style="border-bottom-width:3px; border-bottom-color: black; font-weight: bold;"><?php echo $i; ?></td>
-                    <td style="border-width:3px; border-color: black; font-weight: bold;"><?php echo $SERVICE[$i]['SPName']; ?></td>
+                    <td align="center" style="border-bottom-width:3px; border-bottom-color: black; font-weight: bold;">
+                        <?php echo $i; ?></td>
+                    <td style="border-width:3px; border-color: black; font-weight: bold;">
+                        <?php echo $SERVICE[$i]['SPName']; ?></td>
                     <?php for($k=0;$k<$comp;$k++){ ?>
                     <!-- <td style="background-color: black;"></td> -->
                     <td><input class="form-control" style="width:90px" type="number" min=0 value="0"></td>
@@ -176,8 +190,10 @@
                                 </option>
                                 <?php } ?>
                             </select>
-                            <button class="set-button" id="add<?php echo $i; ?>"><i class="fa fa-plus" style="background: #28a745;"></i></button>
-                            <button class="set-button" id="minus5<?php echo $i; ?>"><i class="fa fa-minus" style="background: #dc3545;"></i></button>
+                            <button class="set-button" id="add<?php echo $i; ?>"><i class="fa fa-plus"
+                                    style="background: #28a745;"></i></button>
+                            <button class="set-button" id="minus5<?php echo $i; ?>"><i class="fa fa-minus"
+                                    style="background: #dc3545;"></i></button>
                         </div>
                         <input class="form-control" placeholder="เพิ่มเติม" type="text" style="width:300px">
                     </td>
