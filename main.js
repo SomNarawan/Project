@@ -1,8 +1,40 @@
+var check = true;
+Switchpage();
+
+function Switchpage() {
+    var show1 = $(".show1");
+    var show2 = $(".show2");
+    if (check) {
+        for (i = 0; i < show1.length; i++) {
+            $(show1[i]).show();
+        }
+        for (i = 0; i < show2.length; i++) {
+            $(show2[i]).hide();
+        }
+    } else {
+        for (i = 0; i < show1.length; i++) {
+            $(show1[i]).hide();
+        }
+        for (i = 0; i < show2.length; i++) {
+            $(show2[i]).show();
+        }
+    }
+    if (check) {
+        check = false;
+    } else {
+        check = true;
+    }
+
+}
 $(document).ready(function() {
     ClearWorking();
+
     $(document).on("click", "#btnclear", function() {
         ClearWorking();
         location.reload();
+    });
+    $(document).on("click", "#btnswitch", function() {
+        Switchpage();
     });
     $(document).on("change", ".slecetName", function() {
         var DID = $(this).attr('DID');
@@ -83,6 +115,8 @@ $(document).ready(function() {
         });
 
     }
+
+
 
     function setSelectCeateName() {
         var test = $(".slecetName");
