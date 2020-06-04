@@ -31,6 +31,10 @@
         background: #FFFFFF;
         border: 0px;
     }
+    .border-table{
+        border-width:3px;
+        border-color: black;
+    }
     </style>
 </head>
 
@@ -87,14 +91,18 @@
             </div>
         </div><br>
         <div align="center">
-            <table class="table-bordered">
+            <table class="table-bordered border-table">
+                <!-- Head Table -->
                 <tr align="center" id="head_table" name="head_table">
-                    <th>ลำดับ</th>
-                    <th>จุดบริการ</th>
+                    <th style="border-bottom-width:3px; border-bottom-color: black;">ลำดับ</th>
+                    <th style="border-width:3px; border-color: black;">จุดบริการ</th>
                     <?php for($k=0;$k<$comp;$k++){ ?>
-                    <th>จุดที่ตรวจ</th>
-                    <th>ยอดพนักงาน</th>
-                    <th><input style="font-weight: bold;" class="form-control" placeholder="กรอกชื่อบริษัท" type="text"
+                    <!-- <th style="background-color: black;"></th> -->
+                    <th style="border-bottom-width:3px; border-bottom-color: black;">จุดที่ตรวจ</th>
+                    <th style="border-bottom-width:3px; border-bottom-color: black;">ยอดพนักงาน</th>
+                    <th style="border-bottom-width:3px; border-bottom-color: black; border-right-width:3px; border-right-color: black;">
+                        <label>หน่วยที่<?php echo $k+1; ?></label>    
+                    <input style="font-weight: bold;" class="form-control" placeholder="กรอกชื่อบริษัท" type="text"
                             style="width:400px">
                         <div class="form-inline">
                             <input class="form-control" type="time" style="width:200px; font-weight: bold;">
@@ -112,16 +120,19 @@
                     </th>
                     <?php } ?>
                 </tr>
+                <!-- Body Table -->
                 <?php $SERVICE = selectServicepoint(); 
                 for($i=1;$i<=$SERVICE[0]['numrow'];$i++){?>
                 <tr>
-                    <td align="center"><?php echo $i; ?></td>
-                    <td><?php echo $SERVICE[$i]['SPName']; ?></td>
+                    <td align="center" style="border-bottom-width:3px; border-bottom-color: black; font-weight: bold;"><?php echo $i; ?></td>
+                    <td style="border-width:3px; border-color: black; font-weight: bold;"><?php echo $SERVICE[$i]['SPName']; ?></td>
                     <?php for($k=0;$k<$comp;$k++){ ?>
+                    <!-- <td style="background-color: black;"></td> -->
                     <td><input class="form-control" style="width:90px" type="number" min=0 value="0"></td>
                     <td><input class="form-control" style="width:90px" type="number" min=0 value="0"></td>
+                    <!-- if -->
                     <?php if($SERVICE[$i]['SPID'] == 13){ ?>
-                    <td>
+                    <td style="border-right-width:3px; border-right-color: black;">
                         <div class="form-inline">
                             <?php $PEOPLE = selectPeople(); ?>
                             <select class="form-control" name="province" id="province" required style="width:150px;">
@@ -143,8 +154,9 @@
                         </div>
                         <input class="form-control" placeholder="เพิ่มเติม" type="text" style="width:300px">
                     </td>
+                    <!-- else if -->
                     <?php }else if($SERVICE[$i]['SPID'] == 16){ ?>
-                    <td>
+                    <td style="border-right-width:3px; border-right-color: black;">
                         <div class="form-inline">
                             <?php $VEHICLE = selectVehicle(); ?>
                             <select class="form-control" name="regist" id="regist" required style="width:200px;">
@@ -169,8 +181,9 @@
                         </div>
                         <input class="form-control" placeholder="เพิ่มเติม" type="text" style="width:300px">
                     </td>
+                    <!-- else -->
                     <?php }else{ ?>
-                    <td>
+                    <td style="border-right-width:3px; border-right-color: black;">
                         <div class="form-inline">
                             <?php $PEOPLE = selectPeople(); ?>
                             <select class="form-control" name="province" id="province" required style="width:300px;">
