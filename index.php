@@ -108,7 +108,7 @@
                         <div class="form-inline">
                             <?php $PEOPLE = selectPeople(); ?>
                             <select class="form-control" name="province" id="province" required
-                                style="width:175px;">
+                                style="width:172px;">
                                 <option value="0">-</option>
                                 <?php for($i=1;$i<$PEOPLE[0]['numrow'];$i++){ ?>
                                 <option value="<?php echo $PEOPLE[$i]['PID']; ?>">
@@ -117,7 +117,7 @@
                                 <?php } ?>
                             </select>  
                             <button class="set-button"><i class="fa fa-plus" style="background: #28a745;"></i></button>
-                            <button class="set-button"><i class="fa fa-minus" style="background: #ff6666;"></i></button>
+                            <button class="set-button"><i class="fa fa-minus" style="background: #dc3545;"></i></button>
                         </div>
                         <input class="form-control"  placeholder="กรอกชื่อบริษัท" type="text" style="width:260px">
                     </td>
