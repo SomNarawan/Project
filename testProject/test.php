@@ -2,6 +2,7 @@
 include_once("../dbConnect.php");
 include_once("./query.php");
 $Allname = getNamePeople();
+$Allvehicle = getVehicle();
 ?>
 <table border="1px">
     <tr>
@@ -904,9 +905,17 @@ $Allname = getNamePeople();
     </tr>
     <tr>
         <td>
-            จุด 12
+            รถ
         </td>
         <td>
+            <select class="slecetVehicle" VID="0">
+                <option value="0">เลือกรถ</option>
+                <?php
+                for ($i = 1; $i < count($Allvehicle); $i++) {
+                    echo "<option value=\"{$Allvehicle[$i]['VID']}\">{$Allvehicle[$i]['VName']}</option>";
+                }
+                ?>
+            </select>
             <select class="slecetName" DID="1" SPID="12" PID="0">
                 <option value="0">เลือกรายชื่อ</option>
                 <?php
@@ -916,11 +925,32 @@ $Allname = getNamePeople();
                 ?>
             </select>
             <br>
-
-            <input type="text" class="inputOtherName" />
-
+            <select class="slecetVehicle" VID="0">
+                <option value="0">เลือกรถ</option>
+                <?php
+                for ($i = 1; $i < count($Allvehicle); $i++) {
+                    echo "<option value=\"{$Allvehicle[$i]['VID']}\">{$Allvehicle[$i]['VName']}</option>";
+                }
+                ?>
+            </select>
+            <select class="slecetName" DID="1" SPID="12" PID="0">
+                <option value="0">เลือกรายชื่อ</option>
+                <?php
+                for ($i = 1; $i < count($Allname); $i++) {
+                    echo "<option value=\"{$Allname[$i]['PID']}\">{$Allname[$i]['PName']}</option>";
+                }
+                ?>
+            </select>
         </td>
         <td>
+            <select class="slecetVehicle" VID="0">
+                <option value="0">เลือกรถ</option>
+                <?php
+                for ($i = 1; $i < count($Allvehicle); $i++) {
+                    echo "<option value=\"{$Allvehicle[$i]['VID']}\">{$Allvehicle[$i]['VName']}</option>";
+                }
+                ?>
+            </select>
             <select class="slecetName" DID="2" SPID="12" PID="0">
                 <option value="0">เลือกรายชื่อ</option>
                 <?php
@@ -929,10 +959,17 @@ $Allname = getNamePeople();
                 }
                 ?>
             </select>
-            <br>
-            <input type="text" class="inputOtherName" />
+
         </td>
         <td>
+            <select class="slecetVehicle" VID="0">
+                <option value="0">เลือกรถ</option>
+                <?php
+                for ($i = 1; $i < count($Allvehicle); $i++) {
+                    echo "<option value=\"{$Allvehicle[$i]['VID']}\">{$Allvehicle[$i]['VName']}</option>";
+                }
+                ?>
+            </select>
             <select class="slecetName" DID="3" SPID="12" PID="0">
                 <option value="0">เลือกรายชื่อ</option>
                 <?php
@@ -941,10 +978,17 @@ $Allname = getNamePeople();
                 }
                 ?>
             </select>
-            <br>
-            <input type="text" class="inputOtherName" />
+
         </td>
         <td>
+            <select class="slecetVehicle" VID="0">
+                <option value="0">เลือกรถ</option>
+                <?php
+                for ($i = 1; $i < count($Allvehicle); $i++) {
+                    echo "<option value=\"{$Allvehicle[$i]['VID']}\">{$Allvehicle[$i]['VName']}</option>";
+                }
+                ?>
+            </select>
             <select class="slecetName" DID="4" SPID="12" PID="0">
                 <option value="0">เลือกรายชื่อ</option>
                 <?php
@@ -953,10 +997,17 @@ $Allname = getNamePeople();
                 }
                 ?>
             </select>
-            <br>
-            <input type="text" class="inputOtherName" />
+
         </td>
         <td>
+            <select class="slecetVehicle" VID="0">
+                <option value="0">เลือกรถ</option>
+                <?php
+                for ($i = 1; $i < count($Allvehicle); $i++) {
+                    echo "<option value=\"{$Allvehicle[$i]['VID']}\">{$Allvehicle[$i]['VName']}</option>";
+                }
+                ?>
+            </select>
             <select class="slecetName" DID="5" SPID="12" PID="0">
                 <option value="0">เลือกรายชื่อ</option>
                 <?php
@@ -965,10 +1016,17 @@ $Allname = getNamePeople();
                 }
                 ?>
             </select>
-            <br>
-            <input type="text" class="inputOtherName" />
+
         </td>
         <td>
+            <select class="slecetVehicle" VID="0">
+                <option value="0">เลือกรถ</option>
+                <?php
+                for ($i = 1; $i < count($Allvehicle); $i++) {
+                    echo "<option value=\"{$Allvehicle[$i]['VID']}\">{$Allvehicle[$i]['VName']}</option>";
+                }
+                ?>
+            </select>
             <select class="slecetName" DID="6" SPID="12" PID="0">
                 <option value="0">เลือกรายชื่อ</option>
                 <?php
@@ -977,111 +1035,14 @@ $Allname = getNamePeople();
                 }
                 ?>
             </select>
-            <br>
-            <input type="text" class="inputOtherName" />
+
         </td>
 
     </tr>
 </table>
 <button id="btnclear">รีเซ็ต</button>
-<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function() {
-        $(document).on("click", "#btnclear", function() {
-            ClearWorking();
-            location.reload();
-        });
-        $(document).on("change", ".slecetName", function() {
-            var DID = $(this).attr('DID');
-            var SPID = $(this).attr('SPID');
-            var PIDOld = $(this).attr('PID');
-            var PIDNew = $(this).val();
-            //alert('DID:  ' + DID + '  /SPID:  ' + SPID + '  /PIDOld:  ' + PIDOld + '  /PIDNew:  ' + PIDNew);
-            if (PIDOld != 0) {
-                DeleteWorking(DID, SPID, PIDOld);
-            }
-            InsertWorking(DID, SPID, PIDNew);
-            $(this).attr('PID', PIDNew);
-            setSelectCeate();
-
-        });
-
-        function DeleteWorking(DID, SPID, PID) {
-            $.ajax({
-                type: "POST",
-                url: "./manage.php",
-                data: {
-                    DID: DID,
-                    SPID: SPID,
-                    PID: PID,
-                    action: "DeleteWorking"
-                },
-                async: false,
-                success: function(result) {
-
-                }
-            });
-
-        }
-
-        function InsertWorking(DID, SPID, PID) {
-            $.ajax({
-                type: "POST",
-                url: "./manage.php",
-                data: {
-                    DID: DID,
-                    SPID: SPID,
-                    PID: PID,
-                    action: "InsertWorking"
-                },
-                async: false,
-                success: function(result) {
-
-                }
-            });
-
-        }
-
-        function setSelectCeate() {
-            var test = $(".slecetName");
-            for (i = 0; i < test.length; i++) {
-                var DID = $(test[i]).attr('DID');
-                var SPID = $(test[i]).attr('SPID');
-                var PID = $(test[i]).attr('PID');
-                getTextSelect(DID, SPID, PID, test[i]);
-            }
-        }
-
-        function getTextSelect(DID, SPID, PID, selector) {
-            $.ajax({
-                type: "POST",
-                url: "./manage.php",
-                data: {
-                    DID: DID,
-                    SPID: SPID,
-                    PID: PID,
-                    action: "getTextSelect"
-                },
-                async: false,
-                success: function(result) {
-                    $(selector).html(result);
-                }
-            });
-        }
-
-        function ClearWorking() {
-            $.ajax({
-                type: "POST",
-                url: "./manage.php",
-                data: {
-
-                    action: "ClearWorking"
-                },
-                async: false,
-                success: function(result) {
-
-                }
-            });
-        }
-    });
-</script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="../main.js"></script>

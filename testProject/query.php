@@ -10,3 +10,11 @@ function getNamePeople($DID = 1, $SPID = 0, $PID = 0)
     $INFONAME = selectData($sql);
     return   $INFONAME;
 }
+function getVehicle($VID = 0)
+{
+    $sql = "SELECT * FROM `vehicle`
+    WHERE `vehicle`.`Status` ='notuse' OR `vehicle`.`VID`= $VID
+    ORDER BY `vehicle`.`VName`";
+    $INFONAME = selectData($sql);
+    return   $INFONAME;
+}
