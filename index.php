@@ -2,12 +2,32 @@
 include_once("dbConnect.php");
 include_once("./query.php");
 $comp = 1;
+$date = "";
+$time = "";
+$carout = "";
+$company = "";
+$province = 0;
 $PROVINCE = selectProvince();
 $SERVICE = selectServicepoint();
 $PEOPLE = getNamePeople();
 $VEHICLE = getVehicle();
 if (isset($_POST["num_company"])) {
     $comp = $_POST["num_company"];
+}
+if (isset($_POST["date"])) {
+    $date = $_POST["date"];
+}
+if (isset($_POST["time"])) {
+    $time = $_POST["time"];
+}
+if (isset($_POST["carout"])) {
+    $carout = $_POST["carout"];
+}
+if (isset($_POST["company"])) {
+    $company = $_POST["company"];
+}
+if (isset($_POST["province"])) {
+    $province = $_POST["province"];
 }
 ?>
 <!DOCTYPE html>
@@ -51,48 +71,52 @@ if (isset($_POST["num_company"])) {
     <div class="container-fluid" style="position: absolute; top: 20px;">
         <div class="row">
             <div class="col-lg-10">
-                <div class="row">
-                    <div class="form-inline col-lg-4">
-                        <label style="width:100px">วันที่ตรวจ</label>
-                        <input class="form-control" style="width:250px" type="date" required>
-                    </div>
-                    <div class="form-inline col-lg-4">
-                        <label style="width:100px">เวลาตรวจ</label>
-                        <input class="form-control" style="width:180px" type="time" required>
-                    </div>
-                    <div class="form-inline col-lg-4">
-                        <label style="width:100px">เวลารถออก</label>
-                        <input class="form-control" style="width:180px" type="time" required>
-                    </div>
-                </div><br>
-                <div class="row">
-                    <div class="form-inline col-lg-4">
-                        <label style="width:100px">ชื่อบริษัท</label>
-                        <input class="form-control" style="width:250px" type="text" placeholder="กรอกชื่อบริษัท"
-                            required>
-                    </div>
-                    <div class="form-inline col-lg-4">
-                        <label style="width:100px">จังหวัด</label>
-                        <select style="width:180px" class="form-control chosen" name="province" id="province" required>
-                            <option value="0">เลือกจังหวัด</option>
-                            <?php for ($i = 1; $i <= $PROVINCE[0]['numrow']; $i++) { ?>
-                            <option value="<?php echo $PROVINCE[$i]['AD1ID']; ?>">
-                                <?php echo $PROVINCE[$i]['Province']; ?>
-                            </option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                    <div class="form-inline col-lg-4">
-                        <form class="form-inline" action="index.php" method="post">
+                <form action="index.php" method="post">
+                    <div class="row">
+                        <div class="form-inline col-lg-4">
+                            <label style="width:100px">วันที่ตรวจ</label>
+                            <input name="date" class="form-control" style="width:250px" type="date"
+                                value="<?php echo $date; ?>">
+                        </div>
+                        <div class="form-inline col-lg-4">
+                            <label style="width:100px">เวลาตรวจ</label>
+                            <input name="time" class="form-control" style="width:180px" type="time"
+                                value="<?php echo $time; ?>">
+                        </div>
+                        <div class="form-inline col-lg-4">
+                            <label style="width:100px">เวลารถออก</label>
+                            <input name="carout" class="form-control" style="width:180px" type="time"
+                                value="<?php echo $carout; ?>">
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="form-inline col-lg-4">
+                            <label style="width:100px">ชื่อบริษัท</label>
+                            <input name="company" class="form-control" style="width:250px" type="text"
+                                placeholder="กรอกชื่อบริษัท" value="<?php echo $company; ?>">
+                        </div>
+                        <div class="form-inline col-lg-4">
+                            <label style="width:100px">จังหวัด</label>
+                            <select style="width:180px" class="form-control chosen" name="province" id="province">
+                                <option value="0">เลือกจังหวัด</option>
+                                <?php for ($i = 1; $i <= $PROVINCE[0]['numrow']; $i++) { ?>
+                                <option value="<?php echo $PROVINCE[$i]['AD1ID']; ?>"
+                                    <?php if($province == $PROVINCE[$i]['AD1ID']){?> selected <?php } ?>>
+                                    <?php echo $PROVINCE[$i]['Province']; ?>
+                                </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="form-inline col-lg-4">
 
                             <label style="width:100px">จำนวนหน่วย</label>
                             <input class="form-control" id="num_company" name="num_company" style="width:90px"
                                 type="number" min=1 max=6 value="<?php echo $comp; ?>" required>
                             <button type="submit" class="btn btn-success" id="ok" name="ok"
                                 style="width:90px">ตกลง</button>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
             <div class="col-lg-2">
                 <button class="btn btn-info" style="width:100%; height:100%">ยืนยันข้อมูล</button>
@@ -262,7 +286,7 @@ if (isset($_POST["num_company"])) {
                             </option>
                             <?php } ?>
                         </select>
-                        
+
                         <!-- </div> -->
 
                     </div>
@@ -284,7 +308,7 @@ if (isset($_POST["num_company"])) {
                             <option value="2">S</option>
                             <option value="3">D</option>
                         </select>
-                       
+
                         <!-- </div> -->
 
                     </div>
