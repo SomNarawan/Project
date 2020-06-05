@@ -26,7 +26,6 @@ $(document).ready(function() {
     // $('.chosen').select2();
     var selectName = "";
     var selectVehicle = "";
-
     $('.js-example-basic-single').select2();
     $(document).on("bind", ".js-example-basic-single", function() {
         $(this).select2();
@@ -36,6 +35,21 @@ $(document).ready(function() {
     });
     $(document).on("select2:close", ".js-example-basic-single", function() {
         $(this).next().removeClass("border-from-control");
+    });
+    $(document).on("click", "#submit-data", function() {
+        $('.set-button').hide();
+        $('.close').removeAttr("hidden");
+        $('.th-company').attr("style","width:305px");
+        $('.th-time').attr("style","width:105px; font-weight: bold;");
+        $('.th-province').attr("style","width:200px; font-weight: bold;");
+
+    });
+    $(document).on("click", ".close", function() {
+        $('.set-button').show();
+        $('.close').attr("hidden","true");
+        $('.th-company').attr("style","width:355px");
+        $('.th-time').attr("style","width:155px; font-weight: bold;");
+        $('.th-province').attr("style","width:200px; font-weight: bold;");
     });
     $(document).on("click", ".btn-plus", function() {
         DID = $(this).attr("DID");
@@ -48,7 +62,7 @@ $(document).ready(function() {
         } else if (check == 16) {
             size = "100";
         } else {
-            size = "300";
+            size = "305";
         }
 
         html = ` <div class="form-inline">`;
@@ -68,13 +82,13 @@ $(document).ready(function() {
         } else {
             html += htmlselectName;
         }
-        html += `    <button DID="${DID}" SPID="${SPID}" check="${check}" class="set-button btn-minus">
+        html += `    <button DID="${DID}" SPID="${SPID}" check="${check}" class="set-button add-remove btn-minus">
                          <i class="fa fa-minus" style="background: #dc3545;"></i>
                     </button>
                 </div>`;
         idnote_div = "note-col" + DID + "row" + SPID;
         iddiv = "col" + DID + "row" + SPID;
-        note_div = ` <input class="form-control" placeholder="เพิ่มเติม" id="` + idnote_div + `" type="text" style="width:300px">`;
+        note_div = ` <input class="form-control" placeholder="เพิ่มเติม" id="` + idnote_div + `" type="text" style="width:305px">`;
 
         $("#" + idnote_div).remove();
         $("#" + iddiv).append(html); //เพิ่ม เลือกชื่อ
