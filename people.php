@@ -18,6 +18,9 @@ $PEOPLE = getNamePeople();
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+
 <body>
     <div class="container-fluid" style="position: absolute; top: 20px;">
 
@@ -31,7 +34,7 @@ $PEOPLE = getNamePeople();
                 <a href="./index.php">
                     <button class=" btn-success" id="btn_add" style="float: right;margin-bottom: 50px;margin-right: 20px;"> ย้อนกลับ</button>
                 </a>
-                <table class="table table-bordered table-data  " style="height: 500px;float: center;" cellspacing="0">
+                <table class="table table-bordered table-data  datatables" cellspacing="0">
                     <thead>
                         <tr align="center">
                             <th>ลำดับ</th>
@@ -133,6 +136,7 @@ $PEOPLE = getNamePeople();
         $('.tt').tooltip({
             trigger: "hover"
         });
+        $('.datatables').DataTable();
 
         $(document).on("click", "#btn_add", function() {
             $("#addModal").modal();
