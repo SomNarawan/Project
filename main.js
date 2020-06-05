@@ -1,4 +1,5 @@
 var check = true;
+var id_ar = 1;
 Switchpage();
 
 function Switchpage() {
@@ -24,6 +25,35 @@ function Switchpage() {
 }
 $(document).ready(function() {
     ClearWorking();
+    // $('.chosen').select2();
+    $(document).on("click", ".btn-plus", function() {
+        col = $(this).attr("col");
+        row = $(this).attr("row");
+        check = $(this).attr("check");
+        if(check == 13){
+            html = $('#x-ray').html();
+        }else if(check == 16){
+            html = $('#vehicle').html();
+        }else{
+            html = $('#else').html();
+        }
+        html =  `<div class="form-inline" id="${id_ar}">${html}
+        <button col="${col}" row="${row}"
+            check="${check}" class="set-button btn-minus" del="${id_ar}"><i
+        class="fa fa-minus" style="background: #dc3545;"></i></button></div>`
+        note = $('#note-col'+col+'row'+row).val();
+        id_note = 'note-col'+col+'row'+row;
+        note_div = `<input class="form-control" placeholder="เพิ่มเติม" id="${id_note}" type="text" style="width:300px">`;
+        $('#note-col'+col+'row'+row).remove(); 
+        $('#col'+col+'row'+row).append(html);       //เพิ่ม เลือกชื่อ
+        $('#col'+col+'row'+row).append(note_div);   //เพิ่ม เพิ่มเติม
+        $('#note-col'+col+'row'+row).val(note);     //กำหนดค่าให้เพิ่มเติม
+        id_ar++;
+    });
+    $(document).on("click", ".btn-minus", function() {
+        id = $(this).attr("del");
+        $('#'+id).remove();
+    });
 
     $(document).on("click", "#btnclear", function() {
         ClearWorking();
