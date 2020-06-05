@@ -206,7 +206,7 @@ if (isset($_POST["province"])) {
                                 </option>
                                 <?php } ?>
                             </select>
-                            <select class="form-control js-example-basic-single" required style="width:150px;">
+                            <select class="form-control" required style="width:150px;">
                                 <option value="0">-</option>
                                 <option value="1">B</option>
                                 <option value="2">S</option>
@@ -303,7 +303,7 @@ if (isset($_POST["province"])) {
                             </option>
                             <?php } ?>
                         </select>
-                        <select class="form-control js-example-basic-single" required style="width:150px;">
+                        <select class="form-control" required style="width:150px;">
                             <option value="0">-</option>
                             <option value="1">B</option>
                             <option value="2">S</option>
