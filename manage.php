@@ -15,7 +15,7 @@ switch ($action) {
         $SPID = $_POST['SPID'] ?? "";
         $PID = $_POST['PID'] ?? "";
         $sql = "INSERT INTO `working` (`WID`, `DID`, `SPID`, `PID`) VALUES (NULL, '$DID', '$SPID', '$PID')";
-        deletedata($sql);
+        addinsertData($sql);
         break;
     case "ClearWorking":
         $sql = "DELETE FROM working ";
@@ -57,6 +57,25 @@ switch ($action) {
             $text .= ">{$VEHICLE[$i]['VName']}</option>";
         }
         echo $text;
+
+        break;
+    case "addpeople":
+        $name = $_POST['name'] ?? "";
+        $sql = "INSERT INTO `people` (`PID`, `PName`) VALUES (NULL, '$name')";
+        addinsertData($sql);
+        header("location:./people.php");
+        break;
+    case "editpeople":
+        $name = $_POST['name'] ?? "";
+        $PID = $_POST['PID'] ?? "";
+        $sql = "UPDATE `people` SET `PName` = '$name' WHERE `people`.`PID` = $PID";
+        addinsertData($sql);
+        header("location:./people.php");
+        break;
+    case "deletepeople":
+        $PID = $_POST['PID'] ?? "";
+        $sql = "DELETE FROM `people` WHERE `people`.`PID` = $PID";
+        deletedata($sql);
 
         break;
 }
