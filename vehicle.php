@@ -1,7 +1,7 @@
 <?php
 include_once("dbConnect.php");
 include_once("./query.php");
-$PEOPLE = getNamePeople();
+$VEHICLE = getVehicle();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +9,7 @@ $PEOPLE = getNamePeople();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>รายชื่อเจ้าหน้าที่</title>
+    <title>รายชื่อยานพาหนะ</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -28,7 +28,7 @@ $PEOPLE = getNamePeople();
         <div align="center" style="margin-top: 20px;">
             <div class="col-xl-8 align-center">
                 <label>
-                    <h2>รายชื่อเจ้าหน้าที่</h2>
+                    <h2>รายชื่อยานพาหนะ</h2>
                 </label>
                 <button class=" btn-info" id="btn_add" style="float: right;margin-bottom: 50px;"> เพิ่มข้อมูล</button>
                 <a href="./index.php">
@@ -38,20 +38,20 @@ $PEOPLE = getNamePeople();
                     <thead>
                         <tr align="center">
                             <th>ลำดับ</th>
-                            <th>รายชื่อเจ้าหน้าที่</th>
+                            <th>รายชื่อยานพาหนะ</th>
                             <th>การจัดการ</th>
                         </tr>
                     </thead>
                     <?php
-                    for ($i = 1; $i < count($PEOPLE); $i++) {
+                    for ($i = 1; $i < count($VEHICLE); $i++) {
                         echo "  <tr align=\"center\" name=\"head_table\">
                                     <th>$i</th>
-                                    <th >{$PEOPLE[$i]['PName']}</th>
+                                    <th >{$VEHICLE[$i]['VName']}</th>
                                     <th>
-                                        <button type=\"button\" class=\"btn btn-warning btn-sm btn_edit tt\" pid=\"{$PEOPLE[$i]['PID']}\" pname=\"{$PEOPLE[$i]['PName']}\" data-toggle=\"tooltip\" title=\"แก้ไขข้อมูล\" >
+                                        <button type=\"button\" class=\"btn btn-warning btn-sm btn_edit tt\" vid=\"{$VEHICLE[$i]['VID']}\" vname=\"{$VEHICLE[$i]['VName']}\" data-toggle=\"tooltip\" title=\"แก้ไขข้อมูล\" >
                                         <i class=\"fa fa-pencil\" aria-hidden=\"true\"></i>
                                         </button>
-                                        <button type=\"button\" class=\"btn btn-danger btn-sm  btn_del tt\"  pid=\"{$PEOPLE[$i]['PID']}\" pname=\"{$PEOPLE[$i]['PName']}\"data-toggle=\"tooltip\" title=\"ลบ\" >
+                                        <button type=\"button\" class=\"btn btn-danger btn-sm  btn_del tt\"  vid=\"{$VEHICLE[$i]['VID']}\" vname=\"{$VEHICLE[$i]['VName']}\"data-toggle=\"tooltip\" title=\"ลบ\" >
                                         <i class=\"fa fa-trash\" aria-hidden=\"true\"></i>
                                         </button>
                                     </th>
@@ -81,14 +81,14 @@ $PEOPLE = getNamePeople();
                     <form action="#" method="post">
                         <div class="row mb-4">
                             <div class="col-xl-4 col-12 text-right">
-                                <span>รายชื่อเจ้าหน้าที่</span>
+                                <span>รายชื่อยานพาหนะ</span>
                             </div>
                             <div class="col-xl-5 col-12">
-                                <input type="text" class="form-control" name="name" required="" placeholder="กรุณากรอกชื่อรายชื่อเจ้าหน้าที่">
+                                <input type="text" class="form-control" name="name" required="" placeholder="กรุณากรอกชื่อยานพาหนะ">
                             </div>
                         </div>
 
-                        <input type="hidden" name="action" value="addpeople">
+                        <input type="hidden" name="action" value="addvehicle">
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -113,14 +113,14 @@ $PEOPLE = getNamePeople();
                     <form action="#" method="post">
                         <div class="row mb-4">
                             <div class="col-xl-4 col-12 text-right">
-                                <span>รายชื่อเจ้าหน้าที่</span>
+                                <span>รายชื่อยานพาหนะ</span>
                             </div>
                             <div class="col-xl-5 col-12">
-                                <input type="text" class="form-control" name="name" id="name" required="" placeholder="กรุณากรอกชื่อรายชื่อเจ้าหน้าที่">
+                                <input type="text" class="form-control" name="name" id="name" required="" placeholder="กรุณากรอกชื่อยานพาหนะ">
                             </div>
                         </div>
-                        <input type="hidden" name="PID" id="PID" value="0">
-                        <input type="hidden" name="action" value="editpeople">
+                        <input type="hidden" name="VID" id="VID" value="0">
+                        <input type="hidden" name="action" value="editvehicle">
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -142,18 +142,18 @@ $PEOPLE = getNamePeople();
             $("#addModal").modal();
         });
         $(document).on("click", ".btn_edit", function() {
-            var PID = $(this).attr('pid');
-            var PName = $(this).attr('pname');
-            $("#PID").val(PID);
-            $("#name").val(PName);
+            var VID = $(this).attr('vid');
+            var VName = $(this).attr('vname');
+            $("#VID").val(VID);
+            $("#name").val(VName);
             $("#editModal").modal();
         });
         $(document).on("click", ".btn_del", function() {
-            var PID = $(this).attr('pid');
-            var PName = $(this).attr('pname');
+            var VID = $(this).attr('vid');
+            var VName = $(this).attr('vname');
             swal({
                     title: "คุณต้องการลบ",
-                    text: `คุณ ${PName} หรือไม่ ?`,
+                    text: `ยานพาหนะ ${VName} หรือไม่ ?`,
                     icon: "warning",
                     confirmButtonClass: "btn-danger",
                     cancelButtonClass: "btn-secondary",
@@ -168,7 +168,7 @@ $PEOPLE = getNamePeople();
                             icon: "success",
                         }).then((confirm) => {
                             if (confirm) {
-                                delete_1(PID);
+                                delete_1(VID);
                             }
                         });
                     } else {
@@ -178,16 +178,16 @@ $PEOPLE = getNamePeople();
 
         });
 
-        function delete_1(PID) {
+        function delete_1(VID) {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    window.location = './people.php';
+                    window.location = './vehicle.php';
                 }
             };
             xhttp.open("POST", "manage.php", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send(`PID=${PID}&action=deletepeople`);
+            xhttp.send(`VID=${VID}&action=deletevehicle`);
         }
     });
 </script>

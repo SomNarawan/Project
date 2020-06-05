@@ -69,7 +69,7 @@ switch ($action) {
         $name = $_POST['name'] ?? "";
         $PID = $_POST['PID'] ?? "";
         $sql = "UPDATE `people` SET `PName` = '$name' WHERE `people`.`PID` = $PID";
-        addinsertData($sql);
+        updateData($sql);
         header("location:./people.php");
         break;
     case "deletepeople":
@@ -78,4 +78,21 @@ switch ($action) {
         deletedata($sql);
 
         break;
+    case "addvehicle":
+        $name = $_POST['name'] ?? "";
+        $sql = "INSERT INTO `vehicle` (`VID`, `VName`, `Status`) VALUES (NULL, '$name', 'notuse')";
+        addinsertData($sql);
+        header("location:./vehicle.php");
+        break;
+    case "editvehicle":
+        $name = $_POST['name'] ?? "";
+        $VID = $_POST['VID'] ?? "";
+        $sql = "UPDATE `vehicle` SET `VName` = '$name' WHERE `vehicle`.`VID` = $VID";
+        updateData($sql);
+        header("location:./vehicle.php");
+        break;
+    case "deletevehicle":
+        $VID = $_POST['VID'] ?? "";
+        $sql = "DELETE FROM `vehicle` WHERE `vehicle`.`VID` = $VID";
+        deletedata($sql);
 }
