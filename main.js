@@ -20,12 +20,17 @@ function Switchpage() {
             $(show2[i]).show();
         }
     }
-
-
 }
 $(document).ready(function() {
     ClearWorking();
-    // $('.chosen').select2();
+
+    $('.js-example-basic-single').select2();
+    $('.js-example-basic-single').on('select2:open', function(e) {
+        $(this).next().addClass("border-from-control");
+    });
+    $('.js-example-basic-single').on('select2:close', function(e) {
+        $(this).next().removeClass("border-from-control");
+    });
     $(document).on("click", ".btn-plus", function() {
         col = $(this).attr("col");
         row = $(this).attr("row");

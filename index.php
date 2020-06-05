@@ -43,9 +43,10 @@ if (isset($_POST["province"])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css"></script> -->
-
+    <!-- Select2 CSS -->
+    <link href="./css/select2/select2.min.css" rel="stylesheet" type="text/css">
+    <link href="./css/select2/style-select2.css" rel="stylesheet" type="text/css">
+    <script src="./js/select2/select2.min.js"></script>
 
     <style>
     i.fa {
@@ -97,7 +98,7 @@ if (isset($_POST["province"])) {
                         </div>
                         <div class="form-inline col-lg-4">
                             <label style="width:100px">จังหวัด</label>
-                            <select style="width:180px" class="form-control chosen" name="province" id="province">
+                            <select style="width:180px" class="form-control js-example-basic-single" name="province" id="province">
                                 <option value="0">เลือกจังหวัด</option>
                                 <?php for ($i = 1; $i <= $PROVINCE[0]['numrow']; $i++) { ?>
                                 <option value="<?php echo $PROVINCE[$i]['AD1ID']; ?>"
@@ -158,7 +159,7 @@ if (isset($_POST["province"])) {
                             style="width:400px">
                         <div class="form-inline">
                             <input class="form-control" type="time" style="width:200px; font-weight: bold;">
-                            <select class="form-control" name="province" id="province" required
+                            <select class="form-control js-example-basic-single" name="province" id="province" required
                                 style="width:200px; font-weight: bold;">
                                 <option value="0">เลือกจังหวัด</option>
                                 <?php for ($i = 1; $i < $PROVINCE[0]['numrow']; $i++) { ?>
@@ -196,7 +197,7 @@ if (isset($_POST["province"])) {
                         style="border-bottom-width:3px; border-bottom-color: black; border-right-width:3px; border-right-color: black;">
                         <div class="form-inline">
                             <?php if ($SERVICE[$i]['SPID'] == 13) { ?>
-                            <select class="form-control slecetName" DID="<?= $k + 1 ?>"
+                            <select class="form-control slecetName js-example-basic-single" DID="<?= $k + 1 ?>"
                                 SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:150px;">
                                 <option value="0">-</option>
                                 <?php for ($j = 1; $j < $PEOPLE[0]['numrow']; $j++) { ?>
@@ -205,7 +206,7 @@ if (isset($_POST["province"])) {
                                 </option>
                                 <?php } ?>
                             </select>
-                            <select class="form-control" required style="width:150px;">
+                            <select class="form-control js-example-basic-single" required style="width:150px;">
                                 <option value="0">-</option>
                                 <option value="1">B</option>
                                 <option value="2">S</option>
@@ -213,7 +214,7 @@ if (isset($_POST["province"])) {
                             </select>
                             <!-- else if -->
                             <?php } else if ($SERVICE[$i]['SPID'] == 16) { ?>
-                            <select class="form-control slecetVehicle" VID="0" required style="width:200px;">
+                            <select class="form-control slecetVehicle js-example-basic-single" VID="0" required style="width:200px;">
                                 <option value="0">-</option>
                                 <?php for ($j = 1; $j < $VEHICLE[0]['numrow']; $j++) { ?>
                                 <option value="<?php echo $VEHICLE[$j]['VID']; ?>">
@@ -222,7 +223,7 @@ if (isset($_POST["province"])) {
                                 <?php } ?>
                             </select>
 
-                            <select class="form-control slecetName" DID="<?= $k + 1 ?>"
+                            <select class="form-control slecetName js-example-basic-single" DID="<?= $k + 1 ?>"
                                 SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:100px;">
                                 <option value="0">-</option>
                                 <?php for ($j = 1; $j < $PEOPLE[0]['numrow']; $j++) { ?>
@@ -233,7 +234,7 @@ if (isset($_POST["province"])) {
                             </select>
                             <!-- else -->
                             <?php } else { ?>
-                            <select class="form-control slecetName" DID="<?= $k + 1 ?>"
+                            <select class="form-control slecetName js-example-basic-single" DID="<?= $k + 1 ?>"
                                 SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:300px;">
                                 <option value="0">-</option>
                                 <?php for ($j = 1; $j < $PEOPLE[0]['numrow']; $j++) { ?>
@@ -255,7 +256,7 @@ if (isset($_POST["province"])) {
                     <!-- for add -->
                     <div hidden id="else">
                         <!-- <div class="form-inline add_name"> -->
-                        <select class="form-control slecetName" DID="<?= $k + 1 ?>" SPID="<?= $SERVICE[$i]['SPID'] ?>"
+                        <select class="form-control slecetName js-example-basic-single" DID="<?= $k + 1 ?>" SPID="<?= $SERVICE[$i]['SPID'] ?>"
                             PID="0" required style="width:300px;">
                             <option value="0">-</option>
                             <?php for ($j = 1; $j < $PEOPLE[0]['numrow']; $j++) { ?>
@@ -268,7 +269,7 @@ if (isset($_POST["province"])) {
                     <div hidden id="vehicle">
                         <!-- <div class="form-inline add_name"> -->
 
-                        <select class="form-control slecetVehicle" VID="0" required style="width:200px;">
+                        <select class="form-control slecetVehicle js-example-basic-single" VID="0" required style="width:200px;">
                             <option value="0">-</option>
                             <?php for ($j = 1; $j < $VEHICLE[0]['numrow']; $j++) { ?>
                             <option value="<?php echo $VEHICLE[$j]['VID']; ?>">
@@ -277,7 +278,7 @@ if (isset($_POST["province"])) {
                             <?php } ?>
                         </select>
 
-                        <select class="form-control slecetName" DID="<?= $k + 1 ?>" SPID="<?= $SERVICE[$i]['SPID'] ?>"
+                        <select class="form-control slecetName js-example-basic-single" DID="<?= $k + 1 ?>" SPID="<?= $SERVICE[$i]['SPID'] ?>"
                             PID="0" required style="width:100px;">
                             <option value="0">-</option>
                             <?php for ($j = 1; $j < $PEOPLE[0]['numrow']; $j++) { ?>
@@ -293,7 +294,7 @@ if (isset($_POST["province"])) {
                     <div hidden id="x-ray">
                         <!-- <div class="form-inline add_name"> -->
 
-                        <select class="form-control slecetName" DID="<?= $k + 1 ?>" SPID="<?= $SERVICE[$i]['SPID'] ?>"
+                        <select class="form-control slecetName js-example-basic-single" DID="<?= $k + 1 ?>" SPID="<?= $SERVICE[$i]['SPID'] ?>"
                             PID="0" required style="width:150px;">
                             <option value="0">-</option>
                             <?php for ($j = 1; $j < $PEOPLE[0]['numrow']; $j++) { ?>
@@ -302,7 +303,7 @@ if (isset($_POST["province"])) {
                             </option>
                             <?php } ?>
                         </select>
-                        <select class="form-control" required style="width:150px;">
+                        <select class="form-control js-example-basic-single" required style="width:150px;">
                             <option value="0">-</option>
                             <option value="1">B</option>
                             <option value="2">S</option>
