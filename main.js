@@ -20,14 +20,23 @@ function Switchpage() {
             $(show2[i]).show();
         }
     }
-
-
 }
 $(document).ready(function() {
     ClearWorking();
     // $('.chosen').select2();
     var selectName = "";
     var selectVehicle = "";
+
+    $('.js-example-basic-single').select2();
+    $(document).on("bind", ".js-example-basic-single", function() {
+        $(this).select2();
+    });
+    $(document).on("select2:open", ".js-example-basic-single", function() {
+        $(this).next().addClass("border-from-control");
+    });
+    $(document).on("select2:close", ".js-example-basic-single", function() {
+        $(this).next().removeClass("border-from-control");
+    });
     $(document).on("click", ".btn-plus", function() {
         DID = $(this).attr("DID");
         SPID = $(this).attr("SPID");
@@ -43,7 +52,7 @@ $(document).ready(function() {
         }
 
         html = ` <div class="form-inline">`;
-        htmlselectName = `<select class="form-control slecetName" DID="` + DID + `" SPID="` + SPID + `" PID="0" required style="width:` + size + `px;">`;
+        htmlselectName = `<select class="form-control slecetName js-example-basic-single" DID="` + DID + `" SPID="` + SPID + `" PID="0" required style="width:` + size + `px;">`;
         htmlselectName += selectName;
         htmlselectName += `</select>`;
 
@@ -51,7 +60,7 @@ $(document).ready(function() {
             html += htmlselectName;
             html += $('#x-ray').html();
         } else if (check == 16) {
-            htmlselectvehicle = `<select class="form-control slecetVehicle" VID="0" required style="width:200px;">`;
+            htmlselectvehicle = `<select class="form-control slecetVehicle js-example-basic-single" VID="0" required style="width:200px;">`;
             htmlselectvehicle += selectVehicle;
             htmlselectvehicle += `</select>`;
             html += htmlselectvehicle;
@@ -70,6 +79,7 @@ $(document).ready(function() {
         $("#" + idnote_div).remove();
         $("#" + iddiv).append(html); //เพิ่ม เลือกชื่อ
         $("#" + iddiv).append(note_div); //เพิ่ม เพิ่มเติม
+        $('.js-example-basic-single').select2();
     });
     $(document).on("click", ".btn-minus", function() {
         DID = $(this).attr("DID");

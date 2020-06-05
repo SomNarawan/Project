@@ -2,12 +2,32 @@
 include_once("dbConnect.php");
 include_once("./query.php");
 $comp = 1;
+$date = "";
+$time = "";
+$carout = "";
+$company = "";
+$province = 0;
 $PROVINCE = selectProvince();
 $SERVICE = selectServicepoint();
 $PEOPLE = getNamePeople();
 $VEHICLE = getVehicle();
 if (isset($_POST["num_company"])) {
     $comp = $_POST["num_company"];
+}
+if (isset($_POST["date"])) {
+    $date = $_POST["date"];
+}
+if (isset($_POST["time"])) {
+    $time = $_POST["time"];
+}
+if (isset($_POST["carout"])) {
+    $carout = $_POST["carout"];
+}
+if (isset($_POST["company"])) {
+    $company = $_POST["company"];
+}
+if (isset($_POST["province"])) {
+    $province = $_POST["province"];
 }
 ?>
 <!DOCTYPE html>
@@ -23,9 +43,10 @@ if (isset($_POST["num_company"])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css"></script> -->
-
+    <!-- Select2 CSS -->
+    <link href="./css/select2/select2.min.css" rel="stylesheet" type="text/css">
+    <link href="./css/select2/style-select2.css" rel="stylesheet" type="text/css">
+    <script src="./js/select2/select2.min.js"></script>
 
     <style>
         i.fa {
@@ -51,45 +72,45 @@ if (isset($_POST["num_company"])) {
     <div class="container-fluid" style="position: absolute; top: 20px;">
         <div class="row">
             <div class="col-lg-10">
-                <div class="row">
-                    <div class="form-inline col-lg-4">
-                        <label style="width:100px">วันที่ตรวจ</label>
-                        <input class="form-control" style="width:250px" type="date" required>
-                    </div>
-                    <div class="form-inline col-lg-4">
-                        <label style="width:100px">เวลาตรวจ</label>
-                        <input class="form-control" style="width:180px" type="time" required>
-                    </div>
-                    <div class="form-inline col-lg-4">
-                        <label style="width:100px">เวลารถออก</label>
-                        <input class="form-control" style="width:180px" type="time" required>
-                    </div>
-                </div><br>
-                <div class="row">
-                    <div class="form-inline col-lg-4">
-                        <label style="width:100px">ชื่อบริษัท</label>
-                        <input class="form-control" style="width:250px" type="text" placeholder="กรอกชื่อบริษัท" required>
-                    </div>
-                    <div class="form-inline col-lg-4">
-                        <label style="width:100px">จังหวัด</label>
-                        <select style="width:180px" class="form-control chosen" name="province" id="province" required>
-                            <option value="0">เลือกจังหวัด</option>
-                            <?php for ($i = 1; $i <= $PROVINCE[0]['numrow']; $i++) { ?>
-                                <option value="<?php echo $PROVINCE[$i]['AD1ID']; ?>">
-                                    <?php echo $PROVINCE[$i]['Province']; ?>
-                                </option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                    <div class="form-inline col-lg-4">
-                        <form class="form-inline" action="index.php" method="post">
+                <form action="index.php" method="post">
+                    <div class="row">
+                        <div class="form-inline col-lg-4">
+                            <label style="width:100px">วันที่ตรวจ</label>
+                            <input name="date" class="form-control" style="width:250px" type="date" value="<?php echo $date; ?>">
+                        </div>
+                        <div class="form-inline col-lg-4">
+                            <label style="width:100px">เวลาตรวจ</label>
+                            <input name="time" class="form-control" style="width:180px" type="time" value="<?php echo $time; ?>">
+                        </div>
+                        <div class="form-inline col-lg-4">
+                            <label style="width:100px">เวลารถออก</label>
+                            <input name="carout" class="form-control" style="width:180px" type="time" value="<?php echo $carout; ?>">
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="form-inline col-lg-4">
+                            <label style="width:100px">ชื่อบริษัท</label>
+                            <input name="company" class="form-control" style="width:250px" type="text" placeholder="กรอกชื่อบริษัท" value="<?php echo $company; ?>">
+                        </div>
+                        <div class="form-inline col-lg-4">
+                            <label style="width:100px">จังหวัด</label>
+                            <select style="width:180px" class="form-control js-example-basic-single" name="province">
+                                <option value="0">เลือกจังหวัด</option>
+                                <?php for ($i = 1; $i <= $PROVINCE[0]['numrow']; $i++) { ?>
+                                    <option value="<?php echo $PROVINCE[$i]['AD1ID']; ?>" <?php if ($province == $PROVINCE[$i]['AD1ID']) { ?> selected <?php } ?>>
+                                        <?php echo $PROVINCE[$i]['Province']; ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="form-inline col-lg-4">
 
                             <label style="width:100px">จำนวนหน่วย</label>
                             <input class="form-control" id="num_company" name="num_company" style="width:90px" type="number" min=1 max=6 value="<?php echo $comp; ?>" required>
                             <button type="submit" class="btn btn-success" id="ok" name="ok" style="width:90px">ตกลง</button>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
             <div class="col-lg-2">
                 <button class="btn btn-info" style="width:100%; height:100%">ยืนยันข้อมูล</button>
@@ -129,7 +150,7 @@ if (isset($_POST["num_company"])) {
                             <input style="font-weight: bold;" class="form-control" placeholder="กรอกชื่อบริษัท" type="text" style="width:400px">
                             <div class="form-inline">
                                 <input class="form-control" type="time" style="width:200px; font-weight: bold;">
-                                <select class="form-control" name="province" id="province" required style="width:200px; font-weight: bold;">
+                                <select class="form-control js-example-basic-single" name="province" required style="width:200px; font-weight: bold;">
                                     <option value="0">เลือกจังหวัด</option>
                                     <?php for ($i = 1; $i < $PROVINCE[0]['numrow']; $i++) { ?>
                                         <option value="<?php echo $PROVINCE[$i]['AD1ID']; ?>">
@@ -163,7 +184,7 @@ if (isset($_POST["num_company"])) {
                             <td class="show<?= $num ?>" id="col<?php echo $k + 1; ?>row<?php echo $SERVICE[$i]['SPID']; ?>" style="border-bottom-width:3px; border-bottom-color: black; border-right-width:3px; border-right-color: black;">
                                 <div class="form-inline">
                                     <?php if ($SERVICE[$i]['SPID'] == 13) { ?>
-                                        <select class="form-control slecetName" id="col<?php echo $k + 1; ?>row<?php echo $SERVICE[$i]['SPID']; ?>" DID="<?= $k + 1 ?>" SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:150px;">
+                                        <select class="form-control slecetName js-example-basic-single" PID="0" required style="width:150px;">
                                             <option value="0">-</option>
                                             <?php for ($j = 1; $j < $PEOPLE[0]['numrow']; $j++) { ?>
                                                 <option value="<?php echo $PEOPLE[$j]['PID']; ?>">
@@ -179,7 +200,7 @@ if (isset($_POST["num_company"])) {
                                         </select>
                                         <!-- else if -->
                                     <?php } else if ($SERVICE[$i]['SPID'] == 16) { ?>
-                                        <select class="form-control slecetVehicle" VID="0" required style="width:200px;">
+                                        <select class="form-control slecetVehicle js-example-basic-single" VID="0" required style="width:200px;">
                                             <option value="0">เลือกรถ</option>
                                             <?php for ($j = 1; $j < $VEHICLE[0]['numrow']; $j++) { ?>
                                                 <option value="<?php echo $VEHICLE[$j]['VID']; ?>">
@@ -188,7 +209,7 @@ if (isset($_POST["num_company"])) {
                                             <?php } ?>
                                         </select>
 
-                                        <select class="form-control slecetName" DID="<?= $k + 1 ?>" SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:100px;">
+                                        <select class="form-control slecetName js-example-basic-single" DID="<?= $k + 1 ?>" SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:100px;">
                                             <option value="0">-</option>
                                             <?php for ($j = 1; $j < $PEOPLE[0]['numrow']; $j++) { ?>
                                                 <option value="<?php echo $PEOPLE[$j]['PID']; ?>">
@@ -198,7 +219,7 @@ if (isset($_POST["num_company"])) {
                                         </select>
                                         <!-- else -->
                                     <?php } else { ?>
-                                        <select class="form-control slecetName" DID="<?= $k + 1 ?>" SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:300px;">
+                                        <select class="form-control slecetName js-example-basic-single" DID="<?= $k + 1 ?>" SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:300px;">
                                             <option value="0">-</option>
                                             <?php for ($j = 1; $j < $PEOPLE[0]['numrow']; $j++) { ?>
                                                 <option value="<?php echo $PEOPLE[$j]['PID']; ?>">
@@ -214,20 +235,7 @@ if (isset($_POST["num_company"])) {
 
                         <?php } ?>
                         <!-- for add -->
-                        <div hidden id="vehicle">
-                            <!-- <div class="form-inline add_name"> -->
 
-                            <select class="form-control slecetVehicle" VID="0" required style="width:200px;">
-                                <option value="0">-</option>
-                                <?php for ($j = 1; $j < $VEHICLE[0]['numrow']; $j++) { ?>
-                                    <option value="<?php echo $VEHICLE[$j]['VID']; ?>">
-                                        <?php echo $VEHICLE[$j]['VName']; ?>
-                                    </option>
-                                <?php } ?>
-                            </select>
-                            <!-- </div> -->
-
-                        </div>
 
                         <div hidden id="x-ray">
                             <!-- <div class="form-inline add_name"> -->
