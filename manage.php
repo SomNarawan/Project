@@ -15,7 +15,7 @@ switch ($action) {
         $SPID = $_POST['SPID'] ?? "";
         $PID = $_POST['PID'] ?? "";
         $sql = "INSERT INTO `working` (`WID`, `DID`, `SPID`, `PID`) VALUES (NULL, '$DID', '$SPID', '$PID')";
-        deletedata($sql);
+        addinsertData($sql);
         break;
     case "ClearWorking":
         $sql = "DELETE FROM working ";
@@ -59,4 +59,40 @@ switch ($action) {
         echo $text;
 
         break;
+    case "addpeople":
+        $name = $_POST['name'] ?? "";
+        $sql = "INSERT INTO `people` (`PID`, `PName`) VALUES (NULL, '$name')";
+        addinsertData($sql);
+        header("location:./people.php");
+        break;
+    case "editpeople":
+        $name = $_POST['name'] ?? "";
+        $PID = $_POST['PID'] ?? "";
+        $sql = "UPDATE `people` SET `PName` = '$name' WHERE `people`.`PID` = $PID";
+        updateData($sql);
+        header("location:./people.php");
+        break;
+    case "deletepeople":
+        $PID = $_POST['PID'] ?? "";
+        $sql = "DELETE FROM `people` WHERE `people`.`PID` = $PID";
+        deletedata($sql);
+
+        break;
+    case "addvehicle":
+        $name = $_POST['name'] ?? "";
+        $sql = "INSERT INTO `vehicle` (`VID`, `VName`, `Status`) VALUES (NULL, '$name', 'notuse')";
+        addinsertData($sql);
+        header("location:./vehicle.php");
+        break;
+    case "editvehicle":
+        $name = $_POST['name'] ?? "";
+        $VID = $_POST['VID'] ?? "";
+        $sql = "UPDATE `vehicle` SET `VName` = '$name' WHERE `vehicle`.`VID` = $VID";
+        updateData($sql);
+        header("location:./vehicle.php");
+        break;
+    case "deletevehicle":
+        $VID = $_POST['VID'] ?? "";
+        $sql = "DELETE FROM `vehicle` WHERE `vehicle`.`VID` = $VID";
+        deletedata($sql);
 }
