@@ -42,7 +42,7 @@ $(document).ready(function() {
         $('.th-company').attr("style", "width:305px");
         $('.th-time').attr("style", "width:105px; font-weight: bold;");
         $('.th-province').attr("style", "width:200px; font-weight: bold;");
-
+        $('.body-web').attr("style", "position: absolute; top: 20px;");
     });
     $(document).on("click", ".close", function() {
         $('.set-button').show();
@@ -50,6 +50,7 @@ $(document).ready(function() {
         $('.th-company').attr("style", "width:355px");
         $('.th-time').attr("style", "width:155px; font-weight: bold;");
         $('.th-province').attr("style", "width:200px; font-weight: bold;");
+        $('.body-web').attr("style", "position: absolute; top: 80px;");
     });
     $(document).on("click", ".btn-plus", function() {
         DID = $(this).attr("DID");

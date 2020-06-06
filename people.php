@@ -22,18 +22,30 @@ $PEOPLE = getNamePeople();
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 
 <body>
-    <div class="container-fluid" style="position: absolute; top: 20px;">
-
-
+    <div>
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+            <a class="navbar-brand" href="./index.php">หน้าหลัก</a>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="./people.php">เพิ่มเจ้าหน้าที่</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./vehicle.php">เพิ่มยานพาหนะ</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="container-fluid" style="position: absolute; top: 80px;">
         <div align="center" style="margin-top: 20px;">
             <div class="col-xl-8 align-center">
                 <label>
                     <h2>รายชื่อเจ้าหน้าที่</h2>
                 </label>
                 <button class=" btn-info" id="btn_add" style="float: right;margin-bottom: 50px;"> เพิ่มข้อมูล</button>
-                <a href="./index.php">
-                    <button class=" btn-success" id="btn_add" style="float: right;margin-bottom: 50px;margin-right: 20px;"> ย้อนกลับ</button>
-                </a>
+                <!-- <a href="./index.php">
+                    <button class=" btn-success" id="btn_add"
+                        style="float: right;margin-bottom: 50px;margin-right: 20px;"> ย้อนกลับ</button>
+                </a> -->
                 <table class="table table-bordered table-data  datatables" cellspacing="0">
                     <thead>
                         <tr align="center">
@@ -84,7 +96,8 @@ $PEOPLE = getNamePeople();
                                 <span>รายชื่อเจ้าหน้าที่</span>
                             </div>
                             <div class="col-xl-5 col-12">
-                                <input type="text" class="form-control" name="name" required="" placeholder="กรุณากรอกชื่อรายชื่อเจ้าหน้าที่">
+                                <input type="text" class="form-control" name="name" required=""
+                                    placeholder="กรุณากรอกชื่อรายชื่อเจ้าหน้าที่">
                             </div>
                         </div>
 
@@ -116,7 +129,8 @@ $PEOPLE = getNamePeople();
                                 <span>รายชื่อเจ้าหน้าที่</span>
                             </div>
                             <div class="col-xl-5 col-12">
-                                <input type="text" class="form-control" name="name" id="name" required="" placeholder="กรุณากรอกชื่อรายชื่อเจ้าหน้าที่">
+                                <input type="text" class="form-control" name="name" id="name" required=""
+                                    placeholder="กรุณากรอกชื่อรายชื่อเจ้าหน้าที่">
                             </div>
                         </div>
                         <input type="hidden" name="PID" id="PID" value="0">
@@ -132,62 +146,62 @@ $PEOPLE = getNamePeople();
     </form>
 </div>
 <script>
-    $(document).ready(function() {
-        $('.tt').tooltip({
-            trigger: "hover"
-        });
-        $('.datatables').DataTable();
-
-        $(document).on("click", "#btn_add", function() {
-            $("#addModal").modal();
-        });
-        $(document).on("click", ".btn_edit", function() {
-            var PID = $(this).attr('pid');
-            var PName = $(this).attr('pname');
-            $("#PID").val(PID);
-            $("#name").val(PName);
-            $("#editModal").modal();
-        });
-        $(document).on("click", ".btn_del", function() {
-            var PID = $(this).attr('pid');
-            var PName = $(this).attr('pname');
-            swal({
-                    title: "คุณต้องการลบ",
-                    text: `คุณ ${PName} หรือไม่ ?`,
-                    icon: "warning",
-                    confirmButtonClass: "btn-danger",
-                    cancelButtonClass: "btn-secondary",
-                    confirmButtonText: "ยืนยัน",
-                    cancelButtonText: "ยกเลิก",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        swal("ลบข้อมูลสำเร็จ", {
-                            icon: "success",
-                        }).then((confirm) => {
-                            if (confirm) {
-                                delete_1(PID);
-                            }
-                        });
-                    } else {
-
-                    }
-                });
-
-        });
-
-        function delete_1(PID) {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    window.location = './people.php';
-                }
-            };
-            xhttp.open("POST", "manage.php", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send(`PID=${PID}&action=deletepeople`);
-        }
+$(document).ready(function() {
+    $('.tt').tooltip({
+        trigger: "hover"
     });
+    $('.datatables').DataTable();
+
+    $(document).on("click", "#btn_add", function() {
+        $("#addModal").modal();
+    });
+    $(document).on("click", ".btn_edit", function() {
+        var PID = $(this).attr('pid');
+        var PName = $(this).attr('pname');
+        $("#PID").val(PID);
+        $("#name").val(PName);
+        $("#editModal").modal();
+    });
+    $(document).on("click", ".btn_del", function() {
+        var PID = $(this).attr('pid');
+        var PName = $(this).attr('pname');
+        swal({
+                title: "คุณต้องการลบ",
+                text: `คุณ ${PName} หรือไม่ ?`,
+                icon: "warning",
+                confirmButtonClass: "btn-danger",
+                cancelButtonClass: "btn-secondary",
+                confirmButtonText: "ยืนยัน",
+                cancelButtonText: "ยกเลิก",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal("ลบข้อมูลสำเร็จ", {
+                        icon: "success",
+                    }).then((confirm) => {
+                        if (confirm) {
+                            delete_1(PID);
+                        }
+                    });
+                } else {
+
+                }
+            });
+
+    });
+
+    function delete_1(PID) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                window.location = './people.php';
+            }
+        };
+        xhttp.open("POST", "manage.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(`PID=${PID}&action=deletepeople`);
+    }
+});
 </script>
