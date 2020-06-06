@@ -22,103 +22,103 @@ function Switchpage() {
     }
 }
 $(document).ready(function() {
-    ClearWorking();
-    // $('.chosen').select2();
-    var selectName = "";
-    var selectVehicle = "";
-    $('.js-example-basic-single').select2();
-    $(document).on("bind", ".js-example-basic-single", function() {
-        $(this).select2();
-    });
-    $(document).on("select2:open", ".js-example-basic-single", function() {
-        $(this).next().addClass("border-from-control");
-    });
-    $(document).on("select2:close", ".js-example-basic-single", function() {
-        $(this).next().removeClass("border-from-control");
-    });
-    $(document).on("click", "#submit-data", function() {
-        $('.set-button').hide();
-        $('.close').removeAttr("hidden");
-        $('.th-company').attr("style", "width:305px");
-        $('.th-time').attr("style", "width:105px; font-weight: bold;");
-        $('.th-province').attr("style", "width:200px; font-weight: bold;");
+    // ClearWorking();
+    // // $('.chosen').select2();
+    // var selectName = "";
+    // var selectVehicle = "";
+    // $('.js-example-basic-single').select2();
+    // $(document).on("bind", ".js-example-basic-single", function() {
+    //     $(this).select2();
+    // });
+    // $(document).on("select2:open", ".js-example-basic-single", function() {
+    //     $(this).next().addClass("border-from-control");
+    // });
+    // $(document).on("select2:close", ".js-example-basic-single", function() {
+    //     $(this).next().removeClass("border-from-control");
+    // });
+    // $(document).on("click", "#submit-data", function() {
+    //     $('.set-button').hide();
+    //     $('.close').removeAttr("hidden");
+    //     $('.th-company').attr("style", "width:305px");
+    //     $('.th-time').attr("style", "width:105px; font-weight: bold;");
+    //     $('.th-province').attr("style", "width:200px; font-weight: bold;");
 
-    });
-    $(document).on("click", ".close", function() {
-        $('.set-button').show();
-        $('.close').attr("hidden", "true");
-        $('.th-company').attr("style", "width:355px");
-        $('.th-time').attr("style", "width:155px; font-weight: bold;");
-        $('.th-province').attr("style", "width:200px; font-weight: bold;");
-    });
-    $(document).on("click", ".btn-plus", function() {
-        DID = $(this).attr("DID");
-        SPID = $(this).attr("SPID");
-        check = $(this).attr("check");
-        getTextSelectNameAdd(DID, SPID, 0);
-        getTextSelectVehicleAdd(0);
-        if (check == 13) {
-            size = "155";
-        } else if (check == 16) {
-            size = "105";
-        } else {
-            size = "305";
-        }
+    // });
+    // $(document).on("click", ".close", function() {
+    //     $('.set-button').show();
+    //     $('.close').attr("hidden", "true");
+    //     $('.th-company').attr("style", "width:355px");
+    //     $('.th-time').attr("style", "width:155px; font-weight: bold;");
+    //     $('.th-province').attr("style", "width:200px; font-weight: bold;");
+    // });
+    // $(document).on("click", ".btn-plus", function() {
+    //     DID = $(this).attr("DID");
+    //     SPID = $(this).attr("SPID");
+    //     check = $(this).attr("check");
+    //     getTextSelectNameAdd(DID, SPID, 0);
+    //     getTextSelectVehicleAdd(0);
+    //     if (check == 13) {
+    //         size = "155";
+    //     } else if (check == 16) {
+    //         size = "105";
+    //     } else {
+    //         size = "305";
+    //     }
 
-        html = ` <div class="form-inline">`;
-        htmlselectName = `<select class="form-control slecetName js-example-basic-single" DID="` + DID + `" SPID="` + SPID + `" PID="0" required style="width:` + size + `px;">`;
-        htmlselectName += selectName;
-        htmlselectName += `</select>`;
+    //     html = ` <div class="form-inline">`;
+    //     htmlselectName = `<select class="form-control slecetName js-example-basic-single" DID="` + DID + `" SPID="` + SPID + `" PID="0" required style="width:` + size + `px;">`;
+    //     htmlselectName += selectName;
+    //     htmlselectName += `</select>`;
 
-        if (check == 13) {
-            html += htmlselectName;
-            html += $('#x-ray').html();
-        } else if (check == 16) {
-            htmlselectvehicle = `<select class="form-control slecetVehicle js-example-basic-single" VID="0" required style="width:200px;">`;
-            htmlselectvehicle += selectVehicle;
-            htmlselectvehicle += `</select>`;
-            html += htmlselectvehicle;
-            html += htmlselectName;
-        } else {
-            html += htmlselectName;
-        }
-        html += `    <button DID="${DID}" SPID="${SPID}" check="${check}" class="set-button add-remove btn-minus">
-                         <i class="fa fa-minus" style="background: #dc3545;"></i>
-                    </button>
-                </div>`;
-        idnote_div = "note-col" + DID + "row" + SPID;
-        iddiv = "col" + DID + "row" + SPID;
-        note_div = ` <input class="form-control" placeholder="เพิ่มเติม" id="` + idnote_div + `" type="text" style="width:305px">`;
+    //     if (check == 13) {
+    //         html += htmlselectName;
+    //         html += $('#x-ray').html();
+    //     } else if (check == 16) {
+    //         htmlselectvehicle = `<select class="form-control slecetVehicle js-example-basic-single" VID="0" required style="width:200px;">`;
+    //         htmlselectvehicle += selectVehicle;
+    //         htmlselectvehicle += `</select>`;
+    //         html += htmlselectvehicle;
+    //         html += htmlselectName;
+    //     } else {
+    //         html += htmlselectName;
+    //     }
+    //     html += `    <button DID="${DID}" SPID="${SPID}" check="${check}" class="set-button add-remove btn-minus">
+    //                      <i class="fa fa-minus" style="background: #dc3545;"></i>
+    //                 </button>
+    //             </div>`;
+    //     idnote_div = "note-col" + DID + "row" + SPID;
+    //     iddiv = "col" + DID + "row" + SPID;
+    //     note_div = ` <input class="form-control" placeholder="เพิ่มเติม" id="` + idnote_div + `" type="text" style="width:305px">`;
 
-        $("#" + idnote_div).remove();
-        $("#" + iddiv).append(html); //เพิ่ม เลือกชื่อ
-        $("#" + iddiv).append(note_div); //เพิ่ม เพิ่มเติม
-        $('.js-example-basic-single').select2();
-    });
-    $(document).on("click", ".btn-minus", function() {
-        DID = $(this).attr("DID");
-        SPID = $(this).attr("SPID");
-        check = $(this).attr("check");
-        var parent = $(this).parent();
-        var PID = $(parent).find(".slecetName").val();
+    //     $("#" + idnote_div).remove();
+    //     $("#" + iddiv).append(html); //เพิ่ม เลือกชื่อ
+    //     $("#" + iddiv).append(note_div); //เพิ่ม เพิ่มเติม
+    //     $('.js-example-basic-single').select2();
+    // });
+    // $(document).on("click", ".btn-minus", function() {
+    //     DID = $(this).attr("DID");
+    //     SPID = $(this).attr("SPID");
+    //     check = $(this).attr("check");
+    //     var parent = $(this).parent();
+    //     var PID = $(parent).find(".slecetName").val();
 
-        if (check == 16) {
-            var VID = $(parent).find(".slecetVehicle").val();
-            if (VID != 0) {
-                setVehicle(VID, "notuse");
-                setSelectCeateVehicle();
-            }
+    //     if (check == 16) {
+    //         var VID = $(parent).find(".slecetVehicle").val();
+    //         if (VID != 0) {
+    //             setVehicle(VID, "notuse");
+    //             setSelectCeateVehicle();
+    //         }
 
-        }
+    //     }
 
-        $(parent).remove();
-        if (PID != 0) {
-            DeleteWorking(DID, SPID, PID);
-            setSelectCeateName(DID, SPID);
-        }
+    // $(parent).remove();
+    // if (PID != 0) {
+    //     DeleteWorking(DID, SPID, PID);
+    //     setSelectCeateName(DID, SPID);
+    // }
 
-        console.log("DID" + DID + "/SPID" + SPID + "/PID" + PID);
-    });
+    // console.log("DID" + DID + "/SPID" + SPID + "/PID" + PID);
+    // });
 
     $(document).on("click", "#btnclear", function() {
         ClearWorking();
