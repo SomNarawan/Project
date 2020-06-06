@@ -41,7 +41,7 @@ $PEOPLE = getNamePeople();
                 <label>
                     <h2>รายชื่อเจ้าหน้าที่</h2>
                 </label>
-                <button class=" btn-info" id="btn_add" style="float: right;margin-bottom: 50px;"> เพิ่มข้อมูล</button>
+                <button class="btn btn-info" id="btn_add" style="float: right;margin-bottom: 50px;"> เพิ่มข้อมูล</button>
                 <!-- <a href="./index.php">
                     <button class=" btn-success" id="btn_add"
                         style="float: right;margin-bottom: 50px;margin-right: 20px;"> ย้อนกลับ</button>

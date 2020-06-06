@@ -55,7 +55,6 @@ if (isset($_POST["province"])) {
         box-shadow: 0px 0px 2px #888;
         padding: 0.5em 0.6em;
     }
-
     .add-remove {
         background: #FFFFFF;
         border: 0px;
@@ -68,6 +67,12 @@ if (isset($_POST["province"])) {
 
     .set-margin {
         margin-left: 30px;
+    }
+    .form-control {
+        font-weight: bold;
+    }
+    .select2-container .select2-selection--single .select2-selection__rendered {
+        font-weight: bold;
     }
     </style>
 </head>
@@ -94,30 +99,30 @@ if (isset($_POST["province"])) {
                 <form action="index.php" method="post">
                     <div class="row">
                         <div class="form-inline col-lg-4">
-                            <label style="width:100px">วันที่ตรวจ</label>
-                            <input name="date" class="form-control" style="width:250px" type="date"
+                            <label style="width:100px; font-weight: bold;">วันที่ตรวจ</label>
+                            <input name="date" class="form-control" style="width:250px; font-weight: bold;" type="date"
                                 value="<?php echo $date; ?>">
                         </div>
                         <div class="form-inline col-lg-4">
-                            <label style="width:100px">เวลาตรวจ</label>
-                            <input name="time" class="form-control" style="width:180px" type="time"
+                            <label style="width:100px; font-weight: bold;">เวลาตรวจ</label>
+                            <input name="time" class="form-control" style="width:180px; font-weight: bold;" type="time"
                                 value="<?php echo $time; ?>">
                         </div>
                         <div class="form-inline col-lg-4">
-                            <label style="width:100px">เวลารถออก</label>
-                            <input name="carout" class="form-control" style="width:180px" type="time"
+                            <label style="width:100px; font-weight: bold;">เวลารถออก</label>
+                            <input name="carout" class="form-control" style="width:180px; font-weight: bold;" type="time"
                                 value="<?php echo $carout; ?>">
                         </div>
                     </div><br>
                     <div class="row">
                         <div class="form-inline col-lg-4">
-                            <label style="width:100px">ชื่อบริษัท</label>
-                            <input name="company" class="form-control" style="width:250px" type="text"
+                            <label style="width:100px; font-weight: bold;">ชื่อบริษัท</label>
+                            <input name="company" class="form-control" style="width:250px; font-weight: bold;" type="text"
                                 placeholder="กรอกชื่อบริษัท" value="<?php echo $company; ?>">
                         </div>
                         <div class="form-inline col-lg-4">
-                            <label style="width:100px">จังหวัด</label>
-                            <select style="width:180px" class="form-control js-example-basic-single" name="province">
+                            <label style="width:100px; font-weight: bold;">จังหวัด</label>
+                            <select style="width:180px; font-weight: bold;" class="form-control js-example-basic-single" name="province">
                                 <option value="0">เลือกจังหวัด</option>
                                 <?php for ($i = 1; $i <= $PROVINCE[0]['numrow']; $i++) { ?>
                                 <option value="<?php echo $PROVINCE[$i]['AD1ID']; ?>"
@@ -129,7 +134,7 @@ if (isset($_POST["province"])) {
                         </div>
                         <div class="form-inline col-lg-4 set-button">
 
-                            <label style="width:100px">จำนวนหน่วย</label>
+                            <label style="width:100px; font-weight: bold;">จำนวนหน่วย</label>
                             <input class="form-control" id="num_company" name="num_company" style="width:90px"
                                 type="number" min=1 max=6 value="<?php echo $comp; ?>" required>
                             <button type="submit" class="btn btn-success" id="ok" name="ok"
@@ -171,12 +176,12 @@ if (isset($_POST["province"])) {
                         }
 
                     ?>
-                    <th class="show<?= $num ?>" style="border-bottom-width:3px; border-bottom-color: black;">จุดที่ตรวจ
+                    <th class="show<?= $num ?>" style="font-weight: bold; border-bottom-width:3px; border-bottom-color: black;">จุดที่ตรวจ
                     </th>
-                    <th class="show<?= $num ?>" style="border-bottom-width:3px; border-bottom-color: black;">ยอดพนักงาน
+                    <th class="show<?= $num ?>" style="font-weight: bold; border-bottom-width:3px; border-bottom-color: black;">ยอดพนักงาน
                     </th>
                     <th class="show<?= $num ?>"
-                        style="border-bottom-width:3px; border-bottom-color: black; border-right-width:3px; border-right-color: black;">
+                        style="font-weight: bold; border-bottom-width:3px; border-bottom-color: black; border-right-width:3px; border-right-color: black;">
                         <label>หน่วยที่ <?php echo $k + 1; ?></label>
                         <input style="font-weight: bold;" class="form-control th-company" placeholder="กรอกชื่อบริษัท"
                             type="text" style="width:355px">
@@ -211,9 +216,9 @@ if (isset($_POST["province"])) {
                             } else {
                                 $num = "2";
                             } ?>
-                    <td class="show<?= $num ?>" style="border-bottom-width:3px; border-bottom-color: black;"><input
+                    <td class="show<?= $num ?>" style="font-weight: bold !important; border-bottom-width:3px; border-bottom-color: black;"><input
                             class="form-control" style="width:90px" type="number" min=0 value="0"></td>
-                    <td class="show<?= $num ?>" style="border-bottom-width:3px; border-bottom-color: black;"><input
+                    <td class="show<?= $num ?>" style="font-weight: bold; border-bottom-width:3px; border-bottom-color: black;"><input
                             class="form-control" style="width:90px" type="number" min=0 value="0"></td>
                     <!-- if -->
                     <td class="show<?= $num ?>" id="col<?php echo $k + 1; ?>row<?php echo $SERVICE[$i]['SPID']; ?>"
@@ -272,7 +277,7 @@ if (isset($_POST["province"])) {
                                 check="<?php echo $SERVICE[$i]['SPID']; ?>" class="add-remove set-button btn-plus"><i
                                     class="fa fa-plus" style="background: #28a745;"></i></button>
                         </div>
-                        <input class="form-control" placeholder="เพิ่มเติม"
+                        <input class="form-control note" placeholder="เพิ่มเติม"
                             id="note-col<?php echo $k + 1; ?>row<?php echo $SERVICE[$i]['SPID']; ?>" type="text"
                             style="width:305px">
                     </td>

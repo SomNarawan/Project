@@ -43,7 +43,14 @@ $(document).ready(function() {
         $('.th-time').attr("style", "width:105px; font-weight: bold;");
         $('.th-province').attr("style", "width:200px; font-weight: bold;");
         $('.body-web').attr("style", "position: absolute; top: 20px;");
+
+        $('.note').each(function() {
+            if($(this).val().trim() == ""){
+                $(this).hide();
+            }
+        });
     });
+    
     $(document).on("click", ".close", function() {
         $('.set-button').show();
         $('.close').attr("hidden", "true");
@@ -51,6 +58,11 @@ $(document).ready(function() {
         $('.th-time').attr("style", "width:155px; font-weight: bold;");
         $('.th-province').attr("style", "width:200px; font-weight: bold;");
         $('.body-web').attr("style", "position: absolute; top: 80px;");
+        $('.note').each(function() {
+            if($(this).val().trim() == ""){
+                $(this).show();
+            }
+        });
     });
     $(document).on("click", ".btn-plus", function() {
         DID = $(this).attr("DID");
