@@ -55,6 +55,7 @@ if (isset($_POST["province"])) {
         box-shadow: 0px 0px 2px #888;
         padding: 0.5em 0.6em;
     }
+
     .add-remove {
         background: #FFFFFF;
         border: 0px;
@@ -68,11 +69,19 @@ if (isset($_POST["province"])) {
     .set-margin {
         margin-left: 30px;
     }
+
     .form-control {
-        font-weight: bold;
+        color: #212529;
+        /* font-weight: bold; */
     }
     .select2-container .select2-selection--single .select2-selection__rendered {
-        font-weight: bold;
+        color: #212529;
+        /* font-weight: bold; */
+    }
+    span.select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #212529;
+        line-height: 25px;
+        /* font-weight: bold; */
     }
     </style>
 </head>
@@ -81,14 +90,14 @@ if (isset($_POST["province"])) {
     <div class="set-button">
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
             <a class="navbar-brand" href="./index.php"">หน้าหลัก</a>
-            <ul class="navbar-nav">
+            <ul class=" navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="./people.php">เพิ่มเจ้าหน้าที่</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./vehicle.php">เพิ่มยานพาหนะ</a>
                 </li>
-            </ul>
+                </ul>
         </nav>
     </div>
 
@@ -100,29 +109,30 @@ if (isset($_POST["province"])) {
                     <div class="row">
                         <div class="form-inline col-lg-4">
                             <label style="width:100px; font-weight: bold;">วันที่ตรวจ</label>
-                            <input name="date" class="form-control" style="width:250px; font-weight: bold;" type="date"
+                            <input name="date" class="form-control" style="width:250px;" type="date"
                                 value="<?php echo $date; ?>">
                         </div>
                         <div class="form-inline col-lg-4">
                             <label style="width:100px; font-weight: bold;">เวลาตรวจ</label>
-                            <input name="time" class="form-control" style="width:180px; font-weight: bold;" type="time"
+                            <input name="time" class="form-control" style="width:180px;" type="time"
                                 value="<?php echo $time; ?>">
                         </div>
                         <div class="form-inline col-lg-4">
                             <label style="width:100px; font-weight: bold;">เวลารถออก</label>
-                            <input name="carout" class="form-control" style="width:180px; font-weight: bold;" type="time"
-                                value="<?php echo $carout; ?>">
+                            <input name="carout" class="form-control" style="width:180px;"
+                                type="time" value="<?php echo $carout; ?>">
                         </div>
                     </div><br>
                     <div class="row">
                         <div class="form-inline col-lg-4">
                             <label style="width:100px; font-weight: bold;">ชื่อบริษัท</label>
-                            <input name="company" class="form-control" style="width:250px; font-weight: bold;" type="text"
-                                placeholder="กรอกชื่อบริษัท" value="<?php echo $company; ?>">
+                            <input name="company" class="form-control" style="width:250px;"
+                                type="text" placeholder="กรอกชื่อบริษัท" value="<?php echo $company; ?>">
                         </div>
                         <div class="form-inline col-lg-4">
                             <label style="width:100px; font-weight: bold;">จังหวัด</label>
-                            <select style="width:180px; font-weight: bold;" class="form-control js-example-basic-single" name="province">
+                            <select style="width:180px;" class="form-control js-example-basic-single"
+                                name="province">
                                 <option value="0">เลือกจังหวัด</option>
                                 <?php for ($i = 1; $i <= $PROVINCE[0]['numrow']; $i++) { ?>
                                 <option value="<?php echo $PROVINCE[$i]['AD1ID']; ?>"
@@ -176,15 +186,17 @@ if (isset($_POST["province"])) {
                         }
 
                     ?>
-                    <th class="show<?= $num ?>" style="font-weight: bold; border-bottom-width:3px; border-bottom-color: black;">จุดที่ตรวจ
+                    <th class="show<?= $num ?>"
+                        style="font-weight: bold; border-bottom-width:3px; border-bottom-color: black;">จุดที่ตรวจ
                     </th>
-                    <th class="show<?= $num ?>" style="font-weight: bold; border-bottom-width:3px; border-bottom-color: black;">ยอดพนักงาน
+                    <th class="show<?= $num ?>"
+                        style="font-weight: bold; border-bottom-width:3px; border-bottom-color: black;">ยอดพนักงาน
                     </th>
                     <th class="show<?= $num ?>"
                         style="font-weight: bold; border-bottom-width:3px; border-bottom-color: black; border-right-width:3px; border-right-color: black;">
                         <label>หน่วยที่ <?php echo $k + 1; ?></label>
-                        <input style="font-weight: bold;" class="form-control th-company" placeholder="กรอกชื่อบริษัท"
-                            type="text" style="width:355px">
+                        <input class="form-control th-company" placeholder="กรอกชื่อบริษัท"
+                            type="text" style="width:355px; font-weight: bold;">
                         <div class="form-inline">
                             <input class="form-control th-time" type="time" style="width:155px; font-weight: bold;">
                             <select class="form-control js-example-basic-single this th-province" name="province"
@@ -216,9 +228,11 @@ if (isset($_POST["province"])) {
                             } else {
                                 $num = "2";
                             } ?>
-                    <td class="show<?= $num ?>" style="font-weight: bold !important; border-bottom-width:3px; border-bottom-color: black;"><input
-                            class="form-control" style="width:90px" type="number" min=0 value="0"></td>
-                    <td class="show<?= $num ?>" style="font-weight: bold; border-bottom-width:3px; border-bottom-color: black;"><input
+                    <td class="show<?= $num ?>"
+                        style="border-bottom-width:3px; border-bottom-color: black;">
+                        <input class="form-control" style="width:90px" type="number" min=0 value="0"></td>
+                    <td class="show<?= $num ?>"
+                        style="border-bottom-width:3px; border-bottom-color: black;"><input
                             class="form-control" style="width:90px" type="number" min=0 value="0"></td>
                     <!-- if -->
                     <td class="show<?= $num ?>" id="col<?php echo $k + 1; ?>row<?php echo $SERVICE[$i]['SPID']; ?>"
