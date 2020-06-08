@@ -258,7 +258,7 @@ if (isset($_POST["province"])) {
                             <?php } else if ($SERVICE[$i]['SPID'] == 16) { ?>
                             <select class="form-control slecetVehicle js-example-basic-single" VID="0" required
                                 style="width:200px;">
-                                <option value="0">เลือกรถ</option>
+                                <option value="0">-</option>
                                 <?php for ($j = 1; $j < $VEHICLE[0]['numrow']; $j++) { ?>
                                 <option value="<?php echo $VEHICLE[$j]['VID']; ?>">
                                     <?php echo $VEHICLE[$j]['VName']; ?>
