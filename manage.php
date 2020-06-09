@@ -40,7 +40,7 @@ switch ($action) {
             if ($NAMEPEOPLE[$i]['PID'] == $PID) {
                 $text .= " selected ";
             }
-            $text .= ">{$NAMEPEOPLE[$i]['PName']}</option>";
+            $text .= ">{$NAMEPEOPLE[$i]['Title']} {$NAMEPEOPLE[$i]['FName']} {$NAMEPEOPLE[$i]['LName']} ({$NAMEPEOPLE[$i]['NName']})</option>";
         }
         echo $text;
 
