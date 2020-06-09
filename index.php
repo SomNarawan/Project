@@ -175,14 +175,14 @@ if (isset($_POST["province"])) {
                         style="font-weight: bold; border-bottom-width:3px; border-bottom-color: black; border-right-width:3px; border-right-color: black;">
                         <label>หน่วยที่ <?php echo $k + 1; ?></label>
                         <input class="form-control th-company" placeholder="กรอกชื่อบริษัท" type="text"
-                            style="width:455px; font-weight: bold;">
+                            style="width:555px; font-weight: bold;">
                         <div class="form-inline">
                             <input class="form-control th-time" type="text" placeholder="กรอกเวลาออกรถ"
-                                style="width:100px; font-weight: bold;">
+                                style="width:150px; font-weight: bold;">
                             <input class="form-control th-time" type="text" placeholder="กรอกเวลาตรวจ"
-                                style="width:155px; font-weight: bold;">
+                                style="width:185px; font-weight: bold;">
                             <select class="form-control js-example-basic-single this th-province" name="province"
-                                required style="width:200px; font-weight: bold;">
+                                required style="width:220px; font-weight: bold;">
                                 <option value="0">เลือกจังหวัด</option>
                                 <?php for ($i = 1; $i < $PROVINCE[0]['numrow']; $i++) { ?>
                                 <option value="<?php echo $PROVINCE[$i]['AD1ID']; ?>">
@@ -240,7 +240,7 @@ if (isset($_POST["province"])) {
                             <!-- start if -->
                             <?php if ($SERVICE[$i]['SPID'] == 22) { ?>
                             <select class="form-control slecetVehicle js-example-basic-single" VID="0" required
-                                style="width:135px;">
+                                style="width:200px;">
                                 <option value="0">-</option>
                                 <?php for ($j = 1; $j < $VEHICLE[0]['numrow']; $j++) { ?>
                                 <option value="<?php echo $VEHICLE[$j]['VID']; ?>">
@@ -250,7 +250,7 @@ if (isset($_POST["province"])) {
                             </select>
 
                             <select class="form-control slecetName js-example-basic-single" DID="<?= $k + 1 ?>"
-                                SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:280px;">
+                                SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:315px;">
                                 <option value="0">-</option>
                                 <?php for ($j = 1; $j < $PEOPLE[0]['numrow']; $j++) { ?>
                                 <option value="<?php echo $PEOPLE[$j]['PID']; ?>">
@@ -261,7 +261,7 @@ if (isset($_POST["province"])) {
                             <!-- else -->
                             <?php } else { ?>
                             <select class="form-control slecetName js-example-basic-single" DID="<?= $k + 1 ?>"
-                                SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:415px;">
+                                SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:515px;">
                                 <option value="0">-</option>
                                 <?php for ($j = 1; $j < $PEOPLE[0]['numrow']; $j++) { ?>
                                 <option value="<?php echo $PEOPLE[$j]['PID']; ?>">
@@ -276,7 +276,7 @@ if (isset($_POST["province"])) {
                         </div>
                         <input class="form-control note" placeholder="เพิ่มเติม"
                             id="note-col<?php echo $k + 1; ?>row<?php echo $SERVICE[$i]['SPID']; ?>" type="text"
-                            style="width:415px">
+                            style="width:515px">
                     </td>
 
                     <?php } ?>

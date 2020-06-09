@@ -48,7 +48,7 @@ switch ($action) {
     case "getTextSelectVehicle":
         $VID = $_POST['VID'] ?? "";
         $VEHICLE = getVehicle($VID);
-        $text = "<option value=\"0\">เลือกรถ</option>";
+        $text = "<option value=\"0\">-</option>";
         for ($i = 1; $i < count($VEHICLE); $i++) {
             $text .= "<option value=\"{$VEHICLE[$i]['VID']}\" ";
             if ($VEHICLE[$i]['VID'] == $VID) {
