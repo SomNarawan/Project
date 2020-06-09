@@ -101,7 +101,7 @@ $Allvehicle = getVehicle();
         </td>
         <td class="show1">
             <select class="slecetVehicle" VID="0">
-                <option value="0">เลือกรถ</option>
+                <option value="0">-</option>
                 <?php
                 for ($i = 1; $i < count($Allvehicle); $i++) {
                     echo "<option value=\"{$Allvehicle[$i]['VID']}\">{$Allvehicle[$i]['VName']}</option>";
@@ -118,7 +118,7 @@ $Allvehicle = getVehicle();
             </select>
             <br>
             <select class="slecetVehicle" VID="0">
-                <option value="0">เลือกรถ</option>
+                <option value="0">-</option>
                 <?php
                 for ($i = 1; $i < count($Allvehicle); $i++) {
                     echo "<option value=\"{$Allvehicle[$i]['VID']}\">{$Allvehicle[$i]['VName']}</option>";
@@ -136,7 +136,7 @@ $Allvehicle = getVehicle();
         </td>
         <td class="show1">
             <select class="slecetVehicle" VID="0">
-                <option value="0">เลือกรถ</option>
+                <option value="0">-</option>
                 <?php
                 for ($i = 1; $i < count($Allvehicle); $i++) {
                     echo "<option value=\"{$Allvehicle[$i]['VID']}\">{$Allvehicle[$i]['VName']}</option>";
@@ -155,7 +155,7 @@ $Allvehicle = getVehicle();
         </td>
         <td class="show1">
             <select class="slecetVehicle" VID="0">
-                <option value="0">เลือกรถ</option>
+                <option value="0">-</option>
                 <?php
                 for ($i = 1; $i < count($Allvehicle); $i++) {
                     echo "<option value=\"{$Allvehicle[$i]['VID']}\">{$Allvehicle[$i]['VName']}</option>";
@@ -174,7 +174,7 @@ $Allvehicle = getVehicle();
         </td>
         <td class="show2">
             <select class="slecetVehicle" VID="0">
-                <option value="0">เลือกรถ</option>
+                <option value="0">-</option>
                 <?php
                 for ($i = 1; $i < count($Allvehicle); $i++) {
                     echo "<option value=\"{$Allvehicle[$i]['VID']}\">{$Allvehicle[$i]['VName']}</option>";
@@ -193,7 +193,7 @@ $Allvehicle = getVehicle();
         </td>
         <td class="show2">
             <select class="slecetVehicle" VID="0">
-                <option value="0">เลือกรถ</option>
+                <option value="0">-</option>
                 <?php
                 for ($i = 1; $i < count($Allvehicle); $i++) {
                     echo "<option value=\"{$Allvehicle[$i]['VID']}\">{$Allvehicle[$i]['VName']}</option>";
@@ -212,7 +212,7 @@ $Allvehicle = getVehicle();
         </td>
         <td class="show2">
             <select class="slecetVehicle" VID="0">
-                <option value="0">เลือกรถ</option>
+                <option value="0">-</option>
                 <?php
                 for ($i = 1; $i < count($Allvehicle); $i++) {
                     echo "<option value=\"{$Allvehicle[$i]['VID']}\">{$Allvehicle[$i]['VName']}</option>";

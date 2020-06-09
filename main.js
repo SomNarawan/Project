@@ -64,23 +64,19 @@ $(document).ready(function() {
         check = $(this).attr("check");
         getTextSelectNameAdd(DID, SPID, 0);
         getTextSelectVehicleAdd(0);
-        if (check == 13) {
-            size = "155";
-        } else if (check == 16) {
-            size = "105";
+        if (check == 22) {
+            size = "315";
         } else {
-            size = "415";
+            size = "515";
         }
 
         html = ` <div class="form-inline">`;
-        htmlselectName = `<select class="form-control slecetName js-example-basic-single" DID="` + DID + `" SPID="` + SPID + `" PID="0" required style="width:` + size + `px;">`;
+        htmlselectName = `<select class="form-control slecetName js-example-basic-single" DID="` + DID + `" SPID="` + SPID + `" 
+        PID="0" required style="width:` + size + `px;">`;
         htmlselectName += selectName;
         htmlselectName += `</select>`;
 
-        if (check == 13) {
-            html += htmlselectName;
-            html += $('#x-ray').html();
-        } else if (check == 16) {
+        if (check == 22) {
             htmlselectvehicle = `<select class="form-control slecetVehicle js-example-basic-single" VID="0" required style="width:200px;">`;
             htmlselectvehicle += selectVehicle;
             htmlselectvehicle += `</select>`;
@@ -95,7 +91,7 @@ $(document).ready(function() {
                 </div>`;
         idnote_div = "note-col" + DID + "row" + SPID;
         iddiv = "col" + DID + "row" + SPID;
-        note_div = ` <input class="form-control" placeholder="เพิ่มเติม" id="` + idnote_div + `" type="text" style="width:415px">`;
+        note_div = ` <input class="form-control" placeholder="เพิ่มเติม" id="` + idnote_div + `" type="text" style="width:515px">`;
 
         $("#" + idnote_div).remove();
         $("#" + iddiv).append(html); //เพิ่ม เลือกชื่อ
