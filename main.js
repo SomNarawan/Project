@@ -1,24 +1,43 @@
-var check = true;
+var checkPage = 1;
 var id_ar = 1;
 Switchpage();
 
 function Switchpage() {
     var show1 = $(".show1");
     var show2 = $(".show2");
-    if (check) {
+    var show3 = $(".show3");
+
+    if (checkPage == 1) {
         for (i = 0; i < show1.length; i++) {
             $(show1[i]).show();
         }
         for (i = 0; i < show2.length; i++) {
             $(show2[i]).hide();
         }
-    } else {
+        for (i = 0; i < show3.length; i++) {
+            $(show3[i]).hide();
+        }
+    } else if (checkPage == 2) {
         for (i = 0; i < show1.length; i++) {
             $(show1[i]).hide();
         }
         for (i = 0; i < show2.length; i++) {
             $(show2[i]).show();
         }
+        for (i = 0; i < show3.length; i++) {
+            $(show3[i]).hide();
+        }
+    }else{
+        for (i = 0; i < show1.length; i++) {
+            $(show1[i]).hide();
+        }
+        for (i = 0; i < show2.length; i++) {
+            $(show2[i]).hide();
+        }
+        for (i = 0; i < show3.length; i++) {
+            $(show3[i]).show();
+        }
+
     }
 }
 $(document).ready(function() {
@@ -138,11 +157,15 @@ $(document).ready(function() {
         location.reload();
     });
     $(document).on("click", "#btnswitch1", function() {
-        check = true;
+        checkPage = 1;
         Switchpage();
     });
     $(document).on("click", "#btnswitch2", function() {
-        check = false;
+        checkPage = 2;
+        Switchpage();
+    });
+    $(document).on("click", "#btnswitch3", function() {
+        checkPage = 3;
         Switchpage();
     });
     $(document).on("change", ".slecetName", function() {
