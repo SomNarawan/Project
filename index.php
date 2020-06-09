@@ -177,7 +177,7 @@ if (isset($_POST["province"])) {
                         style="font-weight: bold; border-bottom-width:3px; border-bottom-color: black; border-right-width:3px; border-right-color: black;">
                         <label>หน่วยที่ <?php echo $k + 1; ?></label>
                         <input class="form-control th-company" placeholder="กรอกชื่อบริษัท" type="text"
-                            style="width:355px; font-weight: bold;">
+                            style="width:455px; font-weight: bold;">
                         <div class="form-inline">
                             <input class="form-control th-time" type="text" placeholder="กรอกเวลาออกรถ"
                                 style="width:100px; font-weight: bold;">
@@ -221,27 +221,28 @@ if (isset($_POST["province"])) {
                     <!-- if -->
                     <td class="show<?= $num ?>" id="col<?php echo $k + 1; ?>row<?php echo $SERVICE[$i]['SPID']; ?>"
                         style="border-bottom-width:3px; border-bottom-color: black; border-right-width:3px; border-right-color: black;">
+                        <?php 
+                        $OPTION = getOption($SERVICE[$i]['SPID']);
+                        if($OPTION[0]['numrow'] != 0){  
+                            if($OPTION[1]['TypeOption'] == 'R'){
+                                $type = 'radio';
+                            }else{
+                                $type = 'checkbox';   
+                            }?>
+                        <div>
+                            <?php for($o = 1 ; $o <= $OPTION[0]['numrow']; $o++){ ?>
+                            <input type="<?php echo $type; ?>" id="<?php echo $OPTION[$o]['OSID']; ?>" 
+                            name="<?php if($OPTION[$o]['SPID'] == 2) echo "register"; else echo $OPTION[$o]['OptionName']; ?>" value="<?php echo $OPTION[$o]['OSID']; ?>">
+                            <label for="<?php echo $OPTION[$o]['OSID']; ?>"><?php echo $OPTION[$o]['OptionName']; ?></label>
+                            <?php } ?>
+                        </div>
+                        <?php } ?>
                         <div class="form-inline">
-                            <?php if ($SERVICE[$i]['SPID'] == 13) { ?>
-                            <select class="form-control slecetName js-example-basic-single" DID="<?= $k + 1 ?>"
-                                SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:155px;">
-                                <option value="0">-</option>
-                                <?php for ($j = 1; $j < $PEOPLE[0]['numrow']; $j++) { ?>
-                                <option value="<?php echo $PEOPLE[$j]['PID']; ?>">
-                                    <?php echo $PEOPLE[$j]['Title']." ".$PEOPLE[$j]['FName']." ".$PEOPLE[$j]['LName']." (".$PEOPLE[$j]['NName'].")"; ?>
-                                </option>
-                                <?php } ?>
-                            </select>
-                            <select class="form-control " required style="width:150px;">
-                                <option value="0">-</option>
-                                <option value="1">B</option>
-                                <option value="2">S</option>
-                                <option value="3">D</option>
-                            </select>
-                            <!-- else if -->
-                            <?php } else if ($SERVICE[$i]['SPID'] == 22) { ?>
+                            
+                            <!-- start if -->
+                            <?php if ($SERVICE[$i]['SPID'] == 22) { ?>
                             <select class="form-control slecetVehicle js-example-basic-single" VID="0" required
-                                style="width:200px;">
+                                style="width:135px;">
                                 <option value="0">-</option>
                                 <?php for ($j = 1; $j < $VEHICLE[0]['numrow']; $j++) { ?>
                                 <option value="<?php echo $VEHICLE[$j]['VID']; ?>">
@@ -251,7 +252,7 @@ if (isset($_POST["province"])) {
                             </select>
 
                             <select class="form-control slecetName js-example-basic-single" DID="<?= $k + 1 ?>"
-                                SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:105px;">
+                                SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:280px;">
                                 <option value="0">-</option>
                                 <?php for ($j = 1; $j < $PEOPLE[0]['numrow']; $j++) { ?>
                                 <option value="<?php echo $PEOPLE[$j]['PID']; ?>">
@@ -262,7 +263,7 @@ if (isset($_POST["province"])) {
                             <!-- else -->
                             <?php } else { ?>
                             <select class="form-control slecetName js-example-basic-single" DID="<?= $k + 1 ?>"
-                                SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:305px;">
+                                SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:415px;">
                                 <option value="0">-</option>
                                 <?php for ($j = 1; $j < $PEOPLE[0]['numrow']; $j++) { ?>
                                 <option value="<?php echo $PEOPLE[$j]['PID']; ?>">
@@ -277,7 +278,7 @@ if (isset($_POST["province"])) {
                         </div>
                         <input class="form-control note" placeholder="เพิ่มเติม"
                             id="note-col<?php echo $k + 1; ?>row<?php echo $SERVICE[$i]['SPID']; ?>" type="text"
-                            style="width:305px">
+                            style="width:415px">
                     </td>
 
                     <?php } ?>
