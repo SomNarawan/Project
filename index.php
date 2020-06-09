@@ -49,42 +49,42 @@ if (isset($_POST["province"])) {
     <script src="./js/select2/select2.min.js"></script>
 
     <style>
-    i.fa {
-        display: inline-block;
-        border-radius: 60px;
-        box-shadow: 0px 0px 2px #888;
-        padding: 0.5em 0.6em;
-    }
+        i.fa {
+            display: inline-block;
+            border-radius: 60px;
+            box-shadow: 0px 0px 2px #888;
+            padding: 0.5em 0.6em;
+        }
 
-    .add-remove {
-        background: #FFFFFF;
-        border: 0px;
-    }
+        .add-remove {
+            background: #FFFFFF;
+            border: 0px;
+        }
 
-    .border-table {
-        border-width: 3px;
-        border-color: black;
-    }
+        .border-table {
+            border-width: 3px;
+            border-color: black;
+        }
 
-    .set-margin {
-        margin-left: 30px;
-    }
+        .set-margin {
+            margin-left: 30px;
+        }
 
-    .form-control {
-        color: #212529;
-        /* font-weight: bold; */
-    }
+        .form-control {
+            color: #212529;
+            /* font-weight: bold; */
+        }
 
-    .select2-container .select2-selection--single .select2-selection__rendered {
-        color: #212529;
-        /* font-weight: bold; */
-    }
+        .select2-container .select2-selection--single .select2-selection__rendered {
+            color: #212529;
+            /* font-weight: bold; */
+        }
 
-    span.select2-container--default .select2-selection--single .select2-selection__rendered {
-        color: #212529;
-        line-height: 25px;
-        /* font-weight: bold; */
-    }
+        span.select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #212529;
+            line-height: 25px;
+            /* font-weight: bold; */
+        }
     </style>
 </head>
 
@@ -111,15 +111,12 @@ if (isset($_POST["province"])) {
                     <div class="row">
                         <div class="form-inline" style="margin-left: 34%;">
                             <label style="width:100px; font-weight: bold;">วันที่ตรวจ</label>
-                            <input name="date" class="form-control" style="width:250px;" type="date"
-                                value="<?php echo $date; ?>">
+                            <input name="date" class="form-control" style="width:250px;" type="date" value="<?php echo $date; ?>">
                         </div>
                         <div class="form-inline set-button" style="margin-left: 6%;">
                             <label style="width:100px; font-weight: bold;">จำนวนหน่วย</label>
-                            <input class="form-control" id="num_company" name="num_company" style="width:90px"
-                                type="number" min=1 max=6 value="<?php echo $comp; ?>" required>
-                            <button type="submit" class="btn btn-success" id="ok" name="ok"
-                                style="width:90px">ตกลง</button>
+                            <input class="form-control" id="num_company" name="num_company" style="width:90px" type="number" min=1 max=6 value="<?php echo $comp; ?>" required>
+                            <button type="submit" class="btn btn-success" id="ok" name="ok" style="width:90px">ตกลง</button>
                         </div>
                     </div>
                 </form>
@@ -128,29 +125,30 @@ if (isset($_POST["province"])) {
                 <button type="button" class="close" aria-label="Close" hidden>
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <button class="btn btn-info set-button" id="submit-data"
-                    style="width:100%; height:100%">ยืนยันข้อมูล</button>
+                <button class="btn btn-info set-button" id="submit-data" style="width:100%; height:100%">ยืนยันข้อมูล</button>
             </div>
         </div>
         <?php if ($comp > 2) { ?>
-        <div class="row">
-            <div class="col-lg-4"></div>
-            <div class="col-lg-4 row form-inline" style="margin-top: 20px;">
-                <div <?php if($comp < 5) echo "class='col-lg-6' align='right'"; else echo "class='col-lg-4'"; ?>>
-                    <button class="form-control btn-warning set-button" id="btnswitch1">หน่วยที่ 1 - 2</button>
+            <div class="row">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4 row form-inline" style="margin-top: 20px;">
+                    <div <?php if ($comp < 5) echo "class='col-lg-6' align='right'";
+                            else echo "class='col-lg-4'"; ?>>
+                        <button class="form-control btn-warning set-button" id="btnswitch1">หน่วยที่ 1 - 2</button>
+                    </div>
+                    <div <?php if ($comp < 5) echo "class='col-lg-6'";
+                            else echo "class='col-lg-4'"; ?>>
+                        <button class="form-control btn-warning set-button" id="btnswitch2">หน่วยที่
+                            3<?php if ($comp > 3) echo " - 4"; ?></button>
+                    </div>
+                    <?php if ($comp > 4) { ?>
+                        <div class="col-lg-4">
+                            <button class="form-control btn-warning set-button" id="btnswitch3">หน่วยที่
+                                5<?php if ($comp > 5) echo " - 6"; ?></button>
+                        </div>
+                    <?php } ?>
                 </div>
-                <div <?php if($comp < 5) echo "class='col-lg-6'"; else echo "class='col-lg-4'"; ?>>
-                    <button class="form-control btn-warning set-button" id="btnswitch2">หน่วยที่
-                        3<?php if ($comp > 3) echo " - 4"; ?></button>
-                </div>
-                <?php if($comp > 4){ ?>
-                <div class="col-lg-4">
-                    <button class="form-control btn-warning set-button" id="btnswitch3">หน่วยที่
-                        5<?php if ($comp > 5) echo " - 6"; ?></button>
-                </div>
-                <?php } ?>
             </div>
-        </div>
         <?php } ?>
         <div align="center" style="margin-top: 20px;">
             <table class="table-bordered border-table">
@@ -160,9 +158,9 @@ if (isset($_POST["province"])) {
                     <?php for ($k = 0; $k < $comp; $k++) {
                         if ($k < 2) {
                             $num = "1";
-                        }else if($k < 4) {
+                        } else if ($k < 4) {
                             $num = "2";
-                        }else{
+                        } else {
                             $num = "3";
                         }
 
@@ -199,17 +197,17 @@ if (isset($_POST["province"])) {
                 <!-- Body Table -->
                 <?php
                 for ($i = 1; $i <= $SERVICE[0]['numrow']; $i++) { ?>
-                <tr>
-                    <td style="border-width:3px; border-color: black; font-weight: bold;">
+                    <tr>
+                        <td style="border-width:3px; border-color: black; font-weight: bold;">
 
-                        <?php echo $SERVICE[$i]['SPName']; ?>
-                    </td>
-                    <?php for ($k = 0; $k < $comp; $k++) {
+                            <?php echo $SERVICE[$i]['SPName']; ?>
+                        </td>
+                        <?php for ($k = 0; $k < $comp; $k++) {
                             if ($k < 2) {
                                 $num = "1";
-                            }else if($k < 4) {
+                            } else if ($k < 4) {
                                 $num = "2";
-                            }else{
+                            } else {
                                 $num = "3";
                             } 
                             

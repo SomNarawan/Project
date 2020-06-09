@@ -2,6 +2,7 @@ var checkPage = 1;
 var id_ar = 1;
 Switchpage();
 
+
 function Switchpage() {
     var show1 = $(".show1");
     var show2 = $(".show2");
@@ -27,7 +28,7 @@ function Switchpage() {
         for (i = 0; i < show3.length; i++) {
             $(show3[i]).hide();
         }
-    }else{
+    } else {
         for (i = 0; i < show1.length; i++) {
             $(show1[i]).hide();
         }
@@ -42,6 +43,7 @@ function Switchpage() {
 }
 $(document).ready(function() {
     ClearWorking();
+    setSelectCeateName("1", "0");
     // $('.chosen').select2();
     var selectName = "";
     var selectVehicle = "";
@@ -229,7 +231,9 @@ $(document).ready(function() {
             var DID = $(test[i]).attr('DID');
             var SPID = $(test[i]).attr('SPID');
             var PID = $(test[i]).attr('PID');
-            if (DIDPass != DID || SPID == SPIDPass) {
+            if (SPIDPass == 0) {
+                getTextSelectName(DID, SPID, PID, test[i]);
+            } else if (DIDPass != DID || SPID == SPIDPass) {
                 getTextSelectName(DID, SPID, PID, test[i]);
             }
 
