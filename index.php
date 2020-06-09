@@ -241,7 +241,7 @@ if (isset($_POST["province"])) {
                             <?php if ($SERVICE[$i]['SPID'] == 22) { ?>
                             <select class="form-control slecetVehicle js-example-basic-single" VID="0" required
                                 style="width:200px;">
-                                <option value="0">-</option>
+                                <option value="0">เลือกรถ</option>
                                 <?php for ($j = 1; $j < $VEHICLE[0]['numrow']; $j++) { ?>
                                 <option value="<?php echo $VEHICLE[$j]['VID']; ?>">
                                     <?php echo $VEHICLE[$j]['VName']; ?>
@@ -251,7 +251,7 @@ if (isset($_POST["province"])) {
 
                             <select class="form-control slecetName js-example-basic-single" DID="<?= $k + 1 ?>"
                                 SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:315px;">
-                                <option value="0">-</option>
+                                <option value="0">เลือกชื่อ</option>
                                 <?php for ($j = 1; $j < $PEOPLE[0]['numrow']; $j++) { ?>
                                 <option value="<?php echo $PEOPLE[$j]['PID']; ?>">
                                     <?php echo $PEOPLE[$j]['Title']." ".$PEOPLE[$j]['FName']." ".$PEOPLE[$j]['LName']." (".$PEOPLE[$j]['NName'].")"; ?>
@@ -262,7 +262,7 @@ if (isset($_POST["province"])) {
                             <?php } else { ?>
                             <select class="form-control slecetName js-example-basic-single" DID="<?= $k + 1 ?>"
                                 SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:515px;">
-                                <option value="0">-</option>
+                                <option value="0">เลือกชื่อ</option>
                                 <?php for ($j = 1; $j < $PEOPLE[0]['numrow']; $j++) { ?>
                                 <option value="<?php echo $PEOPLE[$j]['PID']; ?>">
                                     <?php echo $PEOPLE[$j]['Title']." ".$PEOPLE[$j]['FName']." ".$PEOPLE[$j]['LName']." (".$PEOPLE[$j]['NName'].")"; ?>
@@ -280,20 +280,6 @@ if (isset($_POST["province"])) {
                     </td>
 
                     <?php } ?>
-                    <!-- for add -->
-
-
-                    <div hidden id="x-ray">
-                        <!-- <div class="form-inline add_name"> -->
-                        <select class="form-control" required style="width:150px;">
-                            <option value="0">-</option>
-                            <option value="1">B</option>
-                            <option value="2">S</option>
-                            <option value="3">D</option>
-                        </select>
-
-                        <!-- </div> -->
-                    </div>
                 </tr>
                 <?php } ?>
             </table>
