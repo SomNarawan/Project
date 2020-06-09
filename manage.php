@@ -34,7 +34,7 @@ switch ($action) {
         $SPID = $_POST['SPID'] ?? "";
         $PID = $_POST['PID'] ?? "";
         $NAMEPEOPLE = getNamePeople($DID, $SPID, $PID);
-        $text = "<option value=\"0\">-</option>";
+        $text = "<option value=\"0\">เลือกชื่อ</option>";
         for ($i = 1; $i < count($NAMEPEOPLE); $i++) {
             $text .= "<option value=\"{$NAMEPEOPLE[$i]['PID']}\" ";
             if ($NAMEPEOPLE[$i]['PID'] == $PID) {
