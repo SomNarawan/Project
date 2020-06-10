@@ -1,12 +1,13 @@
 <?php
 include_once("./dbConnect.php");
-function getOption($spid){
+function getOption($spid)
+{
     $sql = "SELECT * FROM `optionservicepoint` WHERE SPID = $spid";
     $data = selectData($sql);
     return $data;
 }
 //////////////// ดึงข้อมูลรายชื่อทั้งหมด
-function getNamePeople($DID = 1, $SPID = 0, $PID = 0)
+function getNamePeople($DID = 1, $SPID = 1, $PID = 0)
 {
     $sql = "SELECT * FROM `people` 
     INNER JOIN `role` ON `role`.`PID`=`people`.`PID`   
