@@ -1,7 +1,8 @@
 <?php
 include_once("dbConnect.php");
 include_once("./query.php");
-$PEOPLE = getNamePeople();
+$PEOPLE = getPeople();
+$SERVICEPOINT = getServicepoint();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,35 +42,55 @@ $PEOPLE = getNamePeople();
                 <label>
                     <h2>รายชื่อเจ้าหน้าที่</h2>
                 </label>
-                <button class="btn btn-info" id="btn_add" style="float: right;margin-bottom: 50px;"> เพิ่มข้อมูล</button>
-                <!-- <a href="./index.php">
-                    <button class=" btn-success" id="btn_add"
-                        style="float: right;margin-bottom: 50px;margin-right: 20px;"> ย้อนกลับ</button>
-                </a> -->
+                <button class="btn btn-info" id="btn_add" style="float: right;margin-bottom: 50px;">
+                    เพิ่มข้อมูล</button>
+
                 <table class="table table-bordered table-data  datatables" cellspacing="0">
                     <thead>
                         <tr align="center">
-                            <th>ลำดับ</th>
-                            <th>รายชื่อเจ้าหน้าที่</th>
+                            <th style="width: 5%;">ลำดับ</th>
+                            <th style="width: 15%;">คำนำหน้า</th>
+                            <th style="width: 15%;">ชื่อ</th>
+                            <th style="width: 15%;">นามสกุล</th>
+                            <th style="width: 15%;">ชื่อเล่น</th>
+                            <th>จุดบริการ</th>
                             <th>การจัดการ</th>
                         </tr>
                     </thead>
                     <?php
-                    for ($i = 1; $i < count($PEOPLE); $i++) {
-                        echo "  <tr align=\"center\" name=\"head_table\">
-                                    <th>$i</th>
-                                    <th >{$PEOPLE[$i]['PName']}</th>
-                                    <th>
-                                        <button type=\"button\" class=\"btn btn-warning btn-sm btn_edit tt\" pid=\"{$PEOPLE[$i]['PID']}\" pname=\"{$PEOPLE[$i]['PName']}\" data-toggle=\"tooltip\" title=\"แก้ไขข้อมูล\" >
-                                        <i class=\"fa fa-pencil\" aria-hidden=\"true\"></i>
-                                        </button>
-                                        <button type=\"button\" class=\"btn btn-danger btn-sm  btn_del tt\"  pid=\"{$PEOPLE[$i]['PID']}\" pname=\"{$PEOPLE[$i]['PName']}\"data-toggle=\"tooltip\" title=\"ลบ\" >
-                                        <i class=\"fa fa-trash\" aria-hidden=\"true\"></i>
-                                        </button>
-                                    </th>
-                                </tr>";
-                    }
+                    for ($i = 1; $i < count($PEOPLE); $i++) { 
+                        $ROLE = getRoleByPID($PEOPLE[$i]['PID']);
                     ?>
+                    <tr align="center" name="head_table">
+                        <td><?php echo $i; ?></th>
+                        <td style="text-align: left;"><?php echo $PEOPLE[$i]['Title']; ?></td>
+                        <td style="text-align: left;"><?php echo $PEOPLE[$i]['FName']; ?></td>
+                        <td style="text-align: left;"><?php echo$PEOPLE[$i]['LName']; ?></td>
+                        <td style="text-align: left;"><?php echo $PEOPLE[$i]['NName']; ?></td>
+                        <td style="text-align: left;">
+                            <ul>
+                                <?php for($j=1;$j<=$ROLE[0]['numrow'];$j++){
+                            echo "<li class='role".$PEOPLE[$i]['PID']."'>".$ROLE[$j]['SPName']."</li>";
+                            } ?>
+                            </ul>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-warning btn-sm btn_edit tt"
+                                pid="<?php echo $PEOPLE[$i]['PID']; ?>" ptitle="<?php echo $PEOPLE[$i]['Title']; ?>"
+                                name="<?php echo $PEOPLE[$i]['FName']; ?>" surname="<?php echo $PEOPLE[$i]['LName']; ?>"
+                                alias="<?php echo $PEOPLE[$i]['NName']; ?>" role=""
+                                data-toggle="tooltip" title="แก้ไขข้อมูล">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm btn_del tt"
+                                pid="<?php echo $PEOPLE[$i]['PID']; ?>" pname="<?php echo $PEOPLE[$i]['PName']; ?>"
+                                data-toggle="tooltip" title="ลบ">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                    </tr>
+
+                    <?php } ?>
                 </table>
 
             </div>
@@ -93,12 +114,69 @@ $PEOPLE = getNamePeople();
                     <form action="#" method="post">
                         <div class="row mb-4">
                             <div class="col-xl-4 col-12 text-right">
-                                <span>รายชื่อเจ้าหน้าที่</span>
+                                <span>คำนำหน้า</span>
+                            </div>
+                            <div class="col-xl-5 col-12">
+                                <input type="radio" name="title" required=""> นาย
+                                <input type="radio" style="margin-left:20%" name="title" required=""> นาง
+                                <input type="radio" style="margin-left:20%" name="title" required=""> นางสาว
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-xl-4 col-12 text-right">
+                                <span>ชื่อ</span>
                             </div>
                             <div class="col-xl-5 col-12">
                                 <input type="text" class="form-control" name="name" required=""
-                                    placeholder="กรุณากรอกชื่อรายชื่อเจ้าหน้าที่">
+                                    placeholder="กรุณากรอกชื่อ">
                             </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-xl-4 col-12 text-right">
+                                <span>นามสกุล</span>
+                            </div>
+                            <div class="col-xl-5 col-12">
+                                <input type="text" class="form-control" name="surname" required=""
+                                    placeholder="กรุณากรอกนามสกุล">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-xl-4 col-12 text-right">
+                                <span>ชื่อเล่น</span>
+                            </div>
+                            <div class="col-xl-5 col-12">
+                                <input type="text" class="form-control" name="alias" required=""
+                                    placeholder="กรุณากรอกชื่อเล่น">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+
+                            <?php for($i = 1; $i <= $SERVICEPOINT[0]['numrow'] ;$i+=2){ ?>
+                            <div class="col-xl-4 col-12 text-right">
+                                <?php   
+                                if($i == 1){
+                                ?>
+                                <span>จุดบริการ</span>
+                                <?php }else{ ?>
+                                <span></span>
+                                <?php } ?>
+                            </div>
+                            <div class="col-xl-5 col-12">
+                                <div class="row">
+                                    <div class="col-xl-6 col-6">
+                                        <input type="checkbox" name="<?php echo $SERVICEPOINT[$i]['SPName']; ?>">
+                                        <label for=""><?php echo $SERVICEPOINT[$i]['SPName']; ?></label>
+                                    </div>
+                                    <?php if($i+1 <= $SERVICEPOINT[0]['numrow'] ){ ?>
+                                    <div class="col-xl-6 col-6">
+                                        <input type="checkbox" name="<?php echo $SERVICEPOINT[$i+1]['SPName']; ?>">
+                                        <label for=""><?php echo $SERVICEPOINT[$i+1]['SPName']; ?></label>
+                                    </div>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                            <?php } ?>
+
                         </div>
 
                         <input type="hidden" name="action" value="addpeople">
@@ -124,15 +202,75 @@ $PEOPLE = getNamePeople();
                 </div>
                 <div class="modal-body" id="addModalBody">
                     <form action="#" method="post">
-                        <div class="row mb-4">
+                    <div class="row mb-4">
                             <div class="col-xl-4 col-12 text-right">
-                                <span>รายชื่อเจ้าหน้าที่</span>
+                                <span>คำนำหน้า</span>
                             </div>
-                            <div class="col-xl-5 col-12">
-                                <input type="text" class="form-control" name="name" id="name" required=""
-                                    placeholder="กรุณากรอกชื่อรายชื่อเจ้าหน้าที่">
+                            <div class="col-xl-5 col-12" id="set_title" name="set_title">
+                                <input type="radio" name="title" id="title1" required=""> นาย
+                                <input type="radio" style="margin-left:20%" id="title2" name="title" required=""> นาง
+                                <input type="radio" style="margin-left:20%" id="title3" name="title" required=""> นางสาว
                             </div>
                         </div>
+                        <div class="row mb-4">
+                            <div class="col-xl-4 col-12 text-right">
+                                <span>ชื่อ</span>
+                            </div>
+                            <div class="col-xl-5 col-12">
+                                <input type="text" class="form-control" name="e_name" 
+                                id="e_name" required="" placeholder="กรุณากรอกชื่อ">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-xl-4 col-12 text-right">
+                                <span>นามสกุล</span>
+                            </div>
+                            <div class="col-xl-5 col-12">
+                                <input type="text" class="form-control" name="e_surname" 
+                                id="e_surname" required="" placeholder="กรุณากรอกนามสกุล">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-xl-4 col-12 text-right">
+                                <span>ชื่อเล่น</span>
+                            </div>
+                            <div class="col-xl-5 col-12">
+                                <input type="text" class="form-control" name="e_alias" 
+                                id="e_alias" required="" placeholder="กรุณากรอกชื่อเล่น">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+
+                            <?php for($i = 1; $i <= $SERVICEPOINT[0]['numrow'] ;$i+=2){ ?>
+                            <div class="col-xl-4 col-12 text-right">
+                                <?php   
+                                if($i == 1){
+                                ?>
+                                <span>จุดบริการ</span>
+                                <?php }else{ ?>
+                                <span></span>
+                                <?php } ?>
+                            </div>
+                            <div class="col-xl-5 col-12">
+                                <div class="row">
+                                    <div class="col-xl-6 col-6">
+                                        <input id="e_role<?php echo $SERVICEPOINT[$i]['SPID']; ?>" 
+                                        type="checkbox" name="<?php echo $SERVICEPOINT[$i]['SPName']; ?>">
+                                        <label for=""><?php echo $SERVICEPOINT[$i]['SPName']; ?></label>
+                                    </div>
+                                    <?php if($i+1 <= $SERVICEPOINT[0]['numrow'] ){ ?>
+                                    <div class="col-xl-6 col-6">
+                                        <input id="e_role<?php echo $SERVICEPOINT[$i]['SPID']; ?>" 
+                                        type="checkbox" name="<?php echo $SERVICEPOINT[$i+1]['SPName']; ?>">
+                                        <label for=""><?php echo $SERVICEPOINT[$i+1]['SPName']; ?></label>
+                                    </div>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                            <?php } ?>
+
+                        </div>
+
                         <input type="hidden" name="PID" id="PID" value="0">
                         <input type="hidden" name="action" value="editpeople">
                     </form>
@@ -157,10 +295,29 @@ $(document).ready(function() {
     });
     $(document).on("click", ".btn_edit", function() {
         var PID = $(this).attr('pid');
-        var PName = $(this).attr('pname');
+        var title = $(this).attr('ptitle');
+        var name = $(this).attr('name');
+        var surname = $(this).attr('surname');
+        var alias = $(this).attr('alias');
+
         $("#PID").val(PID);
-        $("#name").val(PName);
+        $("#e_name").val(name);
+        $("#e_surname").val(surname);
+        $("#e_alias").val(alias);
+
+        console.log(title);
+        if(title == 'นาย'){
+            $('#title1').attr("checked","checked");
+        }else if(title == 'นาง'){
+            $('#title2').attr("checked","checked");
+        }else{
+            $('#title3').attr("checked","checked");
+        }
+
+        array_role = $('.role'+PID);
+        console.log(array_role);
         $("#editModal").modal();
+        
     });
     $(document).on("click", ".btn_del", function() {
         var PID = $(this).attr('pid');

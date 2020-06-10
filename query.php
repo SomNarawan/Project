@@ -5,6 +5,23 @@ function getOption($spid){
     $data = selectData($sql);
     return $data;
 }
+function getServicepoint(){
+    $sql = "SELECT * FROM servicepoint";
+    $DATA = selectData($sql);
+    return   $DATA;
+}
+function getRoleByPID($pid){
+    $sql = "SELECT * FROM role
+    JOIN servicepoint ON role.SPID = servicepoint.SPID
+    WHERE role.PID = '$pid'";
+    $DATA = selectData($sql);
+    return   $DATA;
+}
+function getPeople(){
+    $sql = "SELECT * FROM `people` ORDER BY `PID` ASC";
+    $DATA = selectData($sql);
+    return   $DATA;
+}
 //////////////// ดึงข้อมูลรายชื่อทั้งหมด
 function getNamePeople($DID = 1, $SPID = 0, $PID = 0)
 {
