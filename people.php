@@ -52,7 +52,7 @@ $SERVICEPOINT = getServicepoint();
                             <th style="width: 15%;">คำนำหน้า</th>
                             <th style="width: 15%;">ชื่อ</th>
                             <th style="width: 15%;">นามสกุล</th>
-                            <th style="width: 15%;">ชื่อเล่น</th>
+                            <th style="width: 13%;">ชื่อเล่น</th>
                             <th>จุดบริการ</th>
                             <th>การจัดการ</th>
                         </tr>
@@ -70,7 +70,7 @@ $SERVICEPOINT = getServicepoint();
                         <td style="text-align: left;">
                             <ul>
                                 <?php for($j=1;$j<=$ROLE[0]['numrow'];$j++){
-                            echo "<li class='role".$PEOPLE[$i]['PID']."'>".$ROLE[$j]['SPName']."</li>";
+                            echo "<li class='role".$PEOPLE[$i]['PID']."' spid='".$ROLE[$j]['SPID']."'>".$ROLE[$j]['SPName']."</li>";
                             } ?>
                             </ul>
                         </td>
@@ -83,7 +83,9 @@ $SERVICEPOINT = getServicepoint();
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                             </button>
                             <button type="button" class="btn btn-danger btn-sm btn_del tt"
-                                pid="<?php echo $PEOPLE[$i]['PID']; ?>" pname="<?php echo $PEOPLE[$i]['PName']; ?>"
+                                pid="<?php echo $PEOPLE[$i]['PID']; ?>" ptitle="<?php echo $PEOPLE[$i]['Title']; ?>"
+                                name="<?php echo $PEOPLE[$i]['FName']; ?>" surname="<?php echo $PEOPLE[$i]['LName']; ?>"
+                                alias="<?php echo $PEOPLE[$i]['NName']; ?>"
                                 data-toggle="tooltip" title="ลบ">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
@@ -117,9 +119,9 @@ $SERVICEPOINT = getServicepoint();
                                 <span>คำนำหน้า</span>
                             </div>
                             <div class="col-xl-5 col-12">
-                                <input type="radio" name="title" required=""> นาย
-                                <input type="radio" style="margin-left:20%" name="title" required=""> นาง
-                                <input type="radio" style="margin-left:20%" name="title" required=""> นางสาว
+                                <input type="radio" name="title" required="" value="นาย"> นาย
+                                <input type="radio" style="margin-left:20%" name="title" required="" value="นาง"> นาง
+                                <input type="radio" style="margin-left:20%" name="title" required="" value="นางสาว"> นางสาว
                             </div>
                         </div>
                         <div class="row mb-4">
@@ -164,12 +166,12 @@ $SERVICEPOINT = getServicepoint();
                             <div class="col-xl-5 col-12">
                                 <div class="row">
                                     <div class="col-xl-6 col-6">
-                                        <input type="checkbox" name="<?php echo $SERVICEPOINT[$i]['SPName']; ?>">
+                                        <input type="checkbox" name="service[]" value="<?php echo $SERVICEPOINT[$i]['SPID']; ?>">
                                         <label for=""><?php echo $SERVICEPOINT[$i]['SPName']; ?></label>
                                     </div>
                                     <?php if($i+1 <= $SERVICEPOINT[0]['numrow'] ){ ?>
                                     <div class="col-xl-6 col-6">
-                                        <input type="checkbox" name="<?php echo $SERVICEPOINT[$i+1]['SPName']; ?>">
+                                        <input type="checkbox" name="service[]" value="<?php echo $SERVICEPOINT[$i+1]['SPID']; ?>">
                                         <label for=""><?php echo $SERVICEPOINT[$i+1]['SPName']; ?></label>
                                     </div>
                                     <?php } ?>
@@ -207,9 +209,9 @@ $SERVICEPOINT = getServicepoint();
                                 <span>คำนำหน้า</span>
                             </div>
                             <div class="col-xl-5 col-12" id="set_title" name="set_title">
-                                <input type="radio" name="title" id="title1" required=""> นาย
-                                <input type="radio" style="margin-left:20%" id="title2" name="title" required=""> นาง
-                                <input type="radio" style="margin-left:20%" id="title3" name="title" required=""> นางสาว
+                                <input type="radio" name="e_title" id="title1" required="" value="นาย"> นาย
+                                <input type="radio" style="margin-left:20%" id="title2" name="e_title" required="" value="นาง"> นาง
+                                <input type="radio" style="margin-left:20%" id="title3" name="e_title" required="" value="นางสาว"> นางสาว
                             </div>
                         </div>
                         <div class="row mb-4">
@@ -254,14 +256,14 @@ $SERVICEPOINT = getServicepoint();
                             <div class="col-xl-5 col-12">
                                 <div class="row">
                                     <div class="col-xl-6 col-6">
-                                        <input id="e_role<?php echo $SERVICEPOINT[$i]['SPID']; ?>" 
-                                        type="checkbox" name="<?php echo $SERVICEPOINT[$i]['SPName']; ?>">
+                                        <input class="e_role_set" id="e_role<?php echo $SERVICEPOINT[$i]['SPID']; ?>" 
+                                        type="checkbox" name="e_service[]" value="<?php echo $SERVICEPOINT[$i]['SPID']; ?>">
                                         <label for=""><?php echo $SERVICEPOINT[$i]['SPName']; ?></label>
                                     </div>
                                     <?php if($i+1 <= $SERVICEPOINT[0]['numrow'] ){ ?>
                                     <div class="col-xl-6 col-6">
-                                        <input id="e_role<?php echo $SERVICEPOINT[$i]['SPID']; ?>" 
-                                        type="checkbox" name="<?php echo $SERVICEPOINT[$i+1]['SPName']; ?>">
+                                        <input class="e_role_set" id="e_role<?php echo $SERVICEPOINT[$i+1]['SPID']; ?>" 
+                                        type="checkbox" name="e_service[]" value="<?php echo $SERVICEPOINT[$i+1]['SPID']; ?>">
                                         <label for=""><?php echo $SERVICEPOINT[$i+1]['SPName']; ?></label>
                                     </div>
                                     <?php } ?>
@@ -313,18 +315,26 @@ $(document).ready(function() {
         }else{
             $('#title3').attr("checked","checked");
         }
+        $('.e_role_set').removeAttr("checked")
 
-        array_role = $('.role'+PID);
-        console.log(array_role);
+        $('.role'+PID).each(function(){
+            console.log($(this).attr('spid'));
+            spid = $(this).attr('spid');
+            $('#e_role'+spid).attr("checked","checked");
+        });
+
         $("#editModal").modal();
         
     });
     $(document).on("click", ".btn_del", function() {
         var PID = $(this).attr('pid');
-        var PName = $(this).attr('pname');
-        swal({
+        var title = $(this).attr('ptitle');
+        var name = $(this).attr('name');
+        var surname = $(this).attr('surname');
+        var alias = $(this).attr('alias');
+                swal({
                 title: "คุณต้องการลบ",
-                text: `คุณ ${PName} หรือไม่ ?`,
+                text: `${title} ${name} ${surname} (${alias}) หรือไม่ ?`,
                 icon: "warning",
                 confirmButtonClass: "btn-danger",
                 cancelButtonClass: "btn-secondary",

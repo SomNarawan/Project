@@ -73,16 +73,55 @@ switch ($action) {
 
         break;
     case "addpeople":
-        $name = $_POST['name'] ?? "";
-        $sql = "INSERT INTO `people` (`PID`, `PName`) VALUES (NULL, '$name')";
-        addinsertData($sql);
+        $title = $_POST['title'];
+        $name = $_POST['name'];
+        $surname = $_POST['surname'];
+        $alias = $_POST['alias'];
+        $service = $_POST['service'];
+        print_r($service);
+        $sql = "INSERT INTO `people` (`PID`, `Title`, `FName`,`LName`, `NName`) 
+        VALUES (NULL, '$title', '$name','$surname', '$alias')";
+        echo $sql;
+        $PID = addinsertData($sql);
+
+        for($i=0;$i<sizeof($service);$i++){
+            $spid = $service[$i];
+            print_r($spid);
+
+            $sql = "INSERT INTO `role` (`RID` ,`PID`, `SPID`) 
+            VALUES (NULL, '$PID', '$spid')";
+            $rid = addinsertData($sql);
+        }
+
         header("location:./people.php");
         break;
     case "editpeople":
-        $name = $_POST['name'] ?? "";
-        $PID = $_POST['PID'] ?? "";
-        $sql = "UPDATE `people` SET `PName` = '$name' WHERE `people`.`PID` = $PID";
+        $PID = $_POST['PID'];
+        $title = $_POST['e_title'];
+        $name = $_POST['e_name'];
+        $surname = $_POST['e_surname'];
+        $alias = $_POST['e_alias'];
+        $service = $_POST['e_service'];
+        print_r($service);
+        $sql = "UPDATE `people` SET
+        `Title` = '$title',
+        `FName` = '$name',
+        `LName` = '$surname',
+        `NName` = '$alias' 
+        WHERE PID = '$PID'";
+        echo $sql;
         updateData($sql);
+        $sql = "DELETE FROM `role` WHERE `PID` = $PID";
+        deletedata($sql);
+        for($i=0;$i<sizeof($service);$i++){
+            $spid = $service[$i];
+            print_r($spid);
+
+            $sql = "INSERT INTO `role` (`RID` ,`PID`, `SPID`) 
+            VALUES (NULL, '$PID', '$spid')";
+            $rid = addinsertData($sql);
+        }
+
         header("location:./people.php");
         break;
     case "deletepeople":
