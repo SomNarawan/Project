@@ -7,7 +7,17 @@ function Switchpage() {
     var show1 = $(".show1");
     var show2 = $(".show2");
     var show3 = $(".show3");
-
+    var OID = 0;
+    var DOID = [];
+    var SPDID = [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+    ];
     if (checkPage == 1) {
         for (i = 0; i < show1.length; i++) {
             $(show1[i]).show();
@@ -57,13 +67,14 @@ $(document).ready(function() {
     $(document).on("select2:close", ".js-example-basic-single", function() {
         $(this).next().removeClass("border-from-control");
     });
-    
+
     $(document).on("click", ".btn-plus", function() {
         DID = $(this).attr("DID");
         SPID = $(this).attr("SPID");
         check = $(this).attr("check");
         getTextSelectNameAdd(DID, SPID, 0);
         getTextSelectVehicleAdd(0);
+        addblankName(DID, SPID);
         if (check == 22) {
             size = "315";
         } else {
@@ -72,12 +83,13 @@ $(document).ready(function() {
 
         html = ` <div class="form-inline">`;
         htmlselectName = `<select class="form-control slecetName js-example-basic-single" DID="` + DID + `" SPID="` + SPID + `" 
-        PID="0" required style="width:` + size + `px;">`;
+        PID="0"   required style="width:` + size + `px;">`;
         htmlselectName += selectName;
         htmlselectName += `</select>`;
 
         if (check == 22) {
-            htmlselectvehicle = `<select class="form-control slecetVehicle js-example-basic-single" VID="0" required style="width:200px;">`;
+            addblankVehicle(DID);
+            htmlselectvehicle = `<select class="form-control slecetVehicle js-example-basic-single" VID="0" DID="` + DID + `"  required style="width:200px;">`;
             htmlselectvehicle += selectVehicle;
             htmlselectvehicle += `</select>`;
             html += htmlselectvehicle;
@@ -98,6 +110,35 @@ $(document).ready(function() {
         $("#" + iddiv).append(note_div); //เพิ่ม เพิ่มเติม
         $('.js-example-basic-single').select2();
     });
+    $(document).on("click", "#submit-data", function() {
+        swal({
+                title: "คุณยืนยันข้อมูลหรือไม่",
+                icon: "warning",
+                confirmButtonClass: "btn-danger",
+                cancelButtonClass: "btn-secondary",
+                buttons: true,
+
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    let date = $("#date").val();
+                    let num_company = $("#num_company").val();
+                    console.log(date + " " + num_company)
+                    createOperation(date, num_company);
+                    createInFoOperation();
+                    createInfoServicepoint();
+                    createInfoPeople();
+                    swal("ยืนยันข้อมูลสำเร็จ", {
+                        icon: "success",
+                    }).then((confirm) => {
+
+                    });
+
+                } else {
+
+                }
+            });
+    });
     $(document).on("click", ".btn-minus", function() {
         DID = $(this).attr("DID");
         SPID = $(this).attr("SPID");
@@ -105,12 +146,13 @@ $(document).ready(function() {
         var parent = $(this).parent();
         var PID = $(parent).find(".slecetName").val();
 
-        if (check == 16) {
+        if (check == 22) {
             var VID = $(parent).find(".slecetVehicle").val();
             if (VID != 0) {
                 setVehicle(VID, "notuse");
                 setSelectCeateVehicle();
             }
+            DeleteWorkingVehicle(DID, VID, PID);
 
         }
 
@@ -118,9 +160,10 @@ $(document).ready(function() {
         if (PID != 0) {
             DeleteWorking(DID, SPID, PID);
             setSelectCeateName(DID, SPID);
+        } else {
+            DeleteWorking(DID, SPID, PID);
         }
 
-        console.log("DID" + DID + "/SPID" + SPID + "/PID" + PID);
     });
 
     $(document).on("click", "#btnclear", function() {
@@ -139,29 +182,60 @@ $(document).ready(function() {
         checkPage = 3;
         Switchpage();
     });
+    $(document).on("click", ".selectOption", function() {
+        var DID = $(this).attr('DID');
+        var OSID = $(this).attr('OSID');
+        var typeCK = $(this).attr('typeCK');
+        var check = $(this).is(":checked");
+        if (typeCK == "C") {
+            if (check) {
+                setWorkingOption(DID, OSID, "C");
+            } else {
+                setWorkingOption(DID, OSID, "D");
+            }
+        } else {
+            if (OSID == 1) {
+                setWorkingOption(DID, "2", "D");
+                setWorkingOption(DID, "1", "C");
+            } else {
+                setWorkingOption(DID, "1", "D");
+                setWorkingOption(DID, "2", "C");
+            }
+        }
+
+
+    });
     $(document).on("change", ".slecetName", function() {
         var DID = $(this).attr('DID');
         var SPID = $(this).attr('SPID');
         var PIDOld = $(this).attr('PID');
         var PIDNew = $(this).val();
-        if (PIDOld != 0) {
-            DeleteWorking(DID, SPID, PIDOld);
-        }
+        var parent = $(this).parent();
+        var VID = $(parent).find(".slecetVehicle").val();
+        DeleteWorking(DID, SPID, PIDOld);
         InsertWorking(DID, SPID, PIDNew);
         $(this).attr('PID', PIDNew);
         setSelectCeateName(DID, SPID);
+        if (SPID == 22) {
+            DeleteWorkingVehicle(DID, VID, PIDOld);
+            InsertWorkingVehicle(DID, VID, PIDNew);
+        }
 
     });
     $(document).on("change", ".slecetVehicle", function() {
-
+        var DID = $(this).attr('DID');
         var VIDOld = $(this).attr('VID');
         var VIDNew = $(this).val();
+        var parent = $(this).parent();
+        var PID = $(parent).find(".slecetName").val();
         if (VIDOld != 0) {
             setVehicle(VIDOld, "notuse");
         }
         setVehicle(VIDNew, "use");
         $(this).attr('VID', VIDNew);
         setSelectCeateVehicle();
+        DeleteWorkingVehicle(DID, VIDOld, PID);
+        InsertWorkingVehicle(DID, VIDNew, PID);
 
     });
 
@@ -325,4 +399,206 @@ $(document).ready(function() {
             }
         });
     }
+
+    function addblankName(DID, SPID) {
+        $.ajax({
+            type: "POST",
+            url: "./manage.php",
+            data: {
+                DID: DID,
+                SPID: SPID,
+                action: "addblankName"
+            },
+            async: false,
+            success: function(result) {
+
+            }
+        });
+    }
+
+    function addblankVehicle(DID) {
+        $.ajax({
+            type: "POST",
+            url: "./manage.php",
+            data: {
+                DID: DID,
+                action: "addblankVehicle"
+            },
+            async: false,
+            success: function(result) {
+
+            }
+        });
+    }
+
+    function DeleteWorkingVehicle(DID, VID, PID) {
+        $.ajax({
+            type: "POST",
+            url: "./manage.php",
+            data: {
+                DID: DID,
+                VID: VID,
+                PID: PID,
+                action: "DeleteWorkingVehicle"
+            },
+            async: false,
+            success: function(result) {
+
+            }
+        });
+    }
+
+    function InsertWorkingVehicle(DID, VID, PID) {
+        $.ajax({
+            type: "POST",
+            url: "./manage.php",
+            data: {
+                DID: DID,
+                VID: VID,
+                PID: PID,
+                action: "InsertWorkingVehicle"
+            },
+            async: false,
+            success: function(result) {
+
+            }
+        });
+    }
+
+    function setWorkingOption(DID, OSID, type) {
+        $.ajax({
+            type: "POST",
+            url: "./manage.php",
+            data: {
+                DID: DID,
+                OSID: OSID,
+                type: type,
+                action: "setWorkingOption"
+            },
+            async: false,
+            success: function(result) {
+
+            }
+        });
+    }
+
+    function createOperation(date, num_company) {
+        $.ajax({
+            type: "POST",
+            url: "./manage.php",
+            data: {
+                date: date,
+                num: num_company,
+                action: "createOperation"
+            },
+            async: false,
+            success: function(result) {
+                OID = JSON.parse(result);
+
+            }
+        });
+    }
+
+    function createInFoOperation() {
+        let company = $(".th-company");
+        let time = $(".th-time");
+        let timeOparetion = $(".th-timeOparetion");
+        let province = $(".th-province");
+        DOID = [];
+        for (i = 0; i < company.length; i++) {
+            let valcompany = $(company[i]).val();
+            let valDID = $(company[i]).attr('DID');
+            let valtime = $(time[i]).val();
+            var valtimeOparetion = $(timeOparetion[i]).val();
+            let valprovince = $(province[i]).val();
+            let valOID = OID;
+            createdep_of_opera(valOID, valDID, valcompany, valprovince, valtime, valtimeOparetion);
+        }
+        console.log(DOID);
+    }
+
+    function createdep_of_opera(valOID, valDID, valcompany, valprovince, valtime, valtimeOparetion) {
+        $.ajax({
+            type: "POST",
+            url: "./manage.php",
+            data: {
+                valOID: valOID,
+                valDID: valDID,
+                valcompany: valcompany,
+                valprovince: valprovince,
+                valtime: valtime,
+                valtimeOparetion: valtimeOparetion,
+                action: "createdep_of_opera"
+            },
+            async: false,
+            success: function(result) {
+                DOID[valDID] = Number(JSON.parse(result));
+            }
+        });
+    }
+
+    function createInfoServicepoint() {
+        let numpeople = $(".numpeople");
+        let numpoint = $(".numpoint");
+        let comment = $(".comment");
+        SPDID = [
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+        ];
+        for (i = 0; i < numpeople.length; i++) {
+            let valnumpeople = $(numpeople[i]).val();
+            let valDID = $(numpeople[i]).attr('DID');
+            let valSPID = $(numpeople[i]).attr('SPID');
+            let valnumpoint = $(numpoint[i]).val();
+            var valcomment = $(comment[i]).val();
+            if (valnumpoint > 0) {
+                createserv_of_dep(DOID[valDID], valDID, valSPID, valnumpeople, valnumpoint, valcomment);
+            }
+
+        }
+        console.log(SPDID);
+    }
+
+    function createserv_of_dep(DOID, valDID, valSPID, valnumpeople, valnumpoint, valcomment) {
+        $.ajax({
+            type: "POST",
+            url: "./manage.php",
+            data: {
+                DOID: DOID,
+                valSPID: valSPID,
+                valnumpeople: valnumpeople,
+                valnumpoint: valnumpoint,
+                valcomment: valcomment,
+                action: "createserv_of_dep"
+            },
+            async: false,
+            success: function(result) {
+                SPDID[valDID][valSPID] = Number(JSON.parse(result));
+            }
+        });
+    }
+
+    function createInfoPeople() {
+        $.ajax({
+            type: "POST",
+            url: "./manage.php",
+            data: {
+                ArrayDOID: JSON.stringify(DOID),
+                ArraySPDID: JSON.stringify(SPDID),
+                action: "createInfoPeople"
+            },
+            async: false,
+            success: function(result) {
+                console.log(result);
+                window.open("./createPDF.php?OID=" + OID + "&DOWLOAD=1");
+                window.open("./createPDF.php?OID=" + OID);
+            }
+        });
+    }
+
 });
