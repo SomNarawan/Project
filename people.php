@@ -355,7 +355,7 @@ $SERVICEPOINT = getServicepoint();
         var name = $(this).attr('name');
         var surname = $(this).attr('surname');
         var alias = $(this).attr('alias');
-                swal({
+            swal({
                 title: "คุณต้องการลบ",
                 text: `${title} ${name} ${surname} (${alias}) หรือไม่ ?`,
                 icon: "warning",
@@ -375,9 +375,11 @@ $SERVICEPOINT = getServicepoint();
                             delete_1(PID);
                         }
                     });
-                } else {
+                } else { }
 
-        });
+            });
+    });
+
         function delete_1(PID) {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
@@ -390,4 +392,5 @@ $SERVICEPOINT = getServicepoint();
             xhttp.send(`PID=${PID}&action=deletepeople`);
         }
     });
+
 </script>
