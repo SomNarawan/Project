@@ -11,7 +11,7 @@ $NameFile = "Operation" . date_format(date_create($INFOOPERATION['Modify']), "Y-
 require_once __DIR__ . '/vendor/autoload.php';
 
 $mpdf = new \Mpdf\Mpdf([
-    'default_font_size' => 18,
+    'default_font_size' => 16,
     'default_font' => 'sarabun'
 ]);
 $mpdf->SetTitle($NameFile);
