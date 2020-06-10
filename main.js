@@ -7,7 +7,17 @@ function Switchpage() {
     var show1 = $(".show1");
     var show2 = $(".show2");
     var show3 = $(".show3");
-
+    var OID = 0;
+    var DOID = [];
+    var SPDID = [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+    ];
     if (checkPage == 1) {
         for (i = 0; i < show1.length; i++) {
             $(show1[i]).show();
@@ -99,6 +109,35 @@ $(document).ready(function() {
         $("#" + iddiv).append(html); //เพิ่ม เลือกชื่อ
         $("#" + iddiv).append(note_div); //เพิ่ม เพิ่มเติม
         $('.js-example-basic-single').select2();
+    });
+    $(document).on("click", "#submit-data", function() {
+        swal({
+                title: "คุณยืนยันข้อมูลหรือไม่",
+                icon: "warning",
+                confirmButtonClass: "btn-danger",
+                cancelButtonClass: "btn-secondary",
+                buttons: true,
+
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    let date = $("#date").val();
+                    let num_company = $("#num_company").val();
+                    console.log(date + " " + num_company)
+                    createOperation(date, num_company);
+                    createInFoOperation();
+                    createInfoServicepoint();
+                    createInfoPeople();
+                    swal("ยืนยันข้อมูลสำเร็จ", {
+                        icon: "success",
+                    }).then((confirm) => {
+
+                    });
+
+                } else {
+
+                }
+            });
     });
     $(document).on("click", ".btn-minus", function() {
         DID = $(this).attr("DID");
@@ -442,4 +481,124 @@ $(document).ready(function() {
             }
         });
     }
+
+    function createOperation(date, num_company) {
+        $.ajax({
+            type: "POST",
+            url: "./manage.php",
+            data: {
+                date: date,
+                num: num_company,
+                action: "createOperation"
+            },
+            async: false,
+            success: function(result) {
+                OID = JSON.parse(result);
+
+            }
+        });
+    }
+
+    function createInFoOperation() {
+        let company = $(".th-company");
+        let time = $(".th-time");
+        let timeOparetion = $(".th-timeOparetion");
+        let province = $(".th-province");
+        DOID = [];
+        for (i = 0; i < company.length; i++) {
+            let valcompany = $(company[i]).val();
+            let valDID = $(company[i]).attr('DID');
+            let valtime = $(time[i]).val();
+            var valtimeOparetion = $(timeOparetion[i]).val();
+            let valprovince = $(province[i]).val();
+            let valOID = OID;
+            createdep_of_opera(valOID, valDID, valcompany, valprovince, valtime, valtimeOparetion);
+        }
+        console.log(DOID);
+    }
+
+    function createdep_of_opera(valOID, valDID, valcompany, valprovince, valtime, valtimeOparetion) {
+        $.ajax({
+            type: "POST",
+            url: "./manage.php",
+            data: {
+                valOID: valOID,
+                valDID: valDID,
+                valcompany: valcompany,
+                valprovince: valprovince,
+                valtime: valtime,
+                valtimeOparetion: valtimeOparetion,
+                action: "createdep_of_opera"
+            },
+            async: false,
+            success: function(result) {
+                DOID[valDID] = Number(JSON.parse(result));
+            }
+        });
+    }
+
+    function createInfoServicepoint() {
+        let numpeople = $(".numpeople");
+        let numpoint = $(".numpoint");
+        let comment = $(".comment");
+        SPDID = [
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+        ];
+        for (i = 0; i < numpeople.length; i++) {
+            let valnumpeople = $(numpeople[i]).val();
+            let valDID = $(numpeople[i]).attr('DID');
+            let valSPID = $(numpeople[i]).attr('SPID');
+            let valnumpoint = $(numpoint[i]).val();
+            var valcomment = $(comment[i]).val();
+            if (valnumpoint > 0) {
+                createserv_of_dep(DOID[valDID], valDID, valSPID, valnumpeople, valnumpoint, valcomment);
+            }
+
+        }
+        console.log(SPDID);
+    }
+
+    function createserv_of_dep(DOID, valDID, valSPID, valnumpeople, valnumpoint, valcomment) {
+        $.ajax({
+            type: "POST",
+            url: "./manage.php",
+            data: {
+                DOID: DOID,
+                valSPID: valSPID,
+                valnumpeople: valnumpeople,
+                valnumpoint: valnumpoint,
+                valcomment: valcomment,
+                action: "createserv_of_dep"
+            },
+            async: false,
+            success: function(result) {
+                SPDID[valDID][valSPID] = Number(JSON.parse(result));
+            }
+        });
+    }
+
+    function createInfoPeople() {
+        $.ajax({
+            type: "POST",
+            url: "./manage.php",
+            data: {
+                ArrayDOID: JSON.stringify(DOID),
+                ArraySPDID: JSON.stringify(SPDID),
+                action: "createInfoPeople"
+            },
+            async: false,
+            success: function(result) {
+                console.log(result);
+                window.open("./createPDF.php?OID=" + OID + "&DOWLOAD=1");
+                window.open("./createPDF.php?OID=" + OID);
+            }
+        });
+    }
+
 });

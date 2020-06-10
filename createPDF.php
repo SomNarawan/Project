@@ -65,10 +65,11 @@ for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
                 $comment .= substr($stringoption, 0, -2) . " <br>";
             }
         }
-        $comment .= "เพิ่มเติม: ";
+
         if ($INFOSERVICEPOINT[$j]['comment'] == NULL) {
-            $comment .= "-";
+            $comment .= "";
         } else {
+            $comment .= "เพิ่มเติม: ";
             $comment .= "{$INFOSERVICEPOINT[$j]['comment']}";
         }
         if ($INFOSERVICEPOINT[$j]['SPID'] != 22) {

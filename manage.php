@@ -166,4 +166,88 @@ switch ($action) {
             deletedata($sql);
         }
         break;
+    case "createOperation":
+        $date = $_POST['date'] ?? "";
+        $num = $_POST['num'] ?? "";
+        $sql = "INSERT INTO `operation` (`OID`, `dateOperation`, `numCompany`, `Modify`) VALUES (NULL, '$date', '$num', current_timestamp())";
+        $OID = addinsertData($sql);
+        echo json_encode($OID);
+        break;
+    case "createdep_of_opera":
+        $valOID = $_POST['valOID'] ?? "";
+        $valDID = $_POST['valDID'] ?? "";
+        $valcompany = $_POST['valcompany'] ?? "";
+        $valprovince = $_POST['valprovince'] ?? "";
+        $valtime = $_POST['valtime'] ?? "";
+        $valtimeOparetion = $_POST['valtimeOparetion'] ?? "";
+        $sql = "INSERT INTO `dep_of_opera` (`DOID`, `OID`, `DID`, `DOName`, `AD1ID`, `TimeStart`, `TimeOperation`)
+         VALUES (NULL, '$valOID', '$valDID', '$valcompany', '$valprovince', '$valtime', '$valtimeOparetion')";
+        $DOID = addinsertData($sql);
+        echo json_encode($DOID);
+        break;
+    case "createserv_of_dep":
+        $DOID = $_POST['DOID'] ?? "";
+        $valSPID = $_POST['valSPID'] ?? "";
+        $valnumpeople = $_POST['valnumpeople'] ?? "";
+        $valnumpoint = $_POST['valnumpoint'] ?? "";
+        $valcomment = $_POST['valcomment'] ?? "";
+        if ($valcomment == null) {
+            $valcomment = "NULL";
+        } else {
+            $valcomment = "'$valcomment'";
+        }
+
+        $sql = "INSERT INTO `serv_of_dep` (`SPDID`, `DOID`, `SPID`, `numPeople`, `numPoint`, `comment`) 
+        VALUES (NULL, '$DOID', '$valSPID', '$valnumpeople', '$valnumpoint', $valcomment )";
+        $SPDID = addinsertData($sql);
+        echo json_encode($SPDID);
+        break;
+    case "createInfoPeople":
+        $ArrayDOID = json_decode($_POST['ArrayDOID'], true);
+        $ArraySPDID = json_decode($_POST['ArraySPDID'], true);
+        $sql = "SELECT * FROM `working`";
+        $INFOWORKING = selectData($sql);
+        $sql = "SELECT * FROM `workingvehicle`";
+        $INFOWORKINGVEHICLE = selectData($sql);
+        $sql = "SELECT * FROM `workingoption`";
+        $INFOWORKINGOPTION = selectData($sql);
+        for ($i = 1; $i <= $INFOWORKING[0]['numrow']; $i++) {
+            if (isset($ArraySPDID[$INFOWORKING[$i]['DID']][$INFOWORKING[$i]['SPID']]) && !empty($ArraySPDID[$INFOWORKING[$i]['DID']][$INFOWORKING[$i]['SPID']])) {
+                $SPDID = $ArraySPDID[$INFOWORKING[$i]['DID']][$INFOWORKING[$i]['SPID']];
+                if ($INFOWORKING[$i]['PID'] == null) {
+                    $PID = "NULL";
+                } else {
+                    $PID = "'{$INFOWORKING[$i]['PID']}'";
+                }
+                $sql = "INSERT INTO `detail_serv_of_dep` (`DSPID`, `SPDID`, `PID`) VALUES (NULL, '$SPDID', $PID)";
+                addinsertData($sql);
+            }
+        }
+        for ($i = 1; $i <= $INFOWORKINGVEHICLE[0]['numrow']; $i++) {
+            if (isset($ArrayDOID[$INFOWORKINGVEHICLE[$i]['DID']]) && !empty($ArrayDOID[$INFOWORKINGVEHICLE[$i]['DID']])) {
+                $DOID = $ArrayDOID[$INFOWORKINGVEHICLE[$i]['DID']];
+                if ($INFOWORKINGVEHICLE[$i]['PID'] == null) {
+                    $PID = "NULL";
+                } else {
+                    $PID = "'{$INFOWORKINGVEHICLE[$i]['PID']}'";
+                }
+                if ($INFOWORKINGVEHICLE[$i]['VID'] == null) {
+                    $VID = "NULL";
+                } else {
+                    $VID = "'{$INFOWORKINGVEHICLE[$i]['VID']}'";
+                }
+                $sql = "INSERT INTO `vehicle_of_dep` (`VDID`, `DOID`, `VID`, `PID`) VALUES (NULL, '$DOID',  $VID, $PID)";
+                addinsertData($sql);
+            }
+        }
+
+        for ($i = 1; $i <= $INFOWORKINGOPTION[0]['numrow']; $i++) {
+            if (isset($ArrayDOID[$INFOWORKINGOPTION[$i]['DID']]) && !empty($ArrayDOID[$INFOWORKINGOPTION[$i]['DID']])) {
+                $DOID = $ArrayDOID[$INFOWORKINGOPTION[$i]['DID']];
+                $OSID = $INFOWORKINGOPTION[$i]['OSID'];
+                $sql = "INSERT INTO `option_of_dep` (`ODID`, `DOID`, `OSID`) VALUES (NULL, '$DOID', '$OSID')";
+                addinsertData($sql);
+            }
+        }
+        break;
 }
