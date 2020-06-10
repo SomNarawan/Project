@@ -7,18 +7,31 @@ switch ($action) {
         $DID = $_POST['DID'] ?? "";
         $SPID = $_POST['SPID'] ?? "";
         $PID = $_POST['PID'] ?? "";
-        $sql = "DELETE FROM working WHERE DID = $DID AND SPID =$SPID  AND PID= $PID";
+        if ($PID != 0) {
+            $sql = "DELETE FROM working WHERE DID = $DID AND SPID =$SPID  AND PID= $PID";
+        } else {
+            $sql = "DELETE FROM working WHERE `WID`=(SELECT `WID` FROM working WHERE `PID`IS NULL AND DID=$DID  AND`SPID`=$SPID ORDER BY `WID`  LIMIT 1)";
+        }
         deletedata($sql);
         break;
     case "InsertWorking":
         $DID = $_POST['DID'] ?? "";
         $SPID = $_POST['SPID'] ?? "";
         $PID = $_POST['PID'] ?? "";
-        $sql = "INSERT INTO `working` (`WID`, `DID`, `SPID`, `PID`) VALUES (NULL, '$DID', '$SPID', '$PID')";
+        if ($PID == 0) {
+            $PID = "NULL";
+        } else {
+            $PID = "'$PID'";
+        }
+        $sql = "INSERT INTO `working` (`WID`, `DID`, `SPID`, `PID`) VALUES (NULL, '$DID', '$SPID', $PID)";
         addinsertData($sql);
         break;
     case "ClearWorking":
         $sql = "DELETE FROM working ";
+        deletedata($sql);
+        $sql = "DELETE FROM workingvehicle ";
+        deletedata($sql);
+        $sql = "DELETE FROM workingoption ";
         deletedata($sql);
         $sql = "UPDATE `vehicle` SET `Status` = 'notuse' ";
         updateData($sql);
@@ -95,4 +108,62 @@ switch ($action) {
         $VID = $_POST['VID'] ?? "";
         $sql = "DELETE FROM `vehicle` WHERE `vehicle`.`VID` = $VID";
         deletedata($sql);
+        break;
+    case "addblankName":
+        $DID = $_POST['DID'] ?? "";
+        $SPID = $_POST['SPID'] ?? "";
+        $sql = "INSERT INTO `working` (`WID`, `DID`, `SPID`, `PID`) VALUES (NULL, '$DID', '$SPID', NULL)";
+        addinsertData($sql);
+        break;
+    case "addblankVehicle":
+        $DID = $_POST['DID'] ?? "";
+        $sql = "INSERT INTO `workingvehicle` (`WVID`, `DID`, `VID`, `PID`) VALUES (NULL, $DID, NULL, NULL)";
+        addinsertData($sql);
+        break;
+    case "DeleteWorkingVehicle":
+        $DID = $_POST['DID'] ?? "";
+        $VID = $_POST['VID'] ?? "";
+        $PID = $_POST['PID'] ?? "";
+        if ($VID == 0) {
+            $VID = "VID IS NULL";
+        } else {
+            $VID = "VID = $VID ";
+        }
+        if ($PID == 0) {
+            $PID = "PID IS NULL";
+        } else {
+            $PID = "PID = $PID ";
+        }
+        $sql = "DELETE FROM workingvehicle WHERE `WVID`=(SELECT `WVID` FROM workingvehicle WHERE DID = $DID AND $PID AND $VID ORDER BY `WVID`  LIMIT 1)";
+        deletedata($sql);
+        break;
+    case "InsertWorkingVehicle":
+        $DID = $_POST['DID'] ?? "";
+        $VID = $_POST['VID'] ?? "";
+        $PID = $_POST['PID'] ?? "";
+        if ($VID == 0) {
+            $VID = "NULL";
+        } else {
+            $VID = "'$VID'";
+        }
+        if ($PID == 0) {
+            $PID = "NULL";
+        } else {
+            $PID = "'$PID'";
+        }
+        $sql = "INSERT INTO `workingvehicle` (`WVID`, `DID`, `VID`, `PID`) VALUES (NULL, '$DID', $VID, $PID)";
+        deletedata($sql);
+        break;
+    case "setWorkingOption":
+        $DID = $_POST['DID'] ?? "";
+        $OSID = $_POST['OSID'] ?? "";
+        $type = $_POST['type'] ?? "";
+        if ($type == "C") {
+            $sql = "INSERT INTO `workingoption` (`WOID`, `DID`, `OSID`) VALUES (NULL, '$DID', '$OSID')";
+            addinsertData($sql);
+        } else if ($type == "D") {
+            $sql = "DELETE FROM `workingoption` WHERE  DID= $DID AND OSID=$OSID";
+            deletedata($sql);
+        }
+        break;
 }

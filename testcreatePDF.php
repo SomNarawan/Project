@@ -76,7 +76,7 @@ for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
             ON `people`.`PID`=`detail_serv_of_dep`.`PID`
             WHERE `detail_serv_of_dep`.`SPDID`={$INFOSERVICEPOINT[$j]['SPDID']} ORDER BY `detail_serv_of_dep`.`PID` DESC";
             $INFOPEOPLE = selectData($sql);
-            for ($k = 1; $k <= $INFOPEOPLE[0]['numrow'] || $k <= $INFOSERVICEPOINT[$j]['numPeople']; $k++) {
+            for ($k = 1; $k <= $INFOPEOPLE[0]['numrow'] || $k <= $INFOSERVICEPOINT[$j]['numPoint']; $k++) {
 
                 if ($k <= $INFOPEOPLE[0]['numrow']) {
                     if ($INFOPEOPLE[$k]['Title'] == NULL) {
@@ -86,10 +86,10 @@ for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
                     }
                     if ($k == 1) {
                         $html .= "  <tr>
-                                        <td style=\"width: 100px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPeople']}\">{$INFOSERVICEPOINT[$j]['SPName']}</td>
-                                        <td style=\"width: 50px;text-align: right;padding-right: 10px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPeople']}\">{$INFOSERVICEPOINT[$j]['numPeople']}</td>
-                                        <td style=\"width: 50px;text-align: right;padding-right: 10px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPeople']}\">{$INFOSERVICEPOINT[$j]['numPoint']}</td>
-                                        <td style=\"width: 200px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPeople']}\">$comment</td>
+                                        <td style=\"width: 100px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">{$INFOSERVICEPOINT[$j]['SPName']}</td>
+                                        <td style=\"width: 50px;text-align: right;padding-right: 10px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">{$INFOSERVICEPOINT[$j]['numPeople']}</td>
+                                        <td style=\"width: 50px;text-align: right;padding-right: 10px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">{$INFOSERVICEPOINT[$j]['numPoint']}</td>
+                                        <td style=\"width: 200px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">$comment</td>
                                         <td style=\"width: 250px;\">$name</td>
                                         <td style=\"width: 150px;\"></td>
                                         <td style=\"width: 75px;\"></td>
@@ -106,10 +106,10 @@ for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
                 } else {
                     if ($k == 1) {
                         $html .= "  <tr>
-                                        <td style=\"width: 100px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPeople']}\">{$INFOSERVICEPOINT[$j]['SPName']}</td>
-                                        <td style=\"width: 50px;text-align: right;padding-right: 10px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPeople']}\">{$INFOSERVICEPOINT[$j]['numPeople']}</td>
-                                        <td style=\"width: 50px;text-align: right;padding-right: 10px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPeople']}\">{$INFOSERVICEPOINT[$j]['numPoint']}</td>
-                                        <td style=\"width: 200px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPeople']}\">$comment</td>
+                                        <td style=\"width: 100px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">{$INFOSERVICEPOINT[$j]['SPName']}</td>
+                                        <td style=\"width: 50px;text-align: right;padding-right: 10px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">{$INFOSERVICEPOINT[$j]['numPeople']}</td>
+                                        <td style=\"width: 50px;text-align: right;padding-right: 10px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">{$INFOSERVICEPOINT[$j]['numPoint']}</td>
+                                        <td style=\"width: 200px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">$comment</td>
                                         <td style=\"width: 250px;\">-</td>
                                         <td style=\"width: 150px;\"></td>
                                         <td style=\"width: 75px;\"></td>
@@ -132,7 +132,7 @@ for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
             WHERE `vehicle_of_dep`.`DOID` = {$INFODEPARTMENT[$i]['DOID']} 
             ORDER BY `vehicle_of_dep`.`VID` DESC ,`vehicle_of_dep`.`PID` DESC";
             $INFOPEOPLEVEHICLE = selectData($sql);
-            for ($k = 1; $k <= $INFOPEOPLEVEHICLE[0]['numrow'] || $k <= $INFOSERVICEPOINT[$j]['numPeople']; $k++) {
+            for ($k = 1; $k <= $INFOPEOPLEVEHICLE[0]['numrow'] || $k <= $INFOSERVICEPOINT[$j]['numPoint']; $k++) {
 
                 if ($k <= $INFOPEOPLEVEHICLE[0]['numrow']) {
                     if ($INFOPEOPLEVEHICLE[$k]['Title'] == NULL) {
@@ -147,9 +147,9 @@ for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
                     }
                     if ($k == 1) {
                         $html .= "  <tr>
-                                        <td style=\"width: 100px;\" rowspan=\"" . ($INFOSERVICEPOINT[$j]['numPeople'] + 1) . "\">{$INFOSERVICEPOINT[$j]['SPName']}</td>
-                                        <td style=\"width: 50px;text-align: right;padding-right: 10px;\" rowspan=\"" . ($INFOSERVICEPOINT[$j]['numPeople'] + 1) . "\">{$INFOSERVICEPOINT[$j]['numPeople']}</td>
-                                        <td style=\"width: 50px;text-align: right;padding-right: 10px;\" rowspan=\"" . ($INFOSERVICEPOINT[$j]['numPeople'] + 1) . "\">{$INFOSERVICEPOINT[$j]['numPoint']}</td>
+                                        <td style=\"width: 100px;\" rowspan=\"" . ($INFOSERVICEPOINT[$j]['numPoint'] + 1) . "\">{$INFOSERVICEPOINT[$j]['SPName']}</td>
+                                        <td style=\"width: 50px;text-align: right;padding-right: 10px;\" rowspan=\"" . ($INFOSERVICEPOINT[$j]['numPoint'] + 1) . "\">{$INFOSERVICEPOINT[$j]['numPeople']}</td>
+                                        <td style=\"width: 50px;text-align: right;padding-right: 10px;\" rowspan=\"" . ($INFOSERVICEPOINT[$j]['numPoint'] + 1) . "\">{$INFOSERVICEPOINT[$j]['numPoint']}</td>
                                         <td style=\"width: 200px;\">$namevehicle</td>
                                         <td style=\"width: 250px;\">$name</td>
                                         <td style=\"width: 150px;\"></td>
@@ -168,9 +168,9 @@ for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
                 } else {
                     if ($k == 1) {
                         $html .= "  <tr>
-                                        <td style=\"width: 100px;\" rowspan=\"" . ($INFOSERVICEPOINT[$j]['numPeople'] + 1) . "\">{$INFOSERVICEPOINT[$j]['SPName']}</td>
-                                        <td style=\"width: 50px;text-align: right;padding-right: 10px;\" rowspan=\"" . ($INFOSERVICEPOINT[$j]['numPeople'] + 1) . "\">{$INFOSERVICEPOINT[$j]['numPeople']}</td>
-                                        <td style=\"width: 50px;text-align: right;padding-right: 10px;\" rowspan=\"" . ($INFOSERVICEPOINT[$j]['numPeople'] + 1) . "\">{$INFOSERVICEPOINT[$j]['numPoint']}</td>
+                                        <td style=\"width: 100px;\" rowspan=\"" . ($INFOSERVICEPOINT[$j]['numPoint'] + 1) . "\">{$INFOSERVICEPOINT[$j]['SPName']}</td>
+                                        <td style=\"width: 50px;text-align: right;padding-right: 10px;\" rowspan=\"" . ($INFOSERVICEPOINT[$j]['numPoint'] + 1) . "\">{$INFOSERVICEPOINT[$j]['numPeople']}</td>
+                                        <td style=\"width: 50px;text-align: right;padding-right: 10px;\" rowspan=\"" . ($INFOSERVICEPOINT[$j]['numPoint'] + 1) . "\">{$INFOSERVICEPOINT[$j]['numPoint']}</td>
                                         <td style=\"width: 200px;\">-</td>
                                         <td style=\"width: 250px;\">-</td>
                                         <td style=\"width: 150px;\"></td>
