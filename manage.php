@@ -250,4 +250,9 @@ switch ($action) {
             }
         }
         break;
+    case "deletehistory":
+        $OID = $_POST['OID'] ?? "";
+        $sql = "DELETE FROM `operation` WHERE `operation`.`OID` = $OID";
+        deletedata($sql);
+        break;
 }

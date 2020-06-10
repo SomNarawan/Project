@@ -189,6 +189,9 @@ for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
                     }
                 }
             }
+            if ($comment == "") {
+                $comment .= "-";
+            }
             $html .= "  <tr>
                             <td style=\"width: 200px;\">$comment</td>
                             <td style=\"width: 250px;background-color: #98918F;\"></td>
