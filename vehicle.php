@@ -32,6 +32,9 @@ $VEHICLE = getVehicle();
                 <li class="nav-item">
                     <a class="nav-link" href="./vehicle.php">เพิ่มยานพาหนะ</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./history.php">ประวัติ</a>
+                </li>
             </ul>
         </nav>
     </div>
@@ -96,8 +99,7 @@ $VEHICLE = getVehicle();
                                 <span>รายชื่อยานพาหนะ</span>
                             </div>
                             <div class="col-xl-5 col-12">
-                                <input type="text" class="form-control" name="name" required=""
-                                    placeholder="กรุณากรอกชื่อยานพาหนะ">
+                                <input type="text" class="form-control" name="name" required="" placeholder="กรุณากรอกชื่อยานพาหนะ">
                             </div>
                         </div>
 
@@ -129,8 +131,7 @@ $VEHICLE = getVehicle();
                                 <span>รายชื่อยานพาหนะ</span>
                             </div>
                             <div class="col-xl-5 col-12">
-                                <input type="text" class="form-control" name="name" id="name" required=""
-                                    placeholder="กรุณากรอกชื่อยานพาหนะ">
+                                <input type="text" class="form-control" name="name" id="name" required="" placeholder="กรุณากรอกชื่อยานพาหนะ">
                             </div>
                         </div>
                         <input type="hidden" name="VID" id="VID" value="0">
@@ -146,62 +147,62 @@ $VEHICLE = getVehicle();
     </form>
 </div>
 <script>
-$(document).ready(function() {
-    $('.tt').tooltip({
-        trigger: "hover"
-    });
-    $('.datatables').DataTable();
+    $(document).ready(function() {
+        $('.tt').tooltip({
+            trigger: "hover"
+        });
+        $('.datatables').DataTable();
 
-    $(document).on("click", "#btn_add", function() {
-        $("#addModal").modal();
-    });
-    $(document).on("click", ".btn_edit", function() {
-        var VID = $(this).attr('vid');
-        var VName = $(this).attr('vname');
-        $("#VID").val(VID);
-        $("#name").val(VName);
-        $("#editModal").modal();
-    });
-    $(document).on("click", ".btn_del", function() {
-        var VID = $(this).attr('vid');
-        var VName = $(this).attr('vname');
-        swal({
-                title: "คุณต้องการลบ",
-                text: `ยานพาหนะ ${VName} หรือไม่ ?`,
-                icon: "warning",
-                confirmButtonClass: "btn-danger",
-                cancelButtonClass: "btn-secondary",
-                confirmButtonText: "ยืนยัน",
-                cancelButtonText: "ยกเลิก",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    swal("ลบข้อมูลสำเร็จ", {
-                        icon: "success",
-                    }).then((confirm) => {
-                        if (confirm) {
-                            delete_1(VID);
-                        }
-                    });
-                } else {
+        $(document).on("click", "#btn_add", function() {
+            $("#addModal").modal();
+        });
+        $(document).on("click", ".btn_edit", function() {
+            var VID = $(this).attr('vid');
+            var VName = $(this).attr('vname');
+            $("#VID").val(VID);
+            $("#name").val(VName);
+            $("#editModal").modal();
+        });
+        $(document).on("click", ".btn_del", function() {
+            var VID = $(this).attr('vid');
+            var VName = $(this).attr('vname');
+            swal({
+                    title: "คุณต้องการลบ",
+                    text: `ยานพาหนะ ${VName} หรือไม่ ?`,
+                    icon: "warning",
+                    confirmButtonClass: "btn-danger",
+                    cancelButtonClass: "btn-secondary",
+                    confirmButtonText: "ยืนยัน",
+                    cancelButtonText: "ยกเลิก",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        swal("ลบข้อมูลสำเร็จ", {
+                            icon: "success",
+                        }).then((confirm) => {
+                            if (confirm) {
+                                delete_1(VID);
+                            }
+                        });
+                    } else {
 
+                    }
+                });
+
+        });
+
+        function delete_1(VID) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    window.location = './vehicle.php';
                 }
-            });
-
+            };
+            xhttp.open("POST", "manage.php", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(`VID=${VID}&action=deletevehicle`);
+        }
     });
-
-    function delete_1(VID) {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                window.location = './vehicle.php';
-            }
-        };
-        xhttp.open("POST", "manage.php", true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send(`VID=${VID}&action=deletevehicle`);
-    }
-});
 </script>
