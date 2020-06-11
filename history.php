@@ -42,7 +42,7 @@ $HISTORY = getHistory();
         <div align="center" style="margin-top: 20px;">
             <div class="col-xl-8 align-center">
                 <label>
-                    <h2>ประวัติ</h2>
+                    <h2>ประวัติ </h2>
                 </label>
 
                 <table class="table table-bordered table-data  datatables" cellspacing="0">
