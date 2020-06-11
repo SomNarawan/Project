@@ -168,7 +168,7 @@ for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
                         $html .= "  <tr>
                                         <td style=\"width: 100px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">{$INFOSERVICEPOINT[$j]['SPName']}</td>
                                         <td style=\"width: 200px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">$commentcar</td>
-                                        <td style=\"width: 50px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">-</td>
+                                        <td style=\"width: 50px;text-align: center;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">-</td>
                                         <td style=\"width: 50px;text-align: right;padding-right: 10px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">{$NUM[1]['num']}</td>
                                         <td style=\"width: 250px;\">$name</td>
                                         <td style=\"width: 150px;\"></td>
@@ -188,7 +188,7 @@ for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
                         $html .= "  <tr>
                                         <td style=\"width: 100px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">{$INFOSERVICEPOINT[$j]['SPName']}</td>
                                         <td style=\"width: 200px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">$commentcar</td>
-                                        <td style=\"width: 50px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">-</td>
+                                        <td style=\"width: 50px;text-align: center;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">-</td>
                                         <td style=\"width: 50px;text-align: right;padding-right: 10px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">{$NUM[1]['num']}</td>
                                         <td style=\"width: 200px;\">-</td>
                                         <td style=\"width: 250px;\">-</td>

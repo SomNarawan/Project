@@ -102,11 +102,12 @@ $(document).on("click", ".btn-plus", function() {
                 </div>`;
     idnote_div = "note-col" + DID + "row" + SPID;
     iddiv = "col" + DID + "row" + SPID;
-    note_div = ` <input class="form-control" placeholder="เพิ่มเติม" id="` + idnote_div + `" type="text" style="width:515px">`;
-
+    note_div = ` <input class="form-control note comment" placeholder="เพิ่มเติม" id="` + idnote_div + `" type="text" style="width:515px">`;
+    test = $("#" + idnote_div).val();
     $("#" + idnote_div).remove();
     $("#" + iddiv).append(html); //เพิ่ม เลือกชื่อ
     $("#" + iddiv).append(note_div); //เพิ่ม เพิ่มเติม
+    $("#" + idnote_div).val(test);
     $('.js-example-basic-single').select2();
 });
 $(document).on("click", "#ok", function() {
@@ -157,11 +158,8 @@ $(document).on("click", "#submit-data", function() {
             return false;
         }
     });
-
-    // console.log(check);
-
     if (check) {
-        // console.log('this');
+
         $('#submit-data').attr("type", "button");
         swal({
                 title: "คุณยืนยันข้อมูลหรือไม่",
@@ -175,7 +173,7 @@ $(document).on("click", "#submit-data", function() {
                 if (willDelete) {
                     let date = $("#date").val();
                     let num_company = $("#num_company").val();
-                    console.log(date + " " + num_company)
+
                     createOperation(date, num_company);
                     createInFoOperation();
                     createInfoServicepoint();
@@ -569,7 +567,7 @@ function createInFoOperation() {
         let valOID = OID;
         createdep_of_opera(valOID, valDID, valcompany, valprovince, valtime, valtimeOparetion);
     }
-    console.log(DOID);
+
 }
 
 function createdep_of_opera(valOID, valDID, valcompany, valprovince, valtime, valtimeOparetion) {
@@ -606,17 +604,18 @@ function createInfoServicepoint() {
         []
     ];
     for (i = 0; i < numpeople.length; i++) {
-        let valnumpeople = $(numpeople[i]).val();
-        let valDID = $(numpeople[i]).attr('DID');
-        let valSPID = $(numpeople[i]).attr('SPID');
         let valnumpoint = $(numpoint[i]).val();
-        var valcomment = $(comment[i]).val();
         if (valnumpoint > 0) {
+            let valnumpeople = $(numpeople[i]).val();
+            let valDID = $(numpeople[i]).attr('DID');
+            let valSPID = $(numpeople[i]).attr('SPID');
+            let valcomment = $(comment[i]).val();
+
             createserv_of_dep(DOID[valDID], valDID, valSPID, valnumpeople, valnumpoint, valcomment);
         }
 
     }
-    console.log(SPDID);
+
 }
 
 function createserv_of_dep(DOID, valDID, valSPID, valnumpeople, valnumpoint, valcomment) {
@@ -649,9 +648,10 @@ function createInfoPeople() {
         },
         async: false,
         success: function(result) {
-            console.log(result);
+
             window.open("./createPDF.php?OID=" + OID + "&DOWLOAD=1");
             window.open("./createPDF.php?OID=" + OID);
         }
     });
 }
+console.log("pass");
