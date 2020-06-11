@@ -225,3 +225,4 @@ if ($DOWLOAD == "0") {
 } else {
     $mpdf->Output($NameFile, "D");
 }
+
