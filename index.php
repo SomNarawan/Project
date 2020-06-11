@@ -49,42 +49,42 @@ if (isset($_POST["province"])) {
     <script src="./js/select2/select2.min.js"></script>
 
     <style>
-        i.fa {
-            display: inline-block;
-            border-radius: 60px;
-            box-shadow: 0px 0px 2px #888;
-            padding: 0.5em 0.6em;
-        }
+    i.fa {
+        display: inline-block;
+        border-radius: 60px;
+        box-shadow: 0px 0px 2px #888;
+        padding: 0.5em 0.6em;
+    }
 
-        .add-remove {
-            background: #FFFFFF;
-            border: 0px;
-        }
+    .add-remove {
+        background: #FFFFFF;
+        border: 0px;
+    }
 
-        .border-table {
-            border-width: 3px;
-            border-color: black;
-        }
+    .border-table {
+        border-width: 3px;
+        border-color: black;
+    }
 
-        .set-margin {
-            margin-left: 30px;
-        }
+    .set-margin {
+        margin-left: 30px;
+    }
 
-        .form-control {
-            color: #212529;
-            /* font-weight: bold; */
-        }
+    .form-control {
+        color: #212529;
+        /* font-weight: bold; */
+    }
 
-        .select2-container .select2-selection--single .select2-selection__rendered {
-            color: #212529;
-            /* font-weight: bold; */
-        }
+    .select2-container .select2-selection--single .select2-selection__rendered {
+        color: #212529;
+        /* font-weight: bold; */
+    }
 
-        span.select2-container--default .select2-selection--single .select2-selection__rendered {
-            color: #212529;
-            line-height: 25px;
-            /* font-weight: bold; */
-        }
+    span.select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #212529;
+        line-height: 25px;
+        /* font-weight: bold; */
+    }
     </style>
 </head>
 
@@ -105,33 +105,38 @@ if (isset($_POST["province"])) {
             </ul>
         </nav>
     </div>
+    <form action="#" method="post">
 
-    <div class="container-fluid body-web" style="position: absolute; top: 80px;">
+        <div class="container-fluid body-web" style="position: absolute; top: 80px;">
 
-        <div class="row" style="text-align: center;">
-            <div class="col-lg-10">
-                <form action="index.php" method="post">
-                    <div class="row">
-                        <div class="form-inline" style="margin-left: 34%;">
-                            <label style="width:100px; font-weight: bold;">วันที่ตรวจ</label>
-                            <input name="date" id="date" class="form-control" style="width:250px;" type="date" value="<?php echo $date; ?>">
+            <div class="row" style="text-align: center;">
+                <div class="col-lg-10">
+                    <form action="index.php" method="post">
+                        <div class="row">
+                            <div class="form-inline" style="margin-left: 34%;">
+                                <label style="width:100px; font-weight: bold;">วันที่ตรวจ</label>
+                                <input name="date" id="date" class="form-control" style="width:250px;" type="date"
+                                 value="<?php echo $date; ?>">
+                            </div>
+                            <div class="form-inline set-button" style="margin-left: 6%;">
+                                <label style="width:100px; font-weight: bold;">จำนวนหน่วย</label>
+                                <input class="form-control" id="num_company" name="num_company" style="width:90px"
+                                    type="number" min=1 max=6 value="<?php echo $comp; ?>" required>
+                                <button type="submit" class="btn btn-success" id="ok" name="ok"
+                                    style="width:90px">ตกลง</button>
+                            </div>
                         </div>
-                        <div class="form-inline set-button" style="margin-left: 6%;">
-                            <label style="width:100px; font-weight: bold;">จำนวนหน่วย</label>
-                            <input class="form-control" id="num_company" name="num_company" style="width:90px" type="number" min=1 max=6 value="<?php echo $comp; ?>" required>
-                            <button type="submit" class="btn btn-success" id="ok" name="ok" style="width:90px">ตกลง</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="col-lg-2">
+                    <button type="button" class="close" aria-label="Close" hidden>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <button class="btn btn-info set-button" id="submit-data" type="submit"
+                        style="width:100%; height:100%">ยืนยันข้อมูล</button>
+                </div>
             </div>
-            <div class="col-lg-2">
-                <button type="button" class="close" aria-label="Close" hidden>
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <button class="btn btn-info set-button" id="submit-data" style="width:100%; height:100%">ยืนยันข้อมูล</button>
-            </div>
-        </div>
-        <?php if ($comp > 2) { ?>
+            <?php if ($comp > 2) { ?>
             <div class="row">
                 <div class="col-lg-4"></div>
                 <div class="col-lg-4 row form-inline" style="margin-top: 20px;">
@@ -145,20 +150,20 @@ if (isset($_POST["province"])) {
                             3<?php if ($comp > 3) echo " - 4"; ?></button>
                     </div>
                     <?php if ($comp > 4) { ?>
-                        <div class="col-lg-4">
-                            <button class="form-control btn-warning set-button" id="btnswitch3">หน่วยที่
-                                5<?php if ($comp > 5) echo " - 6"; ?></button>
-                        </div>
+                    <div class="col-lg-4">
+                        <button class="form-control btn-warning set-button" id="btnswitch3">หน่วยที่
+                            5<?php if ($comp > 5) echo " - 6"; ?></button>
+                    </div>
                     <?php } ?>
                 </div>
             </div>
-        <?php } ?>
-        <div align="center" style="margin-top: 20px;">
-            <table class="table-bordered border-table">
-                <!-- Head Table -->
-                <tr align="center" id="head_table" name="head_table">
-                    <th style="border-width:3px; border-color: black;">จุดบริการ</th>
-                    <?php for ($k = 0; $k < $comp; $k++) {
+            <?php } ?>
+            <div align="center" style="margin-top: 20px;">
+                <table class="table-bordered border-table">
+                    <!-- Head Table -->
+                    <tr align="center" id="head_table" name="head_table">
+                        <th style="border-width:3px; border-color: black;">จุดบริการ</th>
+                        <?php for ($k = 0; $k < $comp; $k++) {
                         if ($k < 2) {
                             $num = "1";
                         } else if ($k < 4) {
@@ -168,30 +173,37 @@ if (isset($_POST["province"])) {
                         }
 
                     ?>
-                        <th class="show<?= $num ?>" style="font-weight: bold; border-bottom-width:3px; border-bottom-color: black;">ยอดพนักงาน
+                        <th class="show<?= $num ?>"
+                            style="font-weight: bold; border-bottom-width:3px; border-bottom-color: black;">ยอดพนักงาน
                         </th>
-                        <th class="show<?= $num ?>" style="font-weight: bold; border-bottom-width:3px; border-bottom-color: black;">จุดที่ตรวจ
+                        <th class="show<?= $num ?>"
+                            style="font-weight: bold; border-bottom-width:3px; border-bottom-color: black;">จุดที่ตรวจ
                         </th>
-                        <th class="show<?= $num ?>" style="font-weight: bold; border-bottom-width:3px; border-bottom-color: black; border-right-width:3px; border-right-color: black;">
+                        <th class="show<?= $num ?>"
+                            style="font-weight: bold; border-bottom-width:3px; border-bottom-color: black; border-right-width:3px; border-right-color: black;">
                             <label>หน่วยที่ <?php echo $k + 1; ?></label>
-                            <input class="form-control th-company " DID="<?php echo $k + 1; ?>" placeholder="กรอกชื่อบริษัท" type="text" style="width:555px; font-weight: bold;">
+                            <input class="form-control th-company " DID="<?php echo $k + 1; ?>"
+                                placeholder="กรอกชื่อบริษัท" type="text" style="width:555px; font-weight: bold;">
                             <div class="form-inline">
-                                <input class="form-control th-time " type="text" placeholder="กรอกเวลาออกรถ" style="width:150px; font-weight: bold;">
-                                <input class="form-control th-timeOparetion" type="text" placeholder="กรอกเวลาตรวจ" style="width:185px; font-weight: bold;">
-                                <select class="form-control js-example-basic-single this th-province" name="province" required style="width:220px; font-weight: bold;">
-                                    <option value="0">เลือกจังหวัด</option>
+                                <input class="form-control th-time " type="text" placeholder="กรอกเวลาออกรถ"
+                                    style="width:150px; font-weight: bold;">
+                                <input class="form-control th-timeOparetion" type="text" placeholder="กรอกเวลาตรวจ"
+                                    style="width:185px; font-weight: bold;">
+                                <select class="form-control js-example-basic-single this th-province" name="province"
+                                    style="width:220px; font-weight: bold;">
+                                    <option value="">เลือกจังหวัด</option>
                                     <?php for ($i = 1; $i < $PROVINCE[0]['numrow']; $i++) { ?>
-                                        <option value="<?php echo $PROVINCE[$i]['AD1ID']; ?>">
-                                            <?php echo $PROVINCE[$i]['Province']; ?>
-                                        </option>
+                                    <option value="<?php echo $PROVINCE[$i]['AD1ID']; ?>">
+                                        <?php echo $PROVINCE[$i]['Province']; ?>
+                                    </option>
                                     <?php } ?>
                                 </select>
                             </div>
                         </th>
-                    <?php } ?>
-                </tr>
-                <!-- Body Table -->
-                <?php
+                        <?php } ?>
+                    </tr>
+                    <!-- Body Table -->
+                    <?php
                 for ($i = 1; $i <= $SERVICE[0]['numrow']; $i++) { ?>
                     <tr>
                         <td style="border-width:3px; border-color: black; font-weight: bold;">
@@ -208,15 +220,17 @@ if (isset($_POST["province"])) {
                             }
 
                         ?>
-                            <td class="show<?= $num ?>" style="border-bottom-width:3px; border-bottom-color: black;">
-                                <input class="form-control numpeople" DID="<?= $k + 1 ?>" SPID="<?= $SERVICE[$i]['SPID'] ?>" style="width:90px" type="number" min=0 value="0">
-                            </td>
-                            <td class="show<?= $num ?>" style="border-bottom-width:3px; border-bottom-color: black;">
-                                <input class="form-control numpoint" style="width:90px" type="number" min=0 value="0">
-                            </td>
+                        <td class="show<?= $num ?>" style="border-bottom-width:3px; border-bottom-color: black;">
+                            <input class="form-control numpeople" DID="<?= $k + 1 ?>" SPID="<?= $SERVICE[$i]['SPID'] ?>"
+                                style="width:90px" type="number" min=0 value="0">
+                        </td>
+                        <td class="show<?= $num ?>" style="border-bottom-width:3px; border-bottom-color: black;">
+                            <input class="form-control numpoint" style="width:90px" type="number" min=0 value="0">
+                        </td>
 
-                            <td class="show<?= $num ?>" id="col<?php echo $k + 1; ?>row<?php echo $SERVICE[$i]['SPID']; ?>" style="border-bottom-width:3px; border-bottom-color: black; border-right-width:3px; border-right-color: black;">
-                                <?php
+                        <td class="show<?= $num ?>" id="col<?php echo $k + 1; ?>row<?php echo $SERVICE[$i]['SPID']; ?>"
+                            style="border-bottom-width:3px; border-bottom-color: black; border-right-width:3px; border-right-color: black;">
+                            <?php
                                 $OPTION = getOption($SERVICE[$i]['SPID']);
                                 if ($OPTION[0]['numrow'] != 0) {
                                     if ($OPTION[1]['TypeOption'] == 'R') {
@@ -224,61 +238,74 @@ if (isset($_POST["province"])) {
                                     } else {
                                         $type = 'checkbox';
                                     } ?>
-                                    <div>
-                                        <?php for ($o = 1; $o <= $OPTION[0]['numrow']; $o++) { ?>
-                                            <input class="selectOption" type="<?php echo $type; ?>" id="<?php echo $OPTION[$o]['OSID']; ?>" typeCK="<?= $OPTION[1]['TypeOption'] ?>" DID="<?= $k + 1 ?>" OSID="<?php echo $OPTION[$o]['OSID']; ?>" name="<?php if ($OPTION[$o]['SPID'] == 2) echo "register" . ($k + 1);
-                                                                                                                                                                                                                                                            else echo $OPTION[$o]['OptionName']; ?>" value="<?php echo $OPTION[$o]['OSID']; ?>">
-                                            <label for="<?php echo $OPTION[$o]['OSID']; ?>"><?php echo $OPTION[$o]['OptionName']; ?></label>
-                                        <?php } ?>
-                                    </div>
+                            <div>
+                                <?php for ($o = 1; $o <= $OPTION[0]['numrow']; $o++) { ?>
+                                <input class="selectOption" type="<?php echo $type; ?>"
+                                    id="<?php echo $OPTION[$o]['OSID']; ?>" typeCK="<?= $OPTION[1]['TypeOption'] ?>"
+                                    DID="<?= $k + 1 ?>" OSID="<?php echo $OPTION[$o]['OSID']; ?>"
+                                    name="<?php if ($OPTION[$o]['SPID'] == 2) echo "register" . ($k + 1);
+                                                                                                                                                                                                                                                            else echo $OPTION[$o]['OptionName']; ?>"
+                                    value="<?php echo $OPTION[$o]['OSID']; ?>">
+                                <label
+                                    for="<?php echo $OPTION[$o]['OSID']; ?>"><?php echo $OPTION[$o]['OptionName']; ?></label>
                                 <?php } ?>
-                                <div class="form-inline">
+                            </div>
+                            <?php } ?>
+                            <div class="form-inline">
 
-                                    <!-- start if -->
-                                    <?php if ($SERVICE[$i]['SPID'] == 22) { ?>
-                                        <select class="form-control slecetVehicle js-example-basic-single" DID="<?= $k + 1 ?>" VID="0" required style="width:200px;">
-                                            <option value="0">เลือกรถ</option>
-                                            <?php for ($j = 1; $j < $VEHICLE[0]['numrow']; $j++) { ?>
-                                                <option value="<?php echo $VEHICLE[$j]['VID']; ?>">
-                                                    <?php echo $VEHICLE[$j]['VName']; ?>
-                                                </option>
-                                            <?php } ?>
-                                        </select>
-
-                                        <select class="form-control slecetName js-example-basic-single" DID="<?= $k + 1 ?>" SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:315px;">
-                                            <option value="0">เลือกชื่อ</option>
-                                            <?php for ($j = 1; $j < $PEOPLE[0]['numrow']; $j++) { ?>
-                                                <option value="<?php echo $PEOPLE[$j]['PID']; ?>">
-                                                    <?php echo $PEOPLE[$j]['Title'] . " " . $PEOPLE[$j]['FName'] . " " . $PEOPLE[$j]['LName'] . " (" . $PEOPLE[$j]['NName'] . ")"; ?>
-                                                </option>
-                                            <?php } ?>
-                                        </select>
-                                        <!-- else -->
-                                    <?php } else { ?>
-                                        <select class="form-control slecetName js-example-basic-single" DID="<?= $k + 1 ?>" SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:515px;">
-                                            <option value="0">เลือกชื่อ</option>
-                                            <?php for ($j = 1; $j < $PEOPLE[0]['numrow']; $j++) { ?>
-                                                <option value="<?php echo $PEOPLE[$j]['PID']; ?>">
-                                                    <?php echo $PEOPLE[$j]['Title'] . " " . $PEOPLE[$j]['FName'] . " " . $PEOPLE[$j]['LName'] . " (" . $PEOPLE[$j]['NName'] . ")"; ?>
-                                                </option>
-                                            <?php } ?>
-                                        </select>
+                                <!-- start if -->
+                                <?php if ($SERVICE[$i]['SPID'] == 22) { ?>
+                                <select class="form-control slecetVehicle js-example-basic-single" DID="<?= $k + 1 ?>"
+                                    VID="0" required style="width:200px;">
+                                    <option value="0">เลือกรถ</option>
+                                    <?php for ($j = 1; $j < $VEHICLE[0]['numrow']; $j++) { ?>
+                                    <option value="<?php echo $VEHICLE[$j]['VID']; ?>">
+                                        <?php echo $VEHICLE[$j]['VName']; ?>
+                                    </option>
                                     <?php } ?>
-                                    <button DID="<?= $k + 1 ?>" SPID="<?= $SERVICE[$i]['SPID'] ?>" check="<?php echo $SERVICE[$i]['SPID']; ?>" class="add-remove set-button btn-plus"><i class="fa fa-plus" style="background: #28a745;"></i></button>
-                                </div>
-                                <input class="form-control note comment" placeholder="เพิ่มเติม" id="note-col<?php echo $k + 1; ?>row<?php echo $SERVICE[$i]['SPID']; ?>" type="text" style="width:515px">
-                            </td>
+                                </select>
+
+                                <select class="form-control slecetName js-example-basic-single" DID="<?= $k + 1 ?>"
+                                    SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:315px;">
+                                    <option value="0">เลือกชื่อ</option>
+                                    <?php for ($j = 1; $j < $PEOPLE[0]['numrow']; $j++) { ?>
+                                    <option value="<?php echo $PEOPLE[$j]['PID']; ?>">
+                                        <?php echo $PEOPLE[$j]['Title'] . " " . $PEOPLE[$j]['FName'] . " " . $PEOPLE[$j]['LName'] . " (" . $PEOPLE[$j]['NName'] . ")"; ?>
+                                    </option>
+                                    <?php } ?>
+                                </select>
+                                <!-- else -->
+                                <?php } else { ?>
+                                <select class="form-control slecetName js-example-basic-single" DID="<?= $k + 1 ?>"
+                                    SPID="<?= $SERVICE[$i]['SPID'] ?>" PID="0" required style="width:515px;">
+                                    <option value="0">เลือกชื่อ</option>
+                                    <?php for ($j = 1; $j < $PEOPLE[0]['numrow']; $j++) { ?>
+                                    <option value="<?php echo $PEOPLE[$j]['PID']; ?>">
+                                        <?php echo $PEOPLE[$j]['Title'] . " " . $PEOPLE[$j]['FName'] . " " . $PEOPLE[$j]['LName'] . " (" . $PEOPLE[$j]['NName'] . ")"; ?>
+                                    </option>
+                                    <?php } ?>
+                                </select>
+                                <?php } ?>
+                                <button DID="<?= $k + 1 ?>" SPID="<?= $SERVICE[$i]['SPID'] ?>"
+                                    check="<?php echo $SERVICE[$i]['SPID']; ?>"
+                                    class="add-remove set-button btn-plus"><i class="fa fa-plus"
+                                        style="background: #28a745;"></i></button>
+                            </div>
+                            <input class="form-control note comment" placeholder="เพิ่มเติม"
+                                id="note-col<?php echo $k + 1; ?>row<?php echo $SERVICE[$i]['SPID']; ?>" type="text"
+                                style="width:515px">
+                        </td>
 
                         <?php } ?>
                     </tr>
-                <?php } ?>
-            </table>
+                    <?php } ?>
+                </table>
+            </div>
+            <div>
+                <br>
+            </div>
         </div>
-        <div>
-            <br>
-        </div>
-    </div>
-
+    </form>
 </body>
 
 </html>

@@ -111,7 +111,45 @@ $(document).ready(function() {
         $('.js-example-basic-single').select2();
     });
     $(document).on("click", "#submit-data", function() {
-        swal({
+        check = 1;
+        $(this).attr("type","submit");
+        $('#date').attr("required","required");
+
+        $('.th-company').each(function(){
+            $(this).attr("required","required");
+            if($(this).val().trim() == ''){
+                check = 0;
+                return false;
+            }
+        });
+        $('.th-time').each(function(){
+            $(this).attr("required","required");
+            if($(this).val().trim() == ''){
+                check = 0;
+                return false;
+            }
+        });
+        $('.th-timeOparetion').each(function(){
+            $(this).attr("required","required");
+            if($(this).val().trim() == ''){
+                check = 0;
+                return false;
+            }
+        });
+        $('.th-province').each(function(){
+            $(this).attr("required","required");
+            if($(this).val() == ''){
+                check = 0;
+                return false;
+            }
+        });
+
+        // console.log(check);
+
+        if(check){
+            // console.log('this');
+            $('#submit-data').attr("type","button");
+            swal({
                 title: "คุณยืนยันข้อมูลหรือไม่",
                 icon: "warning",
                 confirmButtonClass: "btn-danger",
@@ -138,6 +176,8 @@ $(document).ready(function() {
 
                 }
             });
+        }       
+        
     });
     $(document).on("click", ".btn-minus", function() {
         DID = $(this).attr("DID");
