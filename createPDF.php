@@ -37,11 +37,12 @@ $htmlTableHeader = "<br><br><table>
         <th style=\"width: 75px;\">เวลาถึง<br>จุดนัด</th>
         <th style=\"width: 75px;\">เวลากลับ</th>
     </tr>";
-$sql = "SELECT * FROM `dep_of_opera` WHERE OID=$OID ORDER BY DID  ";
+$sql = "SELECT * FROM `dep_of_opera` INNER JOIN `province` ON `province`.`AD1ID` =`dep_of_opera`.`AD1ID` WHERE OID=$OID ORDER BY DID  ";
 $INFODEPARTMENT = selectData($sql);
 for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
     $html = $htmlHeader;
     $html .= "<br><b>บริษัท:</b> {$INFODEPARTMENT[$i]['DOName']}";
+    $html .= "<br><b>จังหวัด:</b> {$INFODEPARTMENT[$i]['Province']}";
     $html .= "<br><b>เวลารถออก:</b> {$INFODEPARTMENT[$i]['TimeStart']}  ";
     $html .= "<br><b>ช่วงเวลาปฏิบัติงาน:</b> {$INFODEPARTMENT[$i]['TimeOperation']}";
     $html .= $htmlTableHeader;
