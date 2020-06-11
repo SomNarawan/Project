@@ -144,10 +144,10 @@ $(document).ready(function() {
             }
         });
 
-        console.log(check);
+        // console.log(check);
 
         if(check){
-            console.log('this');
+            // console.log('this');
             $('#submit-data').attr("type","button");
             swal({
                 title: "คุณยืนยันข้อมูลหรือไม่",
