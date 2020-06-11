@@ -287,8 +287,8 @@ if (isset($_POST["province"])) {
                                 </select>
                                 <?php } ?>
                                 <button DID="<?= $k + 1 ?>" SPID="<?= $SERVICE[$i]['SPID'] ?>"
-                                    check="<?php echo $SERVICE[$i]['SPID']; ?>"
-                                    class="add-remove set-button btn-plus"><i class="fa fa-plus"
+                                    check="<?php echo $SERVICE[$i]['SPID']; ?>" type="button"
+                                    class="add-remove set-button btn-plus"><i class="fa fa-plus" 
                                         style="background: #28a745;"></i></button>
                             </div>
                             <input class="form-control note comment" placeholder="เพิ่มเติม"
