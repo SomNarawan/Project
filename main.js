@@ -110,6 +110,21 @@ $(document).ready(function() {
         $("#" + iddiv).append(note_div); //เพิ่ม เพิ่มเติม
         $('.js-example-basic-single').select2();
     });
+    $(document).on("click","#ok", function(){
+        $('#date').removeAttr("required");
+        $('.th-company').each(function(){
+            $(this).removeAttr("required");
+        });
+        $('.th-time').each(function(){
+            $(this).removeAttr("required");
+        });
+        $('.th-timeOparetion').each(function(){
+            $(this).removeAttr("required");
+        });
+        $('.th-province').each(function(){
+            $(this).removeAttr("required");
+        });
+    });
     $(document).on("click", "#submit-data", function() {
         check = 1;
         $(this).attr("type","submit");
@@ -179,6 +194,7 @@ $(document).ready(function() {
         }       
         
     });
+    
     $(document).on("click", ".btn-minus", function() {
         DID = $(this).attr("DID");
         SPID = $(this).attr("SPID");
