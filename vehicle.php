@@ -25,12 +25,12 @@ $VEHICLE = getVehicle();
     <div>
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
             <a class="navbar-brand" href="./index.php">หน้าหลัก</a>
-            <ul class="navbar-nav">
+            <ul class=" navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="./people.php">เพิ่มเจ้าหน้าที่</a>
+                    <a class="nav-link" href="./people.php">จัดการเจ้าหน้าที่</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./vehicle.php">เพิ่มยานพาหนะ</a>
+                    <a class="nav-link" href="./vehicle.php">จัดการยานพาหนะ</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./history.php">ประวัติ</a>

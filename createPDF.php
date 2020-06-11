@@ -133,7 +133,7 @@ for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
             WHERE `vehicle_of_dep`.`DOID` = {$INFODEPARTMENT[$i]['DOID']} 
             ORDER BY `vehicle_of_dep`.`VID` DESC ,`vehicle_of_dep`.`PID` DESC";
             $INFOPEOPLEVEHICLE = selectData($sql);
-            $commentcar = "รถ:";
+            $commentcar = "รถ:<br>";
             $sql = "SELECT SUM(`numPoint`) AS num  FROM `serv_of_dep` WHERE `DOID` = {$INFODEPARTMENT[$i]['DOID']} AND `SPID` !=22";
             $NUM = selectData($sql);
             for ($k = 1; $k <= $INFOPEOPLEVEHICLE[0]['numrow']; $k++) {
@@ -147,11 +147,7 @@ for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
                 } else {
                     $name = "({$INFOPEOPLEVEHICLE[$k]['NName']})";
                 }
-                if ($k == 1) {
-                    $commentcar .= "$carname $name<br>";
-                } else {
-                    $commentcar .= "   $carname $name<br>";
-                }
+                $commentcar .= "$carname $name<br>";
             }
             $commentcar .= $comment;
 
@@ -237,4 +233,3 @@ if ($DOWLOAD == "0") {
 } else {
     $mpdf->Output($NameFile, "D");
 }
-
