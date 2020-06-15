@@ -132,11 +132,9 @@ for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
             LEFT JOIN `vehicle` ON `vehicle`.`VID`=`vehicle_of_dep`.`VID`
             LEFT JOIN `people` ON `people`.`PID` = `vehicle_of_dep`.`PID`
             WHERE `vehicle_of_dep`.`DOID` = {$INFODEPARTMENT[$i]['DOID']} 
-            ORDER BY `vehicle_of_dep`.`VID` DESC ,`vehicle_of_dep`.`PID` DESC";
+            ORDER BY `vehicle_of_dep`.`PID` DESC, `vehicle_of_dep`.`VID` DESC";
             $INFOPEOPLEVEHICLE = selectData($sql);
             $commentcar = "รถ:<br>";
-            $sql = "SELECT SUM(`numPoint`) AS num  FROM `serv_of_dep` WHERE `DOID` = {$INFODEPARTMENT[$i]['DOID']} AND `SPID` !=22";
-            $NUM = selectData($sql);
             for ($k = 1; $k <= $INFOPEOPLEVEHICLE[0]['numrow']; $k++) {
                 if ($INFOPEOPLEVEHICLE[$k]['VName'] == null) {
                     $carname = "รถเช่า";
@@ -170,7 +168,7 @@ for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
                                         <td style=\"width: 100px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">{$INFOSERVICEPOINT[$j]['SPName']}</td>
                                         <td style=\"width: 200px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">$commentcar</td>
                                         <td style=\"width: 50px;text-align: center;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">-</td>
-                                        <td style=\"width: 50px;text-align: right;padding-right: 10px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">{$NUM[1]['num']}</td>
+                                        <td style=\"width: 50px;text-align: right;padding-right: 10px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">{$INFOSERVICEPOINT[$j]['numPoint']}</td>
                                         <td style=\"width: 250px;\">$name</td>
                                         <td style=\"width: 150px;\"></td>
                                         <td style=\"width: 75px;\"></td>
@@ -190,8 +188,7 @@ for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
                                         <td style=\"width: 100px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">{$INFOSERVICEPOINT[$j]['SPName']}</td>
                                         <td style=\"width: 200px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">$commentcar</td>
                                         <td style=\"width: 50px;text-align: center;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">-</td>
-                                        <td style=\"width: 50px;text-align: right;padding-right: 10px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">{$NUM[1]['num']}</td>
-                                        <td style=\"width: 200px;\">-</td>
+                                        <td style=\"width: 50px;text-align: right;padding-right: 10px;\" rowspan=\"{$INFOSERVICEPOINT[$j]['numPoint']}\">{$INFOSERVICEPOINT[$j]['numPoint']}</td>
                                         <td style=\"width: 250px;\">-</td>
                                         <td style=\"width: 150px;\"></td>
                                         <td style=\"width: 75px;\"></td>
@@ -210,6 +207,17 @@ for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
             }
         }
     }
+    $sql = "SELECT SUM(`numPeople`) AS num  FROM `serv_of_dep` WHERE `DOID` = {$INFODEPARTMENT[$i]['DOID']} AND `SPID` !=22";
+    $NUM = selectData($sql);
+    $sql = "SELECT SUM(`numPoint`) AS num  FROM `serv_of_dep` WHERE `DOID` = {$INFODEPARTMENT[$i]['DOID']} ";
+    $NUM2 = selectData($sql);
+
+    $html .= "  <tr>
+                    <td style=\"width: 300px;text-align: center;\" colspan=\"2\">ยอดรวม</td>
+                    <td style=\"width: 50px;text-align: right;padding-right: 10px;\">{$NUM[1]['num']}</td>
+                    <td style=\"width: 50px;text-align: right;padding-right: 10px;\">{$NUM2[1]['num']}</td>
+                    <td style=\"width: 550px;background-color: #444141 ;\" colspan=\"4\"></td>
+                </tr>";
     $html .= "</table><br>";
     $html .= "  <table style=\" border: 0px;text-align: center;\">
                     <tr>
