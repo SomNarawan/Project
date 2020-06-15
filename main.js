@@ -71,44 +71,57 @@ $(document).on("click", ".btn-plus", function() {
     DID = $(this).attr("DID");
     SPID = $(this).attr("SPID");
     check = $(this).attr("check");
-    getTextSelectNameAdd(DID, SPID, 0);
-    getTextSelectVehicleAdd(0);
-    addblankName(DID, SPID);
-    if (check == 22) {
-        size = "315";
-    } else {
-        size = "515";
-    }
-
-    html = ` <div class="form-inline">`;
-    htmlselectName = `<select class="form-control slecetName js-example-basic-single" DID="` + DID + `" SPID="` + SPID + `" 
-        PID="0"   required style="width:` + size + `px;">`;
-    htmlselectName += selectName;
-    htmlselectName += `</select>`;
-
-    if (check == 22) {
-        addblankVehicle(DID);
-        htmlselectvehicle = `<select class="form-control slecetVehicle js-example-basic-single" VID="0" DID="` + DID + `"  required style="width:200px;">`;
-        htmlselectvehicle += selectVehicle;
-        htmlselectvehicle += `</select>`;
-        html += htmlselectvehicle;
-        html += htmlselectName;
-    } else {
-        html += htmlselectName;
-    }
-    html += `    <button DID="${DID}" SPID="${SPID}" check="${check}" class="set-button add-remove btn-minus">
-                         <i class="fa fa-minus" style="background: #dc3545;"></i>
-                    </button>
-                </div>`;
-    idnote_div = "note-col" + DID + "row" + SPID;
+    btn = 1;
     iddiv = "col" + DID + "row" + SPID;
-    note_div = ` <input class="form-control note comment" placeholder="เพิ่มเติม" id="` + idnote_div + `" type="text" style="width:515px">`;
-    test = $("#" + idnote_div).val();
-    $("#" + idnote_div).remove();
-    $("#" + iddiv).append(html); //เพิ่ม เลือกชื่อ
-    $("#" + iddiv).append(note_div); //เพิ่ม เพิ่มเติม
-    $("#" + idnote_div).val(test);
-    $('.js-example-basic-single').select2();
+
+    point = $("#pointcol" + DID + "row" + SPID).val();
+    emp = $("#empcol" + DID + "row" + SPID).val();
+    $(".minuscol" + DID + "row" + SPID).each(function(){
+        btn++;
+    }); 
+
+    if(btn < point){
+        getTextSelectNameAdd(DID, SPID, 0);
+        getTextSelectVehicleAdd(0);
+        addblankName(DID, SPID);
+        if (check == 22) {
+            size = "315";
+        } else {
+            size = "515";
+        }
+    
+        html = ` <div class="form-inline">`;
+        htmlselectName = `<select class="form-control slecetName js-example-basic-single" DID="` + DID + `" SPID="` + SPID + `" 
+            PID="0"   required style="width:` + size + `px;">`;
+        htmlselectName += selectName;
+        htmlselectName += `</select>`;
+    
+        if (check == 22) {
+            addblankVehicle(DID);
+            htmlselectvehicle = `<select class="form-control slecetVehicle js-example-basic-single" VID="0" DID="` + DID + `"  required style="width:200px;">`;
+            htmlselectvehicle += selectVehicle;
+            htmlselectvehicle += `</select>`;
+            html += htmlselectvehicle;
+            html += htmlselectName;
+        } else {
+            html += htmlselectName;
+        }
+        html += `    <button DID="${DID}" SPID="${SPID}" check="${check}" class="set-button add-remove btn-minus
+                      minuscol${DID}row${SPID}">
+                             <i class="fa fa-minus" style="background: #dc3545;"></i>
+                        </button>
+                    </div>`;
+        idnote_div = "note-col" + DID + "row" + SPID;
+        iddiv = "col" + DID + "row" + SPID;
+        note_div = ` <input class="form-control note comment" placeholder="เพิ่มเติม" id="` + idnote_div + `" type="text" style="width:515px">`;
+        test = $("#" + idnote_div).val();
+        $("#" + idnote_div).remove();
+        $("#" + iddiv).append(html); //เพิ่ม เลือกชื่อ
+        $("#" + iddiv).append(note_div); //เพิ่ม เพิ่มเติม
+        $("#" + idnote_div).val(test);
+        $('.js-example-basic-single').select2();
+    }
+    
 });
 $(document).on("click", "#ok", function() {
     $('#date').removeAttr("required");
@@ -258,6 +271,7 @@ $(document).on("click", ".selectOption", function() {
 
 
 });
+
 $(document).on("change", ".slecetName", function() {
     var DID = $(this).attr('DID');
     var SPID = $(this).attr('SPID');
@@ -265,6 +279,18 @@ $(document).on("change", ".slecetName", function() {
     var PIDNew = $(this).val();
     var parent = $(this).parent();
     var VID = $(parent).find(".slecetVehicle").val();
+
+    emp = $("#empcol" + DID + "row" + SPID).val();
+    console.log('emp = '+emp);
+    // if(emp == 0){
+    //     $(".optioncol" + DID + "row" + SPID).each(function(){
+    //         $(this).hide();
+    //     });
+    // }else{
+    //     $(".optioncol" + DID + "row" + SPID).each(function(){
+    //         $(this).show();
+    //     });
+    // }
     DeleteWorking(DID, SPID, PIDOld);
     InsertWorking(DID, SPID, PIDNew);
     $(this).attr('PID', PIDNew);
@@ -345,8 +371,6 @@ function InsertWorking(DID, SPID, PID) {
     });
 
 }
-
-
 
 function setSelectCeateName(DIDPass, SPIDPass) {
     var test = $(".slecetName");

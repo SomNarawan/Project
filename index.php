@@ -222,10 +222,12 @@ if (isset($_POST["province"])) {
                         ?>
                         <td class="show<?= $num ?>" style="border-bottom-width:3px; border-bottom-color: black;">
                             <input class="form-control numpeople" DID="<?= $k + 1 ?>" SPID="<?= $SERVICE[$i]['SPID'] ?>"
+                            id="empcol<?php echo $k + 1; ?>row<?php echo $SERVICE[$i]['SPID']; ?>"
                                 style="width:90px" type="number" min=0 value="0">
                         </td>
                         <td class="show<?= $num ?>" style="border-bottom-width:3px; border-bottom-color: black;">
-                            <input class="form-control numpoint" style="width:90px" type="number" min=0 value="0">
+                            <input class="form-control numpoint" id="pointcol<?php echo $k + 1; ?>row<?php echo $SERVICE[$i]['SPID']; ?>" 
+                            style="width:90px" type="number" min=0 value="0">
                         </td>
 
                         <td class="show<?= $num ?>" id="col<?php echo $k + 1; ?>row<?php echo $SERVICE[$i]['SPID']; ?>"
