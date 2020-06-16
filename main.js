@@ -267,7 +267,9 @@ $(document).on("click", ".selectOption", function() {
 
 
 });
-
+$(document).on("change", ".numpoint", function() {
+    setSelectCeateName("1", "0");
+});
 $(document).on("change", ".slecetName", function() {
     var DID = $(this).attr('DID');
     var SPID = $(this).attr('SPID');
@@ -386,14 +388,20 @@ function InsertWorking(DID, SPID, PID) {
 
 function setSelectCeateName(DIDPass, SPIDPass) {
     var test = $(".slecetName");
+    let emp = 0;
     for (i = 0; i < test.length; i++) {
         var DID = $(test[i]).attr('DID');
         var SPID = $(test[i]).attr('SPID');
         var PID = $(test[i]).attr('PID');
-        if (SPIDPass == 0) {
-            getTextSelectName(DID, SPID, PID, test[i]);
-        } else if (DIDPass != DID || SPID == SPIDPass) {
-            getTextSelectName(DID, SPID, PID, test[i]);
+        emp = $("#pointcol" + DID + "row" + SPID).val();
+        if (emp > 0) {
+            if (SPIDPass == 0) {
+                getTextSelectName(DID, SPID, PID, test[i]);
+            } else if (DIDPass != DID || SPID == SPIDPass) {
+                getTextSelectName(DID, SPID, PID, test[i]);
+            }
+        } else {
+            getTextSelectName(DID, 0, PID, test[i]);
         }
 
     }
