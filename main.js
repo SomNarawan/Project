@@ -237,6 +237,7 @@ $(document).on("click", "#btnswitch1", function() {
     Switchpage();
 });
 $(document).on("click", "#btnswitch2", function() {
+    console.log('btnswitch2');
     checkPage = 2;
     Switchpage();
 });

@@ -138,16 +138,16 @@ if (isset($_POST["province"])) {
                     <div class="col-lg-4 row form-inline" style="margin-top: 20px;">
                         <div <?php if ($comp < 5) echo "class='col-lg-6' align='right'";
                                 else echo "class='col-lg-4'"; ?>>
-                            <button class="form-control btn-warning set-button" id="btnswitch1">หน่วยที่ 1 - 2</button>
+                            <button class="form-control btn-warning set-button" type="button" id="btnswitch1">หน่วยที่ 1 - 2</button>
                         </div>
                         <div <?php if ($comp < 5) echo "class='col-lg-6'";
                                 else echo "class='col-lg-4'"; ?>>
-                            <button class="form-control btn-warning set-button" id="btnswitch2">หน่วยที่
+                            <button class="form-control btn-warning set-button" type="button" id="btnswitch2">หน่วยที่
                                 3<?php if ($comp > 3) echo " - 4"; ?></button>
                         </div>
                         <?php if ($comp > 4) { ?>
                             <div class="col-lg-4">
-                                <button class="form-control btn-warning set-button" id="btnswitch3">หน่วยที่
+                                <button class="form-control btn-warning set-button" type="button" id="btnswitch3">หน่วยที่
                                     5<?php if ($comp > 5) echo " - 6"; ?></button>
                             </div>
                         <?php } ?>
