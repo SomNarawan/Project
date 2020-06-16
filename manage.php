@@ -84,7 +84,7 @@ switch ($action) {
         echo $sql;
         $PID = addinsertData($sql);
 
-        for($i=0;$i<sizeof($service);$i++){
+        for ($i = 0; $i < sizeof($service); $i++) {
             $spid = $service[$i];
             print_r($spid);
 
@@ -113,7 +113,7 @@ switch ($action) {
         updateData($sql);
         $sql = "DELETE FROM `role` WHERE `PID` = $PID";
         deletedata($sql);
-        for($i=0;$i<sizeof($service);$i++){
+        for ($i = 0; $i < sizeof($service); $i++) {
             $spid = $service[$i];
             print_r($spid);
 
@@ -293,5 +293,11 @@ switch ($action) {
         $OID = $_POST['OID'] ?? "";
         $sql = "DELETE FROM `operation` WHERE `operation`.`OID` = $OID";
         deletedata($sql);
+        break;
+    case "CheckNameSelect":
+        $PID = $_POST['PID'] ?? "";
+        $sql = "SELECT COUNT(*) AS count FROM `working` WHERE  `working`.`PID`= $PID";
+        $DATA = selectData($sql);
+        echo json_encode($DATA);
         break;
 }

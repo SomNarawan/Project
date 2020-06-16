@@ -76,11 +76,11 @@ $(document).on("click", ".btn-plus", function() {
 
     point = $("#pointcol" + DID + "row" + SPID).val();
     emp = $("#empcol" + DID + "row" + SPID).val();
-    $(".minuscol" + DID + "row" + SPID).each(function(){
+    $(".minuscol" + DID + "row" + SPID).each(function() {
         btn++;
-    }); 
+    });
 
-    if(btn < point){
+    if (btn < point) {
         getTextSelectNameAdd(DID, SPID, 0);
         getTextSelectVehicleAdd(0);
         addblankName(DID, SPID);
@@ -89,13 +89,13 @@ $(document).on("click", ".btn-plus", function() {
         } else {
             size = "515";
         }
-    
+
         html = ` <div class="form-inline">`;
         htmlselectName = `<select class="form-control slecetName js-example-basic-single" DID="` + DID + `" SPID="` + SPID + `" 
             PID="0"   required style="width:` + size + `px;">`;
         htmlselectName += selectName;
         htmlselectName += `</select>`;
-    
+
         if (check == 22) {
             addblankVehicle(DID);
             htmlselectvehicle = `<select class="form-control slecetVehicle js-example-basic-single" VID="0" DID="` + DID + `"  required style="width:200px;">`;
@@ -121,7 +121,7 @@ $(document).on("click", ".btn-plus", function() {
         $("#" + idnote_div).val(test);
         $('.js-example-basic-single').select2();
     }
-    
+
 });
 $(document).on("click", "#ok", function() {
     $('#date').removeAttr("required");
@@ -232,10 +232,6 @@ $(document).on("click", ".btn-minus", function() {
 
 });
 
-$(document).on("click", "#btnclear", function() {
-    ClearWorking();
-    location.reload();
-});
 $(document).on("click", "#btnswitch1", function() {
     checkPage = 1;
     Switchpage();
@@ -281,7 +277,7 @@ $(document).on("change", ".slecetName", function() {
     var VID = $(parent).find(".slecetVehicle").val();
 
     emp = $("#empcol" + DID + "row" + SPID).val();
-    console.log('emp = '+emp);
+    console.log('emp = ' + emp);
     // if(emp == 0){
     //     $(".optioncol" + DID + "row" + SPID).each(function(){
     //         $(this).hide();
@@ -291,6 +287,10 @@ $(document).on("change", ".slecetName", function() {
     //         $(this).show();
     //     });
     // }
+    if (PIDNew != 0) {
+        CheckNameSelect(PIDNew);
+    }
+
     DeleteWorking(DID, SPID, PIDOld);
     InsertWorking(DID, SPID, PIDNew);
     $(this).attr('PID', PIDNew);
@@ -317,6 +317,30 @@ $(document).on("change", ".slecetVehicle", function() {
     InsertWorkingVehicle(DID, VIDNew, PID);
 
 });
+
+function CheckNameSelect(PIDNew) {
+    $.ajax({
+        type: "POST",
+        url: "./manage.php",
+        data: {
+            PID: PIDNew,
+            action: "CheckNameSelect"
+        },
+        async: false,
+        success: function(result) {
+            let DATA = JSON.parse(result);
+            let value = DATA[1].count;
+            if (value > 0) {
+                swal("รายชื่อซ้ำจุดบริการอื่นๆ " + value + " จุด", {
+                    icon: "warning",
+                }).then((confirm) => {
+
+                });
+
+            }
+        }
+    });
+}
 
 function DeleteWorking(DID, SPID, PID) {
     $.ajax({
