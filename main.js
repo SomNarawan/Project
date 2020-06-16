@@ -275,18 +275,6 @@ $(document).on("change", ".slecetName", function() {
     var PIDNew = $(this).val();
     var parent = $(this).parent();
     var VID = $(parent).find(".slecetVehicle").val();
-
-    emp = $("#empcol" + DID + "row" + SPID).val();
-    console.log('emp = ' + emp);
-    // if(emp == 0){
-    //     $(".optioncol" + DID + "row" + SPID).each(function(){
-    //         $(this).hide();
-    //     });
-    // }else{
-    //     $(".optioncol" + DID + "row" + SPID).each(function(){
-    //         $(this).show();
-    //     });
-    // }
     if (PIDNew != 0) {
         CheckNameSelect(PIDNew);
     }
