@@ -54,6 +54,14 @@ function Switchpage() {
 ClearWorking();
 setSelectCeateName("1", "0");
 // $('.chosen').select2();
+$(document).ready(function() {
+    $(window).keydown(function(event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            return false;
+        }
+    });
+});
 var selectName = "";
 var selectVehicle = "";
 $('.js-example-basic-single').select2();
