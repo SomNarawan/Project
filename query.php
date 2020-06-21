@@ -9,9 +9,10 @@ function getOption($spid)
 }
 function getServicepoint()
 {
-    $sql = "SELECT * FROM servicepoint";
-    $DATA = selectData($sql);
-    return   $DATA;
+    $sql = "SELECT * FROM `servicepoint` WHERE SPID != 15 AND
+    SPID != 16 AND SPID != 21";
+    $data = selectData($sql);
+    return $data;
 }
 function getRoleByPID($pid)
 {
@@ -63,7 +64,8 @@ function selectProvince()
 }
 function selectServicepoint()
 {
-    $sql = "SELECT * FROM `servicepoint`";
+    $sql = "SELECT * FROM `servicepoint` WHERE SPID != 15 AND
+    SPID != 16 AND SPID != 21";
     $data = selectData($sql);
     return $data;
 }
