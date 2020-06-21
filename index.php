@@ -8,7 +8,7 @@ $carout = "";
 $company = "";
 $province = 0;
 $PROVINCE = selectProvince();
-$SERVICE = selectServicepoint();
+$SERVICE = getAllServicepoint();
 $PEOPLE = getNamePeople();
 $VEHICLE = getVehicle();
 if (isset($_POST["num_company"])) {

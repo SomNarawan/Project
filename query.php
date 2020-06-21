@@ -14,6 +14,12 @@ function getServicepoint()
     $data = selectData($sql);
     return $data;
 }
+function getAllServicepoint()
+{
+    $sql = "SELECT * FROM `servicepoint`";
+    $data = selectData($sql);
+    return $data;
+}
 function getRoleByPID($pid)
 {
     $sql = "SELECT * FROM role
