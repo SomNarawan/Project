@@ -60,16 +60,16 @@ $VEHICLE = getVehicle();
                     <?php
                     for ($i = 1; $i < count($VEHICLE); $i++) {
                         echo "  <tr align=\"center\" name=\"head_table\">
-                                    <th>$i</th>
-                                    <th >{$VEHICLE[$i]['VName']}</th>
-                                    <th>
+                                    <td>$i</td>
+                                    <td >{$VEHICLE[$i]['VName']}</td>
+                                    <td>
                                         <button type=\"button\" class=\"btn btn-warning btn-sm btn_edit tt\" vid=\"{$VEHICLE[$i]['VID']}\" vname=\"{$VEHICLE[$i]['VName']}\" data-toggle=\"tooltip\" title=\"แก้ไขข้อมูล\" >
                                         <i class=\"fa fa-pencil\" aria-hidden=\"true\"></i>
                                         </button>
                                         <button type=\"button\" class=\"btn btn-danger btn-sm  btn_del tt\"  vid=\"{$VEHICLE[$i]['VID']}\" vname=\"{$VEHICLE[$i]['VName']}\"data-toggle=\"tooltip\" title=\"ลบ\" >
                                         <i class=\"fa fa-trash\" aria-hidden=\"true\"></i>
                                         </button>
-                                    </th>
+                                    </td>
                                 </tr>";
                     }
                     ?>
