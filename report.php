@@ -60,9 +60,9 @@ $PEOPLE = getAllPeople();
                     </div>
                     <div class="col-lg-6" style="padding-left:80px;">
                         <div class="form-inline">
-                            <input name="date" id="date" class="form-control" type="date" value="">
+                            <input name="date1" id="date1" class="form-control" type="date" value="">
                             <label for="" style="padding-left:50px; padding-right:50px;">-</label>
-                            <input name="date" id="date" class="form-control" type="date" value="">
+                            <input name="date2" id="date2" class="form-control" type="date" value="">
                         </div>
 
                     </div>
