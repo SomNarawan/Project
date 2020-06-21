@@ -183,16 +183,16 @@ if (isset($_POST["province"])) {
                         <th class="show<?= $num ?>"
                             style="font-weight: bold; border-bottom-width:3px; border-bottom-color: black; border-right-width:3px; border-right-color: black;">
                             <label>หน่วยที่ <?php echo $k + 1; ?></label>
-                            <input class="form-control th-company " DID="<?php echo $k + 1; ?>"
+                            <input class="form-control th-company " DID="<?php echo $k + 1; ?>" page="<?= $num; ?>"
                                 placeholder="กรอกชื่อบริษัท" type="text" style="width:555px; font-weight: bold;">
                             <div class="form-inline">
-                                <input class="form-control th-time " type="text" placeholder="เวลาออกรถ"
+                                <input class="form-control th-time " type="text" placeholder="เวลาออกรถ" page="<?= $num; ?>"
                                     style="width:115px; font-weight: bold;">
-                                <input class="form-control th-timeOparetion" type="text" placeholder="เวลาเริ่ม"
+                                <input class="form-control th-timeOparetionStart" type="text" placeholder="เวลาเริ่ม" page="<?= $num; ?>"
                                     style="width:110px; font-weight: bold;">
-                                -<input class="form-control th-timeOparetion" type="text" placeholder="เวลาสิ้นสุด"
+                                -<input class="form-control th-timeOparetionEnd" type="text" placeholder="เวลาสิ้นสุด" page="<?= $num; ?>"
                                     style="width:110px; font-weight: bold;">
-                                <select class="form-control js-example-basic-single this th-province" name="province"
+                                <select class="form-control js-example-basic-single this th-province" name="province" page="<?= $num; ?>"
                                     style="width:220px; font-weight: bold;">
                                     <option value="">เลือกจังหวัด</option>
                                     <?php for ($i = 1; $i < $PROVINCE[0]['numrow']; $i++) { ?>

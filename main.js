@@ -155,6 +155,8 @@ $(document).on("click", "#submit-data", function() {
         $(this).attr("required", "required");
         if ($(this).val().trim() == '') {
             check = 0;
+            checkPage = $(this).attr("page");
+            Switchpage();
             return false;
         }
     });
@@ -162,13 +164,26 @@ $(document).on("click", "#submit-data", function() {
         $(this).attr("required", "required");
         if ($(this).val().trim() == '') {
             check = 0;
+            checkPage = $(this).attr("page");
+            Switchpage();
             return false;
         }
     });
-    $('.th-timeOparetion').each(function() {
+    $('.th-timeOparetionStart').each(function() {
         $(this).attr("required", "required");
         if ($(this).val().trim() == '') {
             check = 0;
+            checkPage = $(this).attr("page");
+            Switchpage();
+            return false;
+        }
+    });
+    $('.th-timeOparetionEnd').each(function() {
+        $(this).attr("required", "required");
+        if ($(this).val().trim() == '') {
+            check = 0;
+            checkPage = $(this).attr("page");
+            Switchpage();
             return false;
         }
     });
@@ -176,6 +191,8 @@ $(document).on("click", "#submit-data", function() {
         $(this).attr("required", "required");
         if ($(this).val() == '') {
             check = 0;
+            checkPage = $(this).attr("page");
+            Switchpage();
             return false;
         }
     });
