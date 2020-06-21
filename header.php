@@ -11,6 +11,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="./history.php">ประวัติ</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./report.php">รายงาน</a>
+            </li>
         </ul>
     </nav>
 </div>
