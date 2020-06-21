@@ -1,23 +1,25 @@
 var checkPage = 1;
 var id_ar = 1;
+var OID = 0;
+var DOID = [];
+var SPDID = [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+];
 Switchpage();
+
 
 
 function Switchpage() {
     var show1 = $(".show1");
     var show2 = $(".show2");
     var show3 = $(".show3");
-    var OID = 0;
-    var DOID = [];
-    var SPDID = [
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        []
-    ];
+
     if (checkPage == 1) {
         for (i = 0; i < show1.length; i++) {
             $(show1[i]).show();
@@ -199,8 +201,30 @@ $(document).on("click", "#submit-data", function() {
     if (check) {
 
         $('#submit-data').attr("type", "button");
+        let numpoint = $(".numpoint");
+        let numpeople = $(".numpeople");
+        let text = "";
+        let btn = 1;
+        for (i = 0; i < numpeople.length; i++) {
+
+            let valnumpoint = $(numpoint[i]).val();
+            if (valnumpoint > 0) {
+                btn = 1;
+                let valDID = $(numpeople[i]).attr('DID');
+                let valSPID = $(numpeople[i]).attr('SPID');
+                let NameSP = $(numpeople[i]).attr('nameSP');
+                $(".minuscol" + valDID + "row" + valSPID).each(function() {
+                    btn++;
+                });
+                if (btn < valnumpoint) {
+                    text += "จุดบริการ " + NameSP + " ที่หน่วยงานที่ " + valDID + " จำนวนเจ้าหน้าที่ไม่ครบ\n";
+                }
+            }
+
+        }
         swal({
                 title: "คุณยืนยันข้อมูลหรือไม่",
+                text: text,
                 icon: "warning",
                 confirmButtonClass: "btn-danger",
                 cancelButtonClass: "btn-secondary",
@@ -211,7 +235,15 @@ $(document).on("click", "#submit-data", function() {
                 if (willDelete) {
                     let date = $("#date").val();
                     let num_company = $("#num_company").val();
-
+                    if (OID != 0) {
+                        var xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function() {
+                            if (this.readyState == 4 && this.status == 200) {}
+                        };
+                        xhttp.open("POST", "manage.php", true);
+                        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                        xhttp.send(`OID=${OID}&action=deletehistory`);
+                    }
                     createOperation(date, num_company);
                     createInFoOperation();
                     createInfoServicepoint();
@@ -625,14 +657,15 @@ function createOperation(date, num_company) {
 function createInFoOperation() {
     let company = $(".th-company");
     let time = $(".th-time");
-    let timeOparetion = $(".th-timeOparetion");
+    let timeOparetionStart = $(".th-timeOparetionStart");
+    let timeOparetionEnd = $(".th-timeOparetionEnd");
     let province = $(".th-province");
     DOID = [];
     for (i = 0; i < company.length; i++) {
         let valcompany = $(company[i]).val();
         let valDID = $(company[i]).attr('DID');
         let valtime = $(time[i]).val();
-        var valtimeOparetion = $(timeOparetion[i]).val();
+        var valtimeOparetion = $(timeOparetionStart[i]).val() + " - " + $(timeOparetionEnd[i]).val();
         let valprovince = $(province[i]).val();
         let valOID = OID;
         createdep_of_opera(valOID, valDID, valcompany, valprovince, valtime, valtimeOparetion);
@@ -724,4 +757,6 @@ function createInfoPeople() {
         }
     });
 }
+
+
 console.log("pass");
