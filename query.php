@@ -1,25 +1,36 @@
 <?php
 include_once("./dbConnect.php");
+date_default_timezone_set('Asia/Bangkok');
 function getOption($spid)
 {
     $sql = "SELECT * FROM `optionservicepoint` WHERE SPID = $spid";
     $data = selectData($sql);
     return $data;
 }
-function getServicepoint(){
+function getServicepoint()
+{
     $sql = "SELECT * FROM servicepoint";
     $DATA = selectData($sql);
     return   $DATA;
 }
-function getRoleByPID($pid){
+function getRoleByPID($pid)
+{
     $sql = "SELECT * FROM role
     JOIN servicepoint ON role.SPID = servicepoint.SPID
     WHERE role.PID = '$pid'";
     $DATA = selectData($sql);
     return   $DATA;
 }
-function getPeople(){
-    $sql = "SELECT * FROM `people` ORDER BY `PID` ASC";
+function getPeople()
+{
+    $date = date("Y-m-d");
+    $sql = "SELECT `people`.* ,IF( t1.`ListPID` IS NULL ,'ว่าง','ออกหน่วย')  AS status
+    FROM `people` LEFT JOIN (SELECT DISTINCT(`detail_serv_of_dep`.`PID`) AS ListPID 
+    FROM `detail_serv_of_dep` LEFT JOIN `serv_of_dep` ON `serv_of_dep`.`SPDID` = `detail_serv_of_dep`.`SPDID`
+    LEFT JOIN `dep_of_opera` ON `dep_of_opera`.`DOID` = `serv_of_dep`.`DOID` 
+    LEFT JOIN `operation` ON `operation`.`OID` = `dep_of_opera`.`OID` 
+    WHERE `operation`.`dateOperation` = '$date' AND `detail_serv_of_dep`.`PID`IS NOT NULL) 
+    as t1 ON t1.`ListPID` = `people`.`PID` ORDER BY `people`.`PID` ASC";
     $DATA = selectData($sql);
     return   $DATA;
 }
