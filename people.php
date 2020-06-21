@@ -57,12 +57,18 @@ $SERVICEPOINT = getServicepoint();
                             <th style="width: 15%;">นามสกุล</th>
                             <th style="width: 13%;">ชื่อเล่น</th>
                             <th>จุดบริการ</th>
+                            <th style="width: 13%;">สถานะวันนี้</th>
                             <th>การจัดการ</th>
                         </tr>
                     </thead>
                     <?php
                     for ($i = 1; $i < count($PEOPLE); $i++) {
                         $ROLE = getRoleByPID($PEOPLE[$i]['PID']);
+                        if ($PEOPLE[$i]['status'] == "ว่าง") {
+                            $colorstatus = "green";
+                        } else {
+                            $colorstatus = "red";
+                        }
                     ?>
                         <tr align="center" name="head_table">
                             <td><?php echo $i; ?></th>
@@ -77,6 +83,7 @@ $SERVICEPOINT = getServicepoint();
                                     } ?>
                                 </ul>
                             </td>
+                            <td style="text-align: center;color: <?php echo $colorstatus; ?>;"><?php echo $PEOPLE[$i]['status']; ?></td>
                             <td>
                                 <button type="button" class="btn btn-warning btn-sm btn_edit tt" pid="<?php echo $PEOPLE[$i]['PID']; ?>" ptitle="<?php echo $PEOPLE[$i]['Title']; ?>" name="<?php echo $PEOPLE[$i]['FName']; ?>" surname="<?php echo $PEOPLE[$i]['LName']; ?>" alias="<?php echo $PEOPLE[$i]['NName']; ?>" role="" data-toggle="tooltip" title="แก้ไขข้อมูล">
                                     <i class="fa fa-pencil" aria-hidden="true"></i>

@@ -41,10 +41,10 @@ $sql = "SELECT * FROM `dep_of_opera` INNER JOIN `province` ON `province`.`AD1ID`
 $INFODEPARTMENT = selectData($sql);
 for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
     $html = $htmlHeader;
-    $html .= "<br><b>บริษัท:</b> {$INFODEPARTMENT[$i]['DOName']}";
-    $html .= "<br><b>จังหวัด:</b> {$INFODEPARTMENT[$i]['Province']}";
-    $html .= "<br><b>เวลารถออก:</b> {$INFODEPARTMENT[$i]['TimeStart']}  ";
-    $html .= "<br><b>ช่วงเวลาปฏิบัติงาน:</b> {$INFODEPARTMENT[$i]['TimeOperation']}";
+    $html .= "  <b>  บริษัท:</b> {$INFODEPARTMENT[$i]['DOName']}";
+    $html .= "  <b>จังหวัด:</b> {$INFODEPARTMENT[$i]['Province']}";
+    $html .= "<br>  <b>เวลารถออก:</b> {$INFODEPARTMENT[$i]['TimeStart']}  ";
+    $html .= "  <b>ช่วงเวลาปฏิบัติงาน:</b> {$INFODEPARTMENT[$i]['TimeOperation']}";
     $html .= $htmlTableHeader;
     $sql = "SELECT * FROM `serv_of_dep` INNER JOIN `servicepoint` ON `servicepoint`.`SPID`=`serv_of_dep`.`SPID`
      WHERE `serv_of_dep`.`DOID`={$INFODEPARTMENT[$i]['DOID']}  ORDER BY `serv_of_dep`.`SPID`";
@@ -207,14 +207,11 @@ for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
             }
         }
     }
-    $sql = "SELECT SUM(`numPeople`) AS num  FROM `serv_of_dep` WHERE `DOID` = {$INFODEPARTMENT[$i]['DOID']} AND `SPID` !=22";
-    $NUM = selectData($sql);
     $sql = "SELECT SUM(`numPoint`) AS num  FROM `serv_of_dep` WHERE `DOID` = {$INFODEPARTMENT[$i]['DOID']} ";
     $NUM2 = selectData($sql);
 
     $html .= "  <tr>
-                    <td style=\"width: 300px;text-align: center;\" colspan=\"2\">ยอดรวม</td>
-                    <td style=\"width: 50px;text-align: right;padding-right: 10px;\">{$NUM[1]['num']}</td>
+                    <td style=\"width: 300px;text-align: center;\" colspan=\"3\">ยอดรวม</td>
                     <td style=\"width: 50px;text-align: right;padding-right: 10px;\">{$NUM2[1]['num']}</td>
                     <td style=\"width: 550px;background-color: #444141 ;\" colspan=\"4\"></td>
                 </tr>";
