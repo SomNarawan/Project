@@ -48,8 +48,9 @@ $PEOPLE = getAllPeople();
         <div class="card bg-dark text-white">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-lg-3">
-                        <select class="form-control js-example-basic-single" required style="width:315px;">
+                    <div class="col-lg-3 form-inline">
+                        <label for="">เจ้าหน้าที่&nbsp;</label>
+                        <select class="form-control js-example-basic-single" required style="width:275px;">
                             <option value="0">เลือกชื่อ</option>
                             <?php for ($j = 1; $j < $PEOPLE[0]['numrow']; $j++) { ?>
                             <option value="<?php echo $PEOPLE[$j]['PID']; ?>">
@@ -60,8 +61,12 @@ $PEOPLE = getAllPeople();
                     </div>
                     <div class="col-lg-6" style="padding-left:80px;">
                         <div class="form-inline">
+                            <label for="">วันที่เริ่ม&nbsp;</label>
+
                             <input name="date1" id="date1" class="form-control" type="date" value="">
                             <label for="" style="padding-left:50px; padding-right:50px;">-</label>
+                            <label for="">วันที่สิ้นสุด&nbsp;</label>
+
                             <input name="date2" id="date2" class="form-control" type="date" value="">
                         </div>
 
