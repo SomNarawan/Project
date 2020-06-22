@@ -8,7 +8,7 @@ $carout = "";
 $company = "";
 $province = 0;
 $PROVINCE = selectProvince();
-$SERVICE = selectServicepoint();
+$SERVICE = getAllServicepoint();
 $PEOPLE = getNamePeople();
 $VEHICLE = getVehicle();
 if (isset($_POST["num_company"])) {
@@ -89,22 +89,7 @@ if (isset($_POST["province"])) {
 </head>
 
 <body>
-    <div class="set-button">
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-            <a class="navbar-brand" href="./index.php">หน้าหลัก</a>
-            <ul class=" navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="./people.php">จัดการเจ้าหน้าที่</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./vehicle.php">จัดการยานพาหนะ</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./history.php">ประวัติ</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+    <?php include_once("./header.php"); ?>
     <form action="#" method="post">
 
         <div class="container-fluid body-web" style="position: absolute; top: 80px;">
@@ -238,7 +223,7 @@ if (isset($_POST["province"])) {
                                     <div class="form-inline">
 
                                         <!-- start if -->
-                                        <?php if ($SERVICE[$i]['SPID'] == 15 || $SERVICE[$i]['SPID'] == 16) { ?>
+                                        <?php if ($SERVICE[$i]['SPID'] == 15 || $SERVICE[$i]['SPID'] == 16 || $SERVICE[$i]['SPID'] == 21) { ?>
                                         <?php } else if ($SERVICE[$i]['SPID'] == 22) { ?>
                                             <select class="form-control slecetVehicle js-example-basic-single" DID="<?= $k + 1 ?>" VID="0" required style="width:200px;">
                                                 <option value="0">เลือกรถ</option>
@@ -268,7 +253,7 @@ if (isset($_POST["province"])) {
                                                 <?php } ?>
                                             </select>
                                         <?php } ?>
-                                        <?php if ($SERVICE[$i]['SPID'] == 15 || $SERVICE[$i]['SPID'] == 16) { ?>
+                                        <?php if ($SERVICE[$i]['SPID'] == 15 || $SERVICE[$i]['SPID'] == 16 || $SERVICE[$i]['SPID'] == 21) { ?>
                                         <?php } else { ?>
                                             <button DID="<?= $k + 1 ?>" SPID="<?= $SERVICE[$i]['SPID'] ?>" check="<?php echo $SERVICE[$i]['SPID']; ?>" type="button" class="add-remove set-button btn-plus"><i class="fa fa-plus" style="background: #28a745;"></i></button>
                                         <?php } ?>

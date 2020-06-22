@@ -22,22 +22,7 @@ $VEHICLE = getVehicle();
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 
 <body>
-    <div>
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-            <a class="navbar-brand" href="./index.php">หน้าหลัก</a>
-            <ul class=" navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="./people.php">จัดการเจ้าหน้าที่</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./vehicle.php">จัดการยานพาหนะ</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./history.php">ประวัติ</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+    <?php include_once("./header.php"); ?>
     <div class="container-fluid" style="position: absolute; top: 80px;">
         <div align="center" style="margin-top: 20px;">
             <div class="col-xl-8 align-center">
@@ -60,16 +45,16 @@ $VEHICLE = getVehicle();
                     <?php
                     for ($i = 1; $i < count($VEHICLE); $i++) {
                         echo "  <tr align=\"center\" name=\"head_table\">
-                                    <th>$i</th>
-                                    <th >{$VEHICLE[$i]['VName']}</th>
-                                    <th>
+                                    <td>$i</td>
+                                    <td >{$VEHICLE[$i]['VName']}</td>
+                                    <td>
                                         <button type=\"button\" class=\"btn btn-warning btn-sm btn_edit tt\" vid=\"{$VEHICLE[$i]['VID']}\" vname=\"{$VEHICLE[$i]['VName']}\" data-toggle=\"tooltip\" title=\"แก้ไขข้อมูล\" >
                                         <i class=\"fa fa-pencil\" aria-hidden=\"true\"></i>
                                         </button>
                                         <button type=\"button\" class=\"btn btn-danger btn-sm  btn_del tt\"  vid=\"{$VEHICLE[$i]['VID']}\" vname=\"{$VEHICLE[$i]['VName']}\"data-toggle=\"tooltip\" title=\"ลบ\" >
                                         <i class=\"fa fa-trash\" aria-hidden=\"true\"></i>
                                         </button>
-                                    </th>
+                                    </td>
                                 </tr>";
                     }
                     ?>

@@ -22,22 +22,7 @@ $HISTORY = getHistory();
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 
 <body>
-    <div>
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-            <a class="navbar-brand" href="./index.php">หน้าหลัก</a>
-            <ul class=" navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="./people.php">จัดการเจ้าหน้าที่</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./vehicle.php">จัดการยานพาหนะ</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./history.php">ประวัติ</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+    <?php include_once("./header.php"); ?>
     <div class="container-fluid" style="position: absolute; top: 80px;">
         <div align="center" style="margin-top: 20px;">
             <div class="col-xl-8 align-center">

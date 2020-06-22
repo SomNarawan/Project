@@ -7,10 +7,22 @@ function getOption($spid)
     $data = selectData($sql);
     return $data;
 }
+function getAllPeople()
+{
+    $sql = "SELECT * FROM `people`";
+    $data = selectData($sql);
+    return $data;
+}
 function getServicepoint()
 {
     $sql = "SELECT * FROM `servicepoint` WHERE SPID != 15 AND
     SPID != 16 AND SPID != 21";
+    $data = selectData($sql);
+    return $data;
+}
+function getAllServicepoint()
+{
+    $sql = "SELECT * FROM `servicepoint`";
     $data = selectData($sql);
     return $data;
 }
