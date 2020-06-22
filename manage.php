@@ -130,6 +130,46 @@ switch ($action) {
         deletedata($sql);
 
         break;
+    case "addparttime":
+        $title = $_POST['title'];
+        $name = $_POST['name'];
+        $surname = $_POST['surname'];
+        $alias = $_POST['alias'];
+        $status = $_POST['status'];
+        print_r($status);
+        $sql = "INSERT INTO `part_time_people` (`PTID`, `Title`, `PTFName`,`PTLName`, `PTNName`, `status`) 
+        VALUES (NULL, '$title', '$name','$surname', '$alias','$status')";
+        echo $sql;
+        $PID = addinsertData($sql);
+
+        header("location:./parttime.php");
+        break;
+    case "editparttime":
+        $PTID = $_POST['PTID'];
+        $title = $_POST['e_title'];
+        $name = $_POST['e_name'];
+        $surname = $_POST['e_surname'];
+        $alias = $_POST['e_alias'];
+        $status = $_POST['e_status'];
+        print_r($status);
+        $sql = "UPDATE `part_time_people` SET
+        `Title` = '$title',
+        `PTFName` = '$name',
+        `PTLName` = '$surname',
+        `PTNName` = '$alias',
+        `status` = '$status'
+        WHERE PTID = '$PTID'";
+        echo $sql;
+        updateData($sql);
+
+        header("location:./parttime.php");
+        break;
+    case "deleteparttime":
+        $PTID = $_POST['PTID'] ?? "";
+        $sql = "DELETE FROM `part_time_people` WHERE `part_time_people`.`PTID` = $PTID";
+        deletedata($sql);
+
+        break;
     case "addvehicle":
         $name = $_POST['name'] ?? "";
         $sql = "INSERT INTO `vehicle` (`VID`, `VName`, `Status`) VALUES (NULL, '$name', 'notuse')";
