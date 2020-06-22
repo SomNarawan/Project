@@ -300,4 +300,69 @@ switch ($action) {
         $DATA = selectData($sql);
         echo json_encode($DATA);
         break;
+    case "setTableComment":
+        $PID = $_POST['pid'] ?? "";
+        $Type = $_POST['Type'] ?? "";
+        $sql = "SELECT `comment`.`CID`,`operation`.`dateOperation`,`dep_of_opera`.`DOName`,`comment`.`Comment` FROM `comment`
+        INNER JOIN `dep_of_opera` ON `dep_of_opera`.`DOID` = `comment`.`DOID`
+        INNER JOIN `operation` ON `operation`.`OID` = `dep_of_opera`.`OID`
+        WHERE `comment`.`PID` = $PID  AND `comment`.`Type`='$Type'
+        ORDER BY `operation`.`dateOperation` DESC ,`dep_of_opera`.`DOName`";
+        $DATA = selectData($sql);
+        $text = "";
+        for ($i = 1; $i < count($DATA); $i++) {
+            $date = date_format(date_create($DATA[$i]['dateOperation']), "d/m/Y");
+            $text .= "  <tr align=\"center\">
+                            <td style=\"width: 10%;\">$i</td>
+                            <td style=\"width: 20%;\">$date</td>
+                            <td style=\"width: 20%;text-align: left;\">{$DATA[$i]['DOName']}</td>
+                            <td style=\"width: 40%;text-align: left;\">{$DATA[$i]['Comment']}</td>
+                            <td style=\"width: 10%;\">
+                            <button type=\"button\" class=\"btn btn-danger btn-sm btn_del_com \" cid=\"{$DATA[$i]['CID']}\"   >
+                                    <i class=\"fa fa-trash\" aria-hidden=\"true\"></i>
+                                </button>
+                            </td>
+                        </tr>";
+        }
+        echo $text;
+        break;
+    case "setSelectComment":
+        $PID = $_POST['pid'] ?? "";
+        $Type = $_POST['Type'] ?? "";
+        if ($Type == "F") {
+            $sql = "SELECT `dep_of_opera`.`DOID`,`dep_of_opera`.`DOName`,`operation`.`dateOperation`  ,COUNT(*) AS num FROM `dep_of_opera`
+            INNER JOIN `operation` ON `operation`.`OID` = `dep_of_opera`.`OID`
+            INNER JOIN `serv_of_dep` ON  `serv_of_dep`.`DOID`= `dep_of_opera`.`DOID`
+            INNER JOIN `detail_serv_of_dep` ON `detail_serv_of_dep`.`SPDID` = `serv_of_dep`.`SPDID`
+            WHERE `detail_serv_of_dep`.`PID`=$PID
+            GROUP BY `dep_of_opera`.`DOID`,`dep_of_opera`.`DOName`,`operation`.`dateOperation`
+            ORDER BY `operation`.`dateOperation` DESC ,`dep_of_opera`.`DOName`";
+        } else {
+            $sql = "SELECT `dep_of_opera`.`DOID`,`dep_of_opera`.`DOName`,`operation`.`dateOperation` FROM `dep_of_opera`
+            INNER JOIN `operation` ON `operation`.`OID` = `dep_of_opera`.`OID`
+            GROUP BY `dep_of_opera`.`DOID`,`dep_of_opera`.`DOName`,`operation`.`dateOperation`
+            ORDER BY `operation`.`dateOperation` DESC ,`dep_of_opera`.`DOName`";
+        }
+
+        $DATA = selectData($sql);
+        $text = "<option  class=\"form-control\" value=\"0\">เลือก";
+        for ($i = 1; $i < count($DATA); $i++) {
+            $date = date_format(date_create($DATA[$i]['dateOperation']), "d/m/y");
+            $text .= "<option  class=\"form-control\"value=\"{$DATA[$i]['DOID']}\">วันที่ $date  บริษัท {$DATA[$i]['DOName']}</option>";
+        }
+        echo $text;
+        break;
+    case "AddComment":
+        $DOID = $_POST['DOID'] ?? "";
+        $pid = $_POST['pid'] ?? "";
+        $comment = $_POST['comment'] ?? "";
+        $Type = $_POST['Type'] ?? "";
+        $sql = "INSERT INTO `comment` (`CID`, `DOID`, `PID`, `Comment`, `Type`) VALUES (NULL, '$DOID', '$pid', '$comment', '$Type')";
+        $DATA = addinsertData($sql);
+        break;
+    case "DeleteComment":
+        $cid = $_POST['cid'] ?? "";
+        $sql = "DELETE FROM `comment` WHERE `comment`.`CID` = $cid";
+        $DATA = deletedata($sql);
+        break;
 }

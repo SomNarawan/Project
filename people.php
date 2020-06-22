@@ -71,7 +71,7 @@ $SERVICEPOINT = getServicepoint();
                             <td style="text-align: center;color: <?php echo $colorstatus; ?>;">
                                 <?php echo $PEOPLE[$i]['status']; ?></td>
                             <td>
-                                <button type="button" class="btn btn-info btn-sm btn_comment tt" role="" data-toggle="tooltip" title="ความคิดเห็น">
+                                <button type="button" class="btn btn-info btn-sm btn_comment tt" role="" pid="<?php echo $PEOPLE[$i]['PID']; ?>" data-toggle="tooltip" title="ความคิดเห็น">
                                     <i class="fa fa-comments" aria-hidden="true"></i>
                                 </button>
                                 <button type="button" class="btn btn-warning btn-sm btn_edit tt" pid="<?php echo $PEOPLE[$i]['PID']; ?>" ptitle="<?php echo $PEOPLE[$i]['Title']; ?>" name="<?php echo $PEOPLE[$i]['FName']; ?>" surname="<?php echo $PEOPLE[$i]['LName']; ?>" alias="<?php echo $PEOPLE[$i]['NName']; ?>" role="" data-toggle="tooltip" title="แก้ไขข้อมูล">
@@ -271,8 +271,10 @@ $SERVICEPOINT = getServicepoint();
 </div>
 <div class="modal fade" id="commentModal">
     <form action="./manage.php" method="post" id="form-comment">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-lg" role="document" style="max-width: 70%;">
             <div class="modal-content">
+
+
                 <div class="modal-header header-modal bg-info" style="color: white;">
                     <h4 class=" modal-title">ความคิดเห็น</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -280,8 +282,45 @@ $SERVICEPOINT = getServicepoint();
                     </button>
                 </div>
                 <div class="modal-body" id="addModalBody">
-                    <input type="hidden" name="PID" value="0">
-                    <input type="hidden" name="action" value="xx">
+                    <div class="row mb-4">
+                        <div class="col-xl-1  text-right">
+                            <span>บริษัท</span>
+                        </div>
+                        <div class="col-xl-4 ">
+                            <select name="DOID" class="form-control" id="DOID">
+
+                            </select>
+                        </div>
+                        <div class="col-xl-2  text-right">
+                            <span>ความคิดเห็น</span>
+                        </div>
+                        <div class="col-xl-4 ">
+                            <input type="text" class="form-control" name="comment" id="comment" required="" placeholder="กรอกความคิดเห็น">
+                            <input type="hidden" id="PIDcomment" value="0">
+                        </div>
+                        <div class="col-xl-1 text-right">
+                            <button type="button" class="btn btn-success btn-add-comment">เพิ่ม</button>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-xl-12 ">
+                            <table class="table table-bordered table-data " cellspacing="0">
+                                <thead>
+                                    <tr align="center">
+                                        <th style="width: 10%;">ลำดับ</th>
+                                        <th style="width: 20%;">วันที่ออกหน่วย</th>
+                                        <th style="width: 20%;">บริษัท</th>
+                                        <th style="width: 40%;">ความคิดเห็น</th>
+                                        <th style="width: 10%;">การจัดการ</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="DataTableComment">
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
@@ -300,8 +339,45 @@ $SERVICEPOINT = getServicepoint();
         $(document).on("click", "#btn_add", function() {
             $("#addModal").modal();
         });
+        $(document).on("click", ".btn_del_com", function() {
+            let cid = $(this).attr("cid");
+            let pid = $("#PIDcomment").val();
+            $.ajax({
+                type: "POST",
+                url: "./manage.php",
+                data: {
+                    cid: cid,
+                    action: "DeleteComment"
+                },
+                async: false,
+                success: function(result) {
+                    setTableComment(pid);
+                }
+            });
+        });
+
         $(document).on("click", ".btn_comment", function() {
+            let pid = $(this).attr('pid');
+
+            setTableComment(pid);
+            setSelectComment(pid);
+            $("#PIDcomment").val(pid);
             $("#commentModal").modal();
+
+        });
+        $(document).on("click", ".btn-add-comment", function() {
+            let DOID = $("#DOID").val();
+            let comment = $("#comment").val();
+            let pid = $("#PIDcomment").val();
+
+            if (DOID > 0 && comment != "") {
+                console.log("pass");
+                AddComment(DOID, pid, comment, "F");
+                setTableComment(pid);
+                $('.tt').tooltip({
+                    trigger: "hover"
+                });
+            }
         });
         $(document).on("click", ".btn_edit", function() {
             var PID = $(this).attr('pid');
@@ -377,6 +453,60 @@ $SERVICEPOINT = getServicepoint();
             xhttp.open("POST", "manage.php", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send(`PID=${PID}&action=deletepeople`);
+        }
+
+        function setTableComment(pid) {
+            $.ajax({
+                type: "POST",
+                url: "./manage.php",
+                data: {
+                    pid: pid,
+                    Type: "F",
+                    action: "setTableComment"
+                },
+                async: false,
+                success: function(result) {
+                    $("#DataTableComment").empty();
+                    $("#DataTableComment").html(result);
+                }
+            });
+        }
+
+        function setSelectComment(pid) {
+            $.ajax({
+                type: "POST",
+                url: "./manage.php",
+                data: {
+                    pid: pid,
+                    Type: "F",
+                    action: "setSelectComment"
+                },
+                async: false,
+                success: function(result) {
+                    console.log(result);
+                    $("#DOID").empty();
+                    $("#DOID").html(result);
+                }
+            });
+        }
+
+        function AddComment(DOID, pid, comment, type) {
+            $.ajax({
+                type: "POST",
+                url: "./manage.php",
+                data: {
+                    DOID: DOID,
+                    pid: pid,
+                    comment: comment,
+                    Type: type,
+                    action: "AddComment"
+                },
+                async: false,
+                success: function(result) {
+                    $("#DOID").val(0);
+                    $("#comment").val("");
+                }
+            });
         }
     });
 </script>
