@@ -3,16 +3,23 @@ include_once("./dbConnect.php");
 date_default_timezone_set('Asia/Bangkok');
 function getOption($spid)
 {
-    $sql = "SELECT * FROM `optionservicepoint` WHERE SPID = $spid";
+    $sql = "SELECT * FROM `optionservicepoint` WHERE SPID = $spid ";
     $data = selectData($sql);
     return $data;
 }
 function getAllPeople()
 {
-    $sql = "SELECT * FROM `people`";
+    $sql = "SELECT * FROM `people` ORDER BY `people`.`FName` ASC";
     $data = selectData($sql);
     return $data;
 }
+function getAllParttime()
+{
+    $sql = "SELECT * FROM `part_time_people` ORDER BY `part_time_people`.`PTFName` ASC";
+    $data = selectData($sql);
+    return $data;
+}
+
 function getServicepoint()
 {
     $sql = "SELECT * FROM `servicepoint` WHERE SPID != 15 AND
@@ -43,7 +50,7 @@ function getPeople()
     LEFT JOIN `dep_of_opera` ON `dep_of_opera`.`DOID` = `serv_of_dep`.`DOID` 
     LEFT JOIN `operation` ON `operation`.`OID` = `dep_of_opera`.`OID` 
     WHERE `operation`.`dateOperation` = '$date' AND `detail_serv_of_dep`.`PID`IS NOT NULL) 
-    as t1 ON t1.`ListPID` = `people`.`PID` ORDER BY `people`.`PID` ASC";
+    as t1 ON t1.`ListPID` = `people`.`PID` ORDER BY `people`.`FName` ASC";
     $DATA = selectData($sql);
     return   $DATA;
 }
