@@ -12,8 +12,22 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 $mpdf = new \Mpdf\Mpdf([
     'default_font_size' => 16,
-    'default_font' => 'sarabun'
+    'default_font' => 'sarabun',
+    'setAutoTopMargin' => 'stretch',
+    'setAutoBottomMargin' => 'stretch'
 ]);
+
+$mpdf->SetHTMLHeader('
+                            <div>
+                                <img  src="./img/logo1.jpg" width="250px"/>
+                                <img  style="padding-left: 250px;" src="./img/logo2.jpg" width="150px"/>
+                            </div>', 'O', false);
+$mpdf->SetHTMLFooter('<div style="float:right">วันที่ประกาศใช้ 10/7/2563 
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        ISO9001:2015  FM-MU-02/1</div>', 'O', false);
 $mpdf->SetTitle($NameFile);
 $htmlHeader = "<style>
                     table,
@@ -22,11 +36,10 @@ $htmlHeader = "<style>
                         border: 1px solid black;
                         border-collapse: collapse;
                     }
-                   
                 </style>";
-$htmlHeader .= "<div style=\"text-align: right;font-size: 16px;\">วันที่กำหนดแผนงาน: $datemodify</div>";
-$htmlHeader .= "<br><b>วันที่ออกตรวจ:</b> $dateoperation";
-$htmlTableHeader = "<br><br><table>
+$htmlHeader .= "<div style=\"text-align: center;font-size: 20px;\"><b>แผนการปฏิบัติการหน่วยแพทย์เคลื่อนที่</b></div><br>";
+$htmlHeader .= "<div style=\"text-align: right;font-size: 16px;\">วันที่กำหนดแผนงาน: $datemodify</div><br>";
+$htmlTableHeader = "<br><table>
     <tr>
         <th style=\"width: 100px;\">จุดบริการ</th>
         <th style=\"width: 200px;\">รายละเอียด</th>
@@ -41,10 +54,17 @@ $sql = "SELECT * FROM `dep_of_opera` INNER JOIN `province` ON `province`.`AD1ID`
 $INFODEPARTMENT = selectData($sql);
 for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
     $html = $htmlHeader;
-    $html .= "  <b>  บริษัท:</b> {$INFODEPARTMENT[$i]['DOName']}";
-    $html .= "  <b>จังหวัด:</b> {$INFODEPARTMENT[$i]['Province']}";
-    $html .= "<br>  <b>เวลารถออก:</b> {$INFODEPARTMENT[$i]['TimeStart']}  ";
-    $html .= "  <b>ช่วงเวลาปฏิบัติงาน:</b> {$INFODEPARTMENT[$i]['TimeOperation']}";
+    $html .= "<table style=\" border: 0px;font-size:24px\">
+                    <tr>
+                        <td style=\"width: 300px;border: 0px;\"><b>วันที่ออกตรวจ:</b>&nbsp;&nbsp;$dateoperation</td>
+                        <td style=\"width: 300px;border: 0px;\" colspan=\"2\"><b>บริษัท:</b>&nbsp;&nbsp;{$INFODEPARTMENT[$i]['DOName']}</td>
+                        <td style=\"width: 300px;border: 0px;\"><b>จังหวัด:</b>&nbsp;&nbsp;{$INFODEPARTMENT[$i]['Province']}</td>
+                    </tr>
+                    <tr>
+                        <td style=\"width: 300px;border: 0px;\" ><b>เวลารถออก:</b>&nbsp;&nbsp;{$INFODEPARTMENT[$i]['TimeStart']}</td>
+                        <td style=\"width: 300px;border: 0px;\" colspan=\"3\"><b>ช่วงเวลาปฏิบัติงาน:</b>&nbsp;&nbsp;{$INFODEPARTMENT[$i]['TimeOperation']}</td>
+                    </tr>
+                </table>";
     $html .= $htmlTableHeader;
     $sql = "SELECT * FROM `serv_of_dep` INNER JOIN `servicepoint` ON `servicepoint`.`SPID`=`serv_of_dep`.`SPID`
      WHERE `serv_of_dep`.`DOID`={$INFODEPARTMENT[$i]['DOID']}  ORDER BY `serv_of_dep`.`SPID`";
@@ -228,7 +248,6 @@ for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
                         <td style=\"width: 300px;border: 0px;\"> วันที่ ............/............../..............</td>
                     </tr>
                 </table>";
-
     $mpdf->WriteHTML($html);
     if ($i < $INFODEPARTMENT[0]['numrow']) {
         $mpdf->AddPage();

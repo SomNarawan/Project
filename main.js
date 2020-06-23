@@ -216,7 +216,7 @@ $(document).on("click", "#submit-data", function() {
                 $(".minuscol" + valDID + "row" + valSPID).each(function() {
                     btn++;
                 });
-                if (btn < valnumpoint) {
+                if (btn < valnumpoint && valSPID != 15 && valSPID != 16 && valSPID != 21) {
                     text += "จุดบริการ " + NameSP + " ที่หน่วยงานที่ " + valDID + " จำนวนเจ้าหน้าที่ไม่ครบ\n";
                 }
             }
