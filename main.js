@@ -152,6 +152,10 @@ $(document).on("click", "#submit-data", function() {
     check = 1;
     $(this).attr("type", "submit");
     $('#date').attr("required", "required");
+    // console.log('date = '+$('#date').val());
+    if($('#date').val() == ''){
+        check = 0;
+    }
 
     $('.th-company').each(function() {
         $(this).attr("required", "required");
