@@ -135,16 +135,31 @@ $(document).on("click", ".btn-plus", function() {
 });
 $(document).on("click", "#ok", function() {
     $('#date').removeAttr("required");
+    $('.th-contact').each(function() {
+        $(this).removeAttr("required");
+    });
     $('.th-company').each(function() {
         $(this).removeAttr("required");
     });
     $('.th-time').each(function() {
         $(this).removeAttr("required");
     });
-    $('.th-timeOparetion').each(function() {
+    $('.th-timeOparetionStart').each(function() {
+        $(this).removeAttr("required");
+    });
+    $('.th-timeOparetionEnd').each(function() {
         $(this).removeAttr("required");
     });
     $('.th-province').each(function() {
+        $(this).removeAttr("required");
+    });
+    $('.th-date').each(function() {
+        $(this).removeAttr("required");
+    });
+    $('.th-pay').each(function() {
+        $(this).removeAttr("required");
+    });
+    $('.th-round').each(function() {
         $(this).removeAttr("required");
     });
 });
@@ -156,7 +171,15 @@ $(document).on("click", "#submit-data", function() {
     if($('#date').val() == ''){
         check = 0;
     }
-
+    $('.th-contact').each(function() {
+        $(this).attr("required", "required");
+        if ($(this).val().trim() == '') {
+            check = 0;
+            checkPage = $(this).attr("page");
+            Switchpage();
+            return false;
+        }
+    });
     $('.th-company').each(function() {
         $(this).attr("required", "required");
         if ($(this).val().trim() == '') {
@@ -196,6 +219,33 @@ $(document).on("click", "#submit-data", function() {
     $('.th-province').each(function() {
         $(this).attr("required", "required");
         if ($(this).val() == '') {
+            check = 0;
+            checkPage = $(this).attr("page");
+            Switchpage();
+            return false;
+        }
+    });
+    $('.th-date').each(function() {
+        $(this).attr("required", "required");
+        if ($(this).val().trim() == '') {
+            check = 0;
+            checkPage = $(this).attr("page");
+            Switchpage();
+            return false;
+        }
+    });
+    $('.th-pay').each(function() {
+        $(this).attr("required", "required");
+        if ($(this).val().trim() == '') {
+            check = 0;
+            checkPage = $(this).attr("page");
+            Switchpage();
+            return false;
+        }
+    });
+    $('.th-round').each(function() {
+        $(this).attr("required", "required");
+        if ($(this).val().trim() == '') {
             check = 0;
             checkPage = $(this).attr("page");
             Switchpage();
