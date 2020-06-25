@@ -95,7 +95,7 @@ function selectServicepoint()
 }
 function getHistory()
 {
-    $sql = "SELECT * FROM `operation` ORDER BY `operation`.`Modify` DESC";
+    $sql = "SELECT * FROM `operation` ORDER BY `operation`.`dateOperation` DESC,`operation`.`noEdit` DESC";
     $data = selectData($sql);
     return $data;
 }

@@ -34,21 +34,41 @@ $HISTORY = getHistory();
                     <thead>
                         <tr align="center">
                             <th>ลำดับ</th>
-                            <th>เวลาที่ทำการบันทึก</th>
                             <th>วันที่ออกตรวจ</th>
+                            <th>ฉบับที่</th>
                             <th>จำนวนบริษัท</th>
+                            <th>เวลาที่ทำการบันทึก</th>
+                            <th>สถานะ</th>
                             <th>การจัดการ</th>
                         </tr>
                     </thead>
 
                     <?php
                     for ($i = 1; $i < count($HISTORY); $i++) {
+                        if ($HISTORY[$i]['status'] == "ฉบับร่าง") {
+                            $color = "red";
+                            $btncolor = "btn-success";
+                            $btntext = "ยืนยันฉบับจริง";
+                            $settext = "ฉบับจริง";
+                            $icon = "fa-check-circle ";
+                        } else {
+                            $color = "green";
+                            $btncolor = "btn-danger";
+                            $btntext = "ยกเลิกฉบับจริง";
+                            $settext = "ฉบับร่าง";
+                            $icon = "fa-ban ";
+                        }
                         echo "  <tr align=\"center\" name=\"head_table\">
                                     <td>$i</td>
-                                    <td >" . date_format(date_create($HISTORY[$i]['Modify']), "d/m/Y H:i:s") . "</td>
                                     <td >" . date_format(date_create($HISTORY[$i]['dateOperation']), "d/m/Y") . "</td>
+                                    <td >{$HISTORY[$i]['noEdit']}</td>
                                     <td >{$HISTORY[$i]['numCompany']}</td>
+                                    <td >" . date_format(date_create($HISTORY[$i]['Modify']), "d/m/Y H:i:s") . "</td>
+                                    <td style =\"color: $color\">{$HISTORY[$i]['status']}</td>
                                     <td>
+                                    <button type=\"button\" class=\"btn $btncolor btn-sm  btn_setstatus tt\"  settext=\"$settext\" oid=\"{$HISTORY[$i]['OID']}\" data-toggle=\"tooltip\" title=\"$btntext\" >
+                                    <i class=\"fa $icon\" aria-hidden=\"true\"></i>
+                                    </button>
                                     <a  style=\"text-decoration:none\" target=\"_blank\" href=\"./createPDF.php?OID={$HISTORY[$i]['OID']}\">
                                         <button type=\"button\" class=\"btn btn-info btn-sm   tt\"   data-toggle=\"tooltip\" title=\"รายละเอียด\" >
                                         <i class=\"fa fa-info-circle\" aria-hidden=\"true\"></i>
@@ -106,6 +126,20 @@ $HISTORY = getHistory();
 
                     }
                 });
+
+        });
+        $(document).on("click", ".btn_setstatus", function() {
+            var OID = $(this).attr('oid');
+            var settext = $(this).attr('settext');
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    window.location = './history.php';
+                }
+            };
+            xhttp.open("POST", "manage.php", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(`OID=${OID}&settext=${settext}&action=setStatus`);
 
         });
 

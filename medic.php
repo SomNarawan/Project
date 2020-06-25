@@ -67,16 +67,10 @@ $SERVICEPOINT = getServicepoint();
                                 <button type="button" class="btn btn-info btn-sm btn_comment tt" role="" pid="<?php echo $PEOPLE[$i]['MID']; ?>" data-toggle="tooltip" title="ความคิดเห็น">
                                     <i class="fa fa-comments" aria-hidden="true"></i>
                                 </button>
-                                <button type="button" class="btn btn-warning btn-sm btn_edit tt" mid="<?php echo $PEOPLE[$i]['MID']; ?>" 
-                                ptitle="<?php echo $PEOPLE[$i]['Title']; ?>" name="<?php echo $PEOPLE[$i]['MFName']; ?>" 
-                                surname="<?php echo $PEOPLE[$i]['MLName']; ?>" status="<?php echo $PEOPLE[$i]['status']; ?>" 
-                                alias="<?php echo $PEOPLE[$i]['MNName']; ?>" role="" data-toggle="tooltip" title="แก้ไขข้อมูล">
+                                <button type="button" class="btn btn-warning btn-sm btn_edit tt" mid="<?php echo $PEOPLE[$i]['MID']; ?>" ptitle="<?php echo $PEOPLE[$i]['Title']; ?>" name="<?php echo $PEOPLE[$i]['MFName']; ?>" surname="<?php echo $PEOPLE[$i]['MLName']; ?>" status="<?php echo $PEOPLE[$i]['status']; ?>" alias="<?php echo $PEOPLE[$i]['MNName']; ?>" role="" data-toggle="tooltip" title="แก้ไขข้อมูล">
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
                                 </button>
-                                <button type="button" class="btn btn-danger btn-sm btn_del tt" mid="<?php echo $PEOPLE[$i]['MID']; ?>" 
-                                ptitle="<?php echo $PEOPLE[$i]['Title']; ?>" name="<?php echo $PEOPLE[$i]['MFName']; ?>" 
-                                surname="<?php echo $PEOPLE[$i]['MLName']; ?>" alias="<?php echo $PEOPLE[$i]['MNName']; ?>" 
-                                data-toggle="tooltip" title="ลบ">
+                                <button type="button" class="btn btn-danger btn-sm btn_del tt" mid="<?php echo $PEOPLE[$i]['MID']; ?>" ptitle="<?php echo $PEOPLE[$i]['Title']; ?>" name="<?php echo $PEOPLE[$i]['MFName']; ?>" surname="<?php echo $PEOPLE[$i]['MLName']; ?>" alias="<?php echo $PEOPLE[$i]['MNName']; ?>" data-toggle="tooltip" title="ลบ">
                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                 </button>
                             </td>
@@ -110,8 +104,7 @@ $SERVICEPOINT = getServicepoint();
                             </div>
                             <div class="col-xl-5 col-12">
                                 <input type="radio" name="title" required="" value="นายแพทย์"> นายแพทย์
-                                <input type="radio" style="margin-left:20%" name="title" required="" 
-                                value="แพทย์หญิง"> แพทย์หญิง
+                                <input type="radio" style="margin-left:20%" name="title" required="" value="แพทย์หญิง"> แพทย์หญิง
                             </div>
                         </div>
                         <div class="row mb-4">
@@ -331,7 +324,7 @@ $SERVICEPOINT = getServicepoint();
 
             if (DOID > 0 && comment != "") {
                 console.log("pass");
-                AddComment(DOID, pid, comment, "P");
+                AddComment(DOID, pid, comment, "M");
                 setTableComment(pid);
                 $('.tt').tooltip({
                     trigger: "hover"
@@ -369,7 +362,7 @@ $SERVICEPOINT = getServicepoint();
                 $('#title1').attr("checked", "checked");
             } else {
                 $('#title2').attr("checked", "checked");
-            } 
+            }
 
             $("#editModal").modal();
 
@@ -425,7 +418,7 @@ $SERVICEPOINT = getServicepoint();
                 url: "./manage.php",
                 data: {
                     pid: pid,
-                    Type: "P",
+                    Type: "M",
                     action: "setTableComment"
                 },
                 async: false,
@@ -442,7 +435,7 @@ $SERVICEPOINT = getServicepoint();
                 url: "./manage.php",
                 data: {
                     pid: pid,
-                    Type: "P",
+                    Type: "M",
                     action: "setSelectComment"
                 },
                 async: false,

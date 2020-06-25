@@ -168,7 +168,7 @@ $(document).on("click", "#submit-data", function() {
     $(this).attr("type", "submit");
     $('#date').attr("required", "required");
     // console.log('date = '+$('#date').val());
-    if($('#date').val() == ''){
+    if ($('#date').val() == '') {
         check = 0;
     }
     $('.th-contact').each(function() {
@@ -289,6 +289,7 @@ $(document).on("click", "#submit-data", function() {
                 if (willDelete) {
                     let date = $("#date").val();
                     let num_company = $("#num_company").val();
+                    let numtime = $("#numtime").val();
                     if (OID != 0) {
                         var xhttp = new XMLHttpRequest();
                         xhttp.onreadystatechange = function() {
@@ -298,7 +299,7 @@ $(document).on("click", "#submit-data", function() {
                         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                         xhttp.send(`OID=${OID}&action=deletehistory`);
                     }
-                    createOperation(date, num_company);
+                    createOperation(date, num_company, numtime);
                     createInFoOperation();
                     createInfoServicepoint();
                     createInfoPeople();
@@ -691,13 +692,14 @@ function setWorkingOption(DID, OSID, type) {
     });
 }
 
-function createOperation(date, num_company) {
+function createOperation(date, num_company, numtime) {
     $.ajax({
         type: "POST",
         url: "./manage.php",
         data: {
             date: date,
             num: num_company,
+            numtime: numtime,
             action: "createOperation"
         },
         async: false,
@@ -714,6 +716,11 @@ function createInFoOperation() {
     let timeOparetionStart = $(".th-timeOparetionStart");
     let timeOparetionEnd = $(".th-timeOparetionEnd");
     let province = $(".th-province");
+    let date = $(".th-date");
+    let pay = $(".th-pay");
+    let round = $(".th-round");
+    let comment = $(".th-comment");
+    let contact = $(".th-contact");
     DOID = [];
     for (i = 0; i < company.length; i++) {
         let valcompany = $(company[i]).val();
@@ -722,12 +729,18 @@ function createInFoOperation() {
         var valtimeOparetion = $(timeOparetionStart[i]).val() + " - " + $(timeOparetionEnd[i]).val();
         let valprovince = $(province[i]).val();
         let valOID = OID;
-        createdep_of_opera(valOID, valDID, valcompany, valprovince, valtime, valtimeOparetion);
+        let valdate = $(date[i]).val();
+        let valpay = $(pay[i]).val();
+        let valround = $(round[i]).val();
+        let valcomment = $(comment[i]).val();
+        let valcontact = $(contact[i]).val();
+
+        createdep_of_opera(valOID, valDID, valcompany, valprovince, valtime, valtimeOparetion, valdate, valpay, valround, valcomment, valcontact);
     }
 
 }
 
-function createdep_of_opera(valOID, valDID, valcompany, valprovince, valtime, valtimeOparetion) {
+function createdep_of_opera(valOID, valDID, valcompany, valprovince, valtime, valtimeOparetion, valdate, valpay, valround, valcomment, valcontact) {
     $.ajax({
         type: "POST",
         url: "./manage.php",
@@ -738,6 +751,11 @@ function createdep_of_opera(valOID, valDID, valcompany, valprovince, valtime, va
             valprovince: valprovince,
             valtime: valtime,
             valtimeOparetion: valtimeOparetion,
+            valdate: valdate,
+            valpay: valpay,
+            valround: valround,
+            valcomment: valcomment,
+            valcontact: valcontact,
             action: "createdep_of_opera"
         },
         async: false,

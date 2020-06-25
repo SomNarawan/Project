@@ -288,7 +288,9 @@ switch ($action) {
     case "createOperation":
         $date = $_POST['date'] ?? "";
         $num = $_POST['num'] ?? "";
-        $sql = "INSERT INTO `operation` (`OID`, `dateOperation`, `numCompany`, `Modify`) VALUES (NULL, '$date', '$num', current_timestamp())";
+        $numtime = $_POST['numtime'] ?? "";
+        $sql = "INSERT INTO `operation` (`OID`, `dateOperation`, `numCompany`, `noEdit`, `status`, `Modify`) VALUES (NULL, '$date', '$num', '$numtime', 'ฉบับร่าง', current_timestamp())
+        ";
         $OID = addinsertData($sql);
         echo json_encode($OID);
         break;
@@ -299,8 +301,13 @@ switch ($action) {
         $valprovince = $_POST['valprovince'] ?? "";
         $valtime = $_POST['valtime'] ?? "";
         $valtimeOparetion = $_POST['valtimeOparetion'] ?? "";
-        $sql = "INSERT INTO `dep_of_opera` (`DOID`, `OID`, `DID`, `DOName`, `AD1ID`, `TimeStart`, `TimeOperation`)
-         VALUES (NULL, '$valOID', '$valDID', '$valcompany', '$valprovince', '$valtime', '$valtimeOparetion')";
+        $valdate = $_POST['valdate'] ?? "";
+        $valpay = $_POST['valpay'] ?? "";
+        $valround = $_POST['valround'] ?? "";
+        $valcomment = $_POST['valcomment'] ?? "";
+        $valcontact = $_POST['valcontact'] ?? "";
+        $sql = "INSERT INTO `dep_of_opera` (`DOID`, `OID`, `DID`, `DOName`, `AD1ID`, `TimeStart`, `TimeOperation`, `travelDate`, `CCN`, `advances`, `round`, `note`)
+         VALUES (NULL, '$valOID', '$valDID', '$valcompany', '$valprovince', '$valtime', '$valtimeOparetion', '$valdate', '$valcontact', '$valpay', '$valround', '$valcomment')";
         $DOID = addinsertData($sql);
         echo json_encode($DOID);
         break;
@@ -444,5 +451,11 @@ switch ($action) {
         $cid = $_POST['cid'] ?? "";
         $sql = "DELETE FROM `comment` WHERE `comment`.`CID` = $cid";
         $DATA = deletedata($sql);
+        break;
+    case "setStatus":
+        $OID = $_POST['OID'] ?? "";
+        $settext = $_POST['settext'] ?? "";
+        $sql = "UPDATE `operation` SET `status` = '$settext' WHERE `operation`.`OID` =  $OID ";
+        updateData($sql);
         break;
 }
