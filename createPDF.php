@@ -8,6 +8,10 @@ $INFOOPERATION = selectDataOne($sql);
 $dateoperation = date_format(date_create($INFOOPERATION['dateOperation']), "d/m/Y");
 $datemodify = date_format(date_create($INFOOPERATION['Modify']), "d/m/Y H:i:s");
 $NameFile = "Operation" . date_format(date_create($INFOOPERATION['Modify']), "Y-m-d") . ".pdf";
+$status = "";
+if ($INFOOPERATION['status'] == "ฉบับร่าง") {
+    $status = "( ฉบับร่าง )";
+}
 require_once __DIR__ . '/vendor/autoload.php';
 
 $mpdf = new \Mpdf\Mpdf([
@@ -37,8 +41,8 @@ $htmlHeader = "<style>
                         border-collapse: collapse;
                     }
                 </style>";
-$htmlHeader .= "<div style=\"text-align: center;font-size: 20px;\"><b>แผนการปฏิบัติการหน่วยแพทย์เคลื่อนที่</b></div><br>";
-$htmlHeader .= "<div style=\"text-align: right;font-size: 16px;\">วันที่กำหนดแผนงาน: $datemodify</div><br>";
+$htmlHeader .= "<div style=\"text-align: center;font-size: 20px;\"><b>แผนการปฏิบัติการหน่วยแพทย์เคลื่อนที่ $status</b></div><br>";
+$htmlHeader .= "<div style=\"text-align: right;font-size: 16px;\">ฉบับที่ {$INFOOPERATION['noEdit']} จัดทำแผนงานวันที่: $datemodify</div>";
 $htmlTableHeader = "<br><table>
     <tr>
         <th style=\"width: 100px;\">จุดบริการ</th>
@@ -56,15 +60,27 @@ for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
     $html = $htmlHeader;
     $html .= "<table style=\" border: 0px;font-size:24px\">
                     <tr>
-                        <td style=\"width: 300px;border: 0px;\"><b>วันที่ออกตรวจ:</b>&nbsp;&nbsp;$dateoperation</td>
+                        <td style=\"width: 300px;border: 0px;\"><b>contact number:</b>&nbsp;&nbsp;{$INFODEPARTMENT[$i]['CCN']}</td>
                         <td style=\"width: 300px;border: 0px;\" colspan=\"2\"><b>บริษัท:</b>&nbsp;&nbsp;{$INFODEPARTMENT[$i]['DOName']}</td>
+                        <td style=\"width: 300px;border: 0px;\"><b>รอบ:</b>&nbsp;&nbsp;{$INFODEPARTMENT[$i]['round']}</td>
+                    </tr>
+                    <tr>
+                        <td style=\"width: 300px;border: 0px;\"><b>วันที่ออกตรวจ:</b>&nbsp;&nbsp;$dateoperation</td>
+                        <td style=\"width: 300px;border: 0px;\" colspan=\"2\"><b>ช่วงเวลาปฏิบัติงาน:</b>&nbsp;&nbsp;{$INFODEPARTMENT[$i]['TimeOperation']}</td>
                         <td style=\"width: 300px;border: 0px;\"><b>จังหวัด:</b>&nbsp;&nbsp;{$INFODEPARTMENT[$i]['Province']}</td>
                     </tr>
                     <tr>
-                        <td style=\"width: 300px;border: 0px;\" ><b>เวลารถออก:</b>&nbsp;&nbsp;{$INFODEPARTMENT[$i]['TimeStart']}</td>
-                        <td style=\"width: 300px;border: 0px;\" colspan=\"3\"><b>ช่วงเวลาปฏิบัติงาน:</b>&nbsp;&nbsp;{$INFODEPARTMENT[$i]['TimeOperation']}</td>
+                        <td style=\"width: 300px;border: 0px;\"><b>วันที่เดินทาง:</b>&nbsp;&nbsp;" . date_format(date_create($INFODEPARTMENT[$i]['travelDate']), "d/m/Y") . "</td>
+                        <td style=\"width: 300px;border: 0px;\" colspan=\"2\"><b>เวลารถออก:</b>&nbsp;&nbsp;{$INFODEPARTMENT[$i]['TimeStart']}</td>
+                        <td style=\"width: 300px;border: 0px;\" ><b>สถานที่พัก:&nbsp;&nbsp;</b>............................................................</td>
                     </tr>
+                <tr>
+                    <td style=\"width: 300px;border: 0px;\"><b>เงินทดลองจ่าย:</b>&nbsp;&nbsp;" . number_format($INFODEPARTMENT[$i]['advances'], 0, '.', ',') . " บาท</td>
+                    <td style=\"width: 300px;border: 0px;\" colspan=\"3\"><b>เงินคงเหลือ:&nbsp;&nbsp;</b>................................ บาท</td></td>
+            </tr>
                 </table>";
+
+
     $html .= $htmlTableHeader;
     $sql = "SELECT * FROM `serv_of_dep` INNER JOIN `servicepoint` ON `servicepoint`.`SPID`=`serv_of_dep`.`SPID`
      WHERE `serv_of_dep`.`DOID`={$INFODEPARTMENT[$i]['DOID']}  ORDER BY `serv_of_dep`.`SPID`";
@@ -236,6 +252,7 @@ for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
                     <td style=\"width: 550px;background-color: #444141 ;\" colspan=\"4\"></td>
                 </tr>";
     $html .= "</table><br>";
+    $html .= "<b>หมายเหตุ :</b> {$INFODEPARTMENT[$i]['note']} <br><br>";
     $html .= "  <table style=\" border: 0px;text-align: center;\">
                     <tr>
                         <td style=\"width: 300px;border: 0px;\">ผู้จัดทำ ..........................................</td>
