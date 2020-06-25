@@ -19,7 +19,12 @@ function getAllParttime()
     $data = selectData($sql);
     return $data;
 }
-
+function getAllMedic()
+{
+    $sql = "SELECT * FROM `medic` ORDER BY `medic`.`MFName` ASC";
+    $data = selectData($sql);
+    return $data;
+}
 function getServicepoint()
 {
     $sql = "SELECT * FROM `servicepoint` WHERE SPID != 15 AND

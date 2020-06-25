@@ -12,6 +12,9 @@
                 <a class="nav-link" href="./parttime.php">จัดการพนักงานพาร์ทไทม์</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="./medic.php">จัดการแพทย์</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="./history.php">ประวัติ</a>
             </li>
             <li class="nav-item">

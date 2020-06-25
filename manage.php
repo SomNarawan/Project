@@ -170,6 +170,46 @@ switch ($action) {
         deletedata($sql);
 
         break;
+    case "addmedic":
+        $title = $_POST['title'];
+        $name = $_POST['name'];
+        $surname = $_POST['surname'];
+        $alias = $_POST['alias'];
+        $status = $_POST['status'];
+        print_r($status);
+        $sql = "INSERT INTO `medic` (`MID`, `Title`, `MFName`,`MLName`, `MNName`, `status`) 
+        VALUES (NULL, '$title', '$name','$surname', '$alias','$status')";
+        echo $sql;
+        $MID = addinsertData($sql);
+
+        header("location:./medic.php");
+        break;
+    case "editmedic":
+        $MID = $_POST['MID'];
+        $title = $_POST['e_title'];
+        $name = $_POST['e_name'];
+        $surname = $_POST['e_surname'];
+        $alias = $_POST['e_alias'];
+        $status = $_POST['e_status'];
+        print_r($status);
+        $sql = "UPDATE `medic` SET
+        `Title` = '$title',
+        `MFName` = '$name',
+        `MLName` = '$surname',
+        `MNName` = '$alias',
+        `status` = '$status'
+        WHERE MID = '$MID'";
+        echo $sql;
+        updateData($sql);
+
+        header("location:./medic.php");
+        break;
+    case "deletemedic":
+        $MID = $_POST['MID'] ?? "";
+        $sql = "DELETE FROM `medic` WHERE `medic`.`MID` = $MID";
+        deletedata($sql);
+
+        break;
     case "addvehicle":
         $name = $_POST['name'] ?? "";
         $sql = "INSERT INTO `vehicle` (`VID`, `VName`, `Status`) VALUES (NULL, '$name', 'notuse')";
