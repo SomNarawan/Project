@@ -216,8 +216,8 @@ if (isset($_POST["province"])) {
                                     $num = "3";
                                 }
                                 if ($SERVICE[$i]['SPID'] == 24) {
-                                    echo "<td align='center'>-</td>";
-                                    echo "<td align='center'>-</td>";
+                                    echo "<td class='show".$num." align='center'>-</td>";
+                                    echo "<td class='show".$num." align='center'>-</td>";
                                 } else { ?>
 
                                     <td class="show<?= $num ?>" style="border-bottom-width:3px; border-bottom-color: black;">
