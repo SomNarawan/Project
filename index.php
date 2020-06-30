@@ -103,7 +103,7 @@ if (isset($_POST["province"])) {
                     <form action="index.php" method="post">
                         <div class="row">
                             <div class="form-inline" style="margin-left: 10%;">
-                                <label style="width:100px; font-weight: bold;">ครั้งที่</label>
+                                <label style="width:100px; font-weight: bold;">ฉบับที่</label>
                                 <input name="numtime" id="numtime" class="form-control" style="width:70px;" type="number" min="1" value="<?php echo $numtime; ?>">
                             </div>
                             <div class="form-inline" style="margin-left: 10%;">
