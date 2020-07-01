@@ -1,12 +1,12 @@
 <?php
 include_once("./dbConnect.php");
 include_once("./query.php");
-$action = $_POST['action'] ?? "";
+$action = $_POST['action'];
 switch ($action) {
     case "DeleteWorking":
-        $DID = $_POST['DID'] ?? "";
-        $SPID = $_POST['SPID'] ?? "";
-        $PID = $_POST['PID'] ?? "";
+        $DID = $_POST['DID'];
+        $SPID = $_POST['SPID'];
+        $PID = $_POST['PID'];
         if ($PID != 0) {
             $sql = "DELETE FROM working WHERE DID = $DID AND SPID =$SPID  AND PID= $PID";
         } else {
@@ -15,9 +15,9 @@ switch ($action) {
         deletedata($sql);
         break;
     case "InsertWorking":
-        $DID = $_POST['DID'] ?? "";
-        $SPID = $_POST['SPID'] ?? "";
-        $PID = $_POST['PID'] ?? "";
+        $DID = $_POST['DID'];
+        $SPID = $_POST['SPID'];
+        $PID = $_POST['PID'];
         if ($PID == 0) {
             $PID = "NULL";
         } else {
@@ -37,15 +37,15 @@ switch ($action) {
         updateData($sql);
         break;
     case "setVehicle":
-        $VID = $_POST['VID'] ?? "";
-        $status = $_POST['status'] ?? "";
+        $VID = $_POST['VID'];
+        $status = $_POST['status'];
         $sql = "UPDATE `vehicle` SET `Status` = '$status' WHERE `vehicle`.`VID` = $VID";
         updateData($sql);
         break;
     case "getTextSelectName":
-        $DID = $_POST['DID'] ?? "";
-        $SPID = $_POST['SPID'] ?? "";
-        $PID = $_POST['PID'] ?? "";
+        $DID = $_POST['DID'];
+        $SPID = $_POST['SPID'];
+        $PID = $_POST['PID'];
         $NAMEPEOPLE = getNamePeople($DID, $SPID, $PID);
         $text = "<option value=\"0\">เลือกชื่อ</option>";
         for ($i = 1; $i < count($NAMEPEOPLE); $i++) {
@@ -59,7 +59,7 @@ switch ($action) {
 
         break;
     case "getTextSelectVehicle":
-        $VID = $_POST['VID'] ?? "";
+        $VID = $_POST['VID'];
         $VEHICLE = getVehicle($VID);
         $text = "<option value=\"0\">เลือกรถ</option>";
         for ($i = 1; $i < count($VEHICLE); $i++) {
@@ -125,7 +125,7 @@ switch ($action) {
         header("location:./people.php");
         break;
     case "deletepeople":
-        $PID = $_POST['PID'] ?? "";
+        $PID = $_POST['PID'];
         $sql = "DELETE FROM `people` WHERE `people`.`PID` = $PID";
         deletedata($sql);
 
@@ -165,7 +165,7 @@ switch ($action) {
         header("location:./parttime.php");
         break;
     case "deleteparttime":
-        $PTID = $_POST['PTID'] ?? "";
+        $PTID = $_POST['PTID'];
         $sql = "DELETE FROM `part_time_people` WHERE `part_time_people`.`PTID` = $PTID";
         deletedata($sql);
 
@@ -205,44 +205,44 @@ switch ($action) {
         header("location:./medic.php");
         break;
     case "deletemedic":
-        $MID = $_POST['MID'] ?? "";
+        $MID = $_POST['MID'];
         $sql = "DELETE FROM `medic` WHERE `medic`.`MID` = $MID";
         deletedata($sql);
 
         break;
     case "addvehicle":
-        $name = $_POST['name'] ?? "";
+        $name = $_POST['name'];
         $sql = "INSERT INTO `vehicle` (`VID`, `VName`, `Status`) VALUES (NULL, '$name', 'notuse')";
         addinsertData($sql);
         header("location:./vehicle.php");
         break;
     case "editvehicle":
-        $name = $_POST['name'] ?? "";
-        $VID = $_POST['VID'] ?? "";
+        $name = $_POST['name'];
+        $VID = $_POST['VID'];
         $sql = "UPDATE `vehicle` SET `VName` = '$name' WHERE `vehicle`.`VID` = $VID";
         updateData($sql);
         header("location:./vehicle.php");
         break;
     case "deletevehicle":
-        $VID = $_POST['VID'] ?? "";
+        $VID = $_POST['VID'];
         $sql = "DELETE FROM `vehicle` WHERE `vehicle`.`VID` = $VID";
         deletedata($sql);
         break;
     case "addblankName":
-        $DID = $_POST['DID'] ?? "";
-        $SPID = $_POST['SPID'] ?? "";
+        $DID = $_POST['DID'];
+        $SPID = $_POST['SPID'];
         $sql = "INSERT INTO `working` (`WID`, `DID`, `SPID`, `PID`) VALUES (NULL, '$DID', '$SPID', NULL)";
         addinsertData($sql);
         break;
     case "addblankVehicle":
-        $DID = $_POST['DID'] ?? "";
+        $DID = $_POST['DID'];
         $sql = "INSERT INTO `workingvehicle` (`WVID`, `DID`, `VID`, `PID`) VALUES (NULL, $DID, NULL, NULL)";
         addinsertData($sql);
         break;
     case "DeleteWorkingVehicle":
-        $DID = $_POST['DID'] ?? "";
-        $VID = $_POST['VID'] ?? "";
-        $PID = $_POST['PID'] ?? "";
+        $DID = $_POST['DID'];
+        $VID = $_POST['VID'];
+        $PID = $_POST['PID'];
         if ($VID == 0) {
             $VID = "VID IS NULL";
         } else {
@@ -257,9 +257,9 @@ switch ($action) {
         deletedata($sql);
         break;
     case "InsertWorkingVehicle":
-        $DID = $_POST['DID'] ?? "";
-        $VID = $_POST['VID'] ?? "";
-        $PID = $_POST['PID'] ?? "";
+        $DID = $_POST['DID'];
+        $VID = $_POST['VID'];
+        $PID = $_POST['PID'];
         if ($VID == 0) {
             $VID = "NULL";
         } else {
@@ -274,9 +274,9 @@ switch ($action) {
         deletedata($sql);
         break;
     case "setWorkingOption":
-        $DID = $_POST['DID'] ?? "";
-        $OSID = $_POST['OSID'] ?? "";
-        $type = $_POST['type'] ?? "";
+        $DID = $_POST['DID'];
+        $OSID = $_POST['OSID'];
+        $type = $_POST['type'];
         if ($type == "C") {
             $sql = "INSERT INTO `workingoption` (`WOID`, `DID`, `OSID`) VALUES (NULL, '$DID', '$OSID')";
             addinsertData($sql);
@@ -286,37 +286,37 @@ switch ($action) {
         }
         break;
     case "createOperation":
-        $date = $_POST['date'] ?? "";
-        $num = $_POST['num'] ?? "";
-        $numtime = $_POST['numtime'] ?? "";
+        $date = $_POST['date'];
+        $num = $_POST['num'];
+        $numtime = $_POST['numtime'];
         $sql = "INSERT INTO `operation` (`OID`, `dateOperation`, `numCompany`, `noEdit`, `status`, `Modify`) VALUES (NULL, '$date', '$num', '$numtime', 'ฉบับร่าง', current_timestamp())
         ";
         $OID = addinsertData($sql);
         echo json_encode($OID);
         break;
     case "createdep_of_opera":
-        $valOID = $_POST['valOID'] ?? "";
-        $valDID = $_POST['valDID'] ?? "";
-        $valcompany = $_POST['valcompany'] ?? "";
-        $valprovince = $_POST['valprovince'] ?? "";
-        $valtime = $_POST['valtime'] ?? "";
-        $valtimeOparetion = $_POST['valtimeOparetion'] ?? "";
-        $valdate = $_POST['valdate'] ?? "";
-        $valpay = $_POST['valpay'] ?? "";
-        $valround = $_POST['valround'] ?? "";
-        $valcomment = $_POST['valcomment'] ?? "";
-        $valcontact = $_POST['valcontact'] ?? "";
+        $valOID = $_POST['valOID'];
+        $valDID = $_POST['valDID'];
+        $valcompany = $_POST['valcompany'];
+        $valprovince = $_POST['valprovince'];
+        $valtime = $_POST['valtime'];
+        $valtimeOparetion = $_POST['valtimeOparetion'];
+        $valdate = $_POST['valdate'];
+        $valpay = $_POST['valpay'];
+        $valround = $_POST['valround'];
+        $valcomment = $_POST['valcomment'];
+        $valcontact = $_POST['valcontact'];
         $sql = "INSERT INTO `dep_of_opera` (`DOID`, `OID`, `DID`, `DOName`, `AD1ID`, `TimeStart`, `TimeOperation`, `travelDate`, `CCN`, `advances`, `round`, `note`)
          VALUES (NULL, '$valOID', '$valDID', '$valcompany', '$valprovince', '$valtime', '$valtimeOparetion', '$valdate', '$valcontact', '$valpay', '$valround', '$valcomment')";
         $DOID = addinsertData($sql);
         echo json_encode($DOID);
         break;
     case "createserv_of_dep":
-        $DOID = $_POST['DOID'] ?? "";
-        $valSPID = $_POST['valSPID'] ?? "";
-        $valnumpeople = $_POST['valnumpeople'] ?? "";
-        $valnumpoint = $_POST['valnumpoint'] ?? "";
-        $valcomment = $_POST['valcomment'] ?? "";
+        $DOID = $_POST['DOID'];
+        $valSPID = $_POST['valSPID'];
+        $valnumpeople = $_POST['valnumpeople'];
+        $valnumpoint = $_POST['valnumpoint'];
+        $valcomment = $_POST['valcomment'];
         if ($valcomment == null) {
             $valcomment = "NULL";
         } else {
@@ -377,19 +377,19 @@ switch ($action) {
         }
         break;
     case "deletehistory":
-        $OID = $_POST['OID'] ?? "";
+        $OID = $_POST['OID'];
         $sql = "DELETE FROM `operation` WHERE `operation`.`OID` = $OID";
         deletedata($sql);
         break;
     case "CheckNameSelect":
-        $PID = $_POST['PID'] ?? "";
+        $PID = $_POST['PID'];
         $sql = "SELECT COUNT(*) AS count FROM `working` WHERE  `working`.`PID`= $PID";
         $DATA = selectData($sql);
         echo json_encode($DATA);
         break;
     case "setTableComment":
-        $PID = $_POST['pid'] ?? "";
-        $Type = $_POST['Type'] ?? "";
+        $PID = $_POST['pid'];
+        $Type = $_POST['Type'];
         $sql = "SELECT `comment`.`CID`,`operation`.`dateOperation`,`dep_of_opera`.`DOName`,`comment`.`Comment` FROM `comment`
         INNER JOIN `dep_of_opera` ON `dep_of_opera`.`DOID` = `comment`.`DOID`
         INNER JOIN `operation` ON `operation`.`OID` = `dep_of_opera`.`OID`
@@ -414,8 +414,8 @@ switch ($action) {
         echo $text;
         break;
     case "setSelectComment":
-        $PID = $_POST['pid'] ?? "";
-        $Type = $_POST['Type'] ?? "";
+        $PID = $_POST['pid'];
+        $Type = $_POST['Type'];
         if ($Type == "F") {
             $sql = "SELECT `dep_of_opera`.`DOID`,`dep_of_opera`.`DOName`,`operation`.`dateOperation`  ,COUNT(*) AS num FROM `dep_of_opera`
             INNER JOIN `operation` ON `operation`.`OID` = `dep_of_opera`.`OID`
@@ -440,21 +440,21 @@ switch ($action) {
         echo $text;
         break;
     case "AddComment":
-        $DOID = $_POST['DOID'] ?? "";
-        $pid = $_POST['pid'] ?? "";
-        $comment = $_POST['comment'] ?? "";
-        $Type = $_POST['Type'] ?? "";
+        $DOID = $_POST['DOID'];
+        $pid = $_POST['pid'];
+        $comment = $_POST['comment'];
+        $Type = $_POST['Type'];
         $sql = "INSERT INTO `comment` (`CID`, `DOID`, `PID`, `Comment`, `Type`) VALUES (NULL, '$DOID', '$pid', '$comment', '$Type')";
         $DATA = addinsertData($sql);
         break;
     case "DeleteComment":
-        $cid = $_POST['cid'] ?? "";
+        $cid = $_POST['cid'];
         $sql = "DELETE FROM `comment` WHERE `comment`.`CID` = $cid";
         $DATA = deletedata($sql);
         break;
     case "setStatus":
-        $OID = $_POST['OID'] ?? "";
-        $settext = $_POST['settext'] ?? "";
+        $OID = $_POST['OID'];
+        $settext = $_POST['settext'];
         $sql = "UPDATE `operation` SET `status` = '$settext' WHERE `operation`.`OID` =  $OID ";
         updateData($sql);
         break;

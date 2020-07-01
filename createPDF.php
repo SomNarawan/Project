@@ -1,8 +1,18 @@
 <?php
 include_once("dbConnect.php");
 include_once("./query.php");
-$OID = $_GET['OID'] ?? "0";
-$DOWLOAD = $_GET['DOWLOAD'] ?? "0";
+
+if (isset($_GET['OID'])) {
+    $OID = $_GET['OID'];
+} else {
+    $OID = "0";
+}
+
+if (isset($_GET['DOWLOAD'])) {
+    $DOWLOAD = $_GET['DOWLOAD'];
+} else {
+    $DOWLOAD = "0";
+}
 $sql = "SELECT * FROM `operation` WHERE `operation`.`OID` =$OID  ";
 $INFOOPERATION = selectDataOne($sql);
 $dateoperation = date_format(date_create($INFOOPERATION['dateOperation']), "d/m/Y");
