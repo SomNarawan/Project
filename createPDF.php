@@ -70,7 +70,7 @@ for ($i = 1; $i <= $INFODEPARTMENT[0]['numrow']; $i++) {
     $html = $htmlHeader;
     $html .= "<table style=\" border: 0px;font-size:24px\">
                     <tr>
-                        <td style=\"width: 300px;border: 0px;\"><b>CCN:</b>&nbsp;&nbsp;{$INFODEPARTMENT[$i]['CCN']}</td>
+                        <td style=\"width: 300px;border: 0px;\"><b>Checkup No:</b>&nbsp;&nbsp;{$INFODEPARTMENT[$i]['CCN']}</td>
                         <td style=\"width: 300px;border: 0px;\" colspan=\"2\"><b>บริษัท:</b>&nbsp;&nbsp;{$INFODEPARTMENT[$i]['DOName']}</td>
                         <td style=\"width: 300px;border: 0px;\"><b>รอบ:</b>&nbsp;&nbsp;{$INFODEPARTMENT[$i]['round']}</td>
                     </tr>

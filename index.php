@@ -170,7 +170,7 @@ if (isset($_POST["province"])) {
                             <th class="show<?php echo  $num ?>" style="font-weight: bold; border-bottom-width:3px; border-bottom-color: black; border-right-width:3px; border-right-color: black;">
                                 <div class="form-inline">
                                     <label>หน่วยที่ <?php echo $k + 1; ?></label>
-                                    <input class="form-control th-contact " type="text" placeholder="Checkup Contract number" page="<?php echo  $num; ?>" style="margin-left:48px; width:447px; font-weight: bold;">
+                                    <input class="form-control th-contact " type="text" placeholder="Checkup Contract number (ไม่เกิน 15 ตัวอักษร)" page="<?php echo  $num; ?>" maxlength="15" style="margin-left:48px; width:447px; font-weight: bold;">
                                 </div>
                                 <input class="form-control th-company " DID="<?php echo $k + 1; ?>" page="<?php echo  $num; ?>" placeholder="กรอกชื่อบริษัท" type="text" style="width:562px; font-weight: bold;">
                                 <div class="form-inline">
