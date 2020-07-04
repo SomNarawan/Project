@@ -213,8 +213,11 @@ switch ($action) {
     case "addvehicle":
         $name = $_POST['name'];
         $status = $_POST['status'];
-        $note = $_POST['note'] ?? "";            
-        
+        if(isset($_POST['note'])){
+            $note = $_POST['note'];
+        }else{
+            $note = "";
+        }            
         $sql = "INSERT INTO `vehicle` (`VID`, `VName`, `Status`, `statusVehicle`, `comment`) 
         VALUES (NULL, '$name', 'notuse','$status','$note')";
         $id = addinsertData($sql);
@@ -229,7 +232,11 @@ switch ($action) {
         $name = $_POST['e_name'];
         $VID = $_POST['VID'];
         $status = $_POST['e_status'];
-        $note = $_POST['e_note'] ?? "";
+        if(isset($_POST['e_note'])){
+            $note = $_POST['e_note'];
+        }else{
+            $note = "";
+        }
         $sql = "UPDATE `vehicle` 
         SET `VName` = '$name',`statusVehicle` = '$status' ,`comment` = '$note'  
         WHERE `vehicle`.`VID` = $VID";
