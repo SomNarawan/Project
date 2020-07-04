@@ -168,11 +168,11 @@ $VEHICLE = getVehicle();
                             <div class="col-xl-4 col-12 text-right">
                                 <span>สถานะ</span>
                             </div>
-                            <div class="col-xl-5 col-12">
+                            <div class="col-xl-5 col-12 Vehiclestatus">
                                 <input type="radio" name="e_status" id="e_status1" required="" value="พร้อมใช้งาน">
                                 พร้อมใช้งาน
                                 <input type="radio" style="margin-left:20%" name="e_status" id="e_status2" required=""
-                                    value="ไม่พร้อมใช้งาน"> ไม้พร้อมใช้งาน
+                                    value="ไม่พร้อมใช้งาน"> ไม่พร้อมใช้งาน
                             </div>
                         </div>
                         <div class="row mb-4">
@@ -219,6 +219,13 @@ $(document).ready(function() {
         $("#e_note").removeAttr('disabled');
     });
     $(document).on("click", ".btn_edit", function() {
+        $("#editModal").modal();
+        html = `<input type="radio" name="e_status" id="e_status1" required="" value="พร้อมใช้งาน">
+                                พร้อมใช้งาน
+                                <input type="radio" style="margin-left:20%" name="e_status" id="e_status2" required=""
+                                    value="ไม่พร้อมใช้งาน"> ไม่พร้อมใช้งาน`;
+        $(".Vehiclestatus").html(html);
+
         var VID = $(this).attr('vid');
         var VName = $(this).attr('vname');
         var VStatus = $(this).attr('vstatus');
@@ -227,15 +234,21 @@ $(document).ready(function() {
         $("#VID").val(VID);
         $("#e_name").val(VName);
         $("#e_status").val(VStatus);
+        console.log('statusVehicle = '+VStatus);
+        $("#e_status1").removeAttr("checked");
+        $("#e_status2").removeAttr("checked");
+
         if (VStatus == 'พร้อมใช้งาน') {
+        console.log('พร้อม');
+            $("#e_status2").removeAttr("checked");
             $("#e_status1").attr("checked", "checked");
             $("#e_note").attr('disabled', 'disabled');
         } else {
             $("#e_status2").attr("checked", "checked");
+            $("#e_status1").removeAttr("checked");
             $("#e_note").removeAttr('disabled');
         }
         $("#e_note").val(VNote);
-        $("#editModal").modal();
     });
     $(document).on("click", ".btn_del", function() {
         var VID = $(this).attr('vid');
