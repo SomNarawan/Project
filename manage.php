@@ -245,8 +245,8 @@ switch ($action) {
             $sql = "UPDATE `vehicle` SET `comment` = NULL WHERE `vehicle`.`VID` = $VID";
             updateData($sql);
         }
-        echo $sql;
-        // header("location:./vehicle.php");
+        // echo $sql;
+        header("location:./vehicle.php");
         break;
     case "deletevehicle":
         $VID = $_POST['VID'];
