@@ -11,7 +11,7 @@ $province = 0;
 $PROVINCE = selectProvince();
 $SERVICE = getAllServicepoint();
 $PEOPLE = getNamePeople();
-$VEHICLE = getVehicle();
+$VEHICLE = getSelVehicle();
 if (isset($_POST["num_company"])) {
     $comp = $_POST["num_company"];
 }

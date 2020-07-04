@@ -60,7 +60,7 @@ switch ($action) {
         break;
     case "getTextSelectVehicle":
         $VID = $_POST['VID'];
-        $VEHICLE = getVehicle($VID);
+        $VEHICLE = getSelVehicle($VID);
         $text = "<option value=\"0\">เลือกรถ</option>";
         for ($i = 1; $i < count($VEHICLE); $i++) {
             $text .= "<option value=\"{$VEHICLE[$i]['VID']}\" ";
@@ -213,15 +213,15 @@ switch ($action) {
     case "addvehicle":
         $name = $_POST['name'];
         $status = $_POST['status'];
-        if(isset($_POST['note'])){
+        if (isset($_POST['note'])) {
             $note = $_POST['note'];
-        }else{
+        } else {
             $note = "";
-        }            
+        }
         $sql = "INSERT INTO `vehicle` (`VID`, `VName`, `Status`, `statusVehicle`, `comment`) 
         VALUES (NULL, '$name', 'notuse','$status','$note')";
         $id = addinsertData($sql);
-        if($status == "พร้อมใช้งาน"){
+        if ($status == "พร้อมใช้งาน") {
             $sql = "UPDATE `vehicle` SET `comment` = NULL WHERE `vehicle`.`VID` = $id";
             updateData($sql);
         }
@@ -232,16 +232,16 @@ switch ($action) {
         $name = $_POST['e_name'];
         $VID = $_POST['VID'];
         $status = $_POST['e_status'];
-        if(isset($_POST['e_note'])){
+        if (isset($_POST['e_note'])) {
             $note = $_POST['e_note'];
-        }else{
+        } else {
             $note = "";
         }
         $sql = "UPDATE `vehicle` 
         SET `VName` = '$name',`statusVehicle` = '$status' ,`comment` = '$note'  
         WHERE `vehicle`.`VID` = $VID";
         updateData($sql);
-        if($status == "พร้อมใช้งาน"){
+        if ($status == "พร้อมใช้งาน") {
             $sql = "UPDATE `vehicle` SET `comment` = NULL WHERE `vehicle`.`VID` = $VID";
             updateData($sql);
         }
