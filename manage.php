@@ -212,16 +212,34 @@ switch ($action) {
         break;
     case "addvehicle":
         $name = $_POST['name'];
-        $sql = "INSERT INTO `vehicle` (`VID`, `VName`, `Status`) VALUES (NULL, '$name', 'notuse')";
-        addinsertData($sql);
+        $status = $_POST['status'];
+        $note = $_POST['note'] ?? "";            
+        
+        $sql = "INSERT INTO `vehicle` (`VID`, `VName`, `Status`, `statusVehicle`, `comment`) 
+        VALUES (NULL, '$name', 'notuse','$status','$note')";
+        $id = addinsertData($sql);
+        if($status == "พร้อมใช้งาน"){
+            $sql = "UPDATE `vehicle` SET `comment` = NULL WHERE `vehicle`.`VID` = $id";
+            updateData($sql);
+        }
+        // echo $sql;
         header("location:./vehicle.php");
         break;
     case "editvehicle":
-        $name = $_POST['name'];
+        $name = $_POST['e_name'];
         $VID = $_POST['VID'];
-        $sql = "UPDATE `vehicle` SET `VName` = '$name' WHERE `vehicle`.`VID` = $VID";
+        $status = $_POST['e_status'];
+        $note = $_POST['e_note'] ?? "";
+        $sql = "UPDATE `vehicle` 
+        SET `VName` = '$name',`statusVehicle` = '$status' ,`comment` = '$note'  
+        WHERE `vehicle`.`VID` = $VID";
         updateData($sql);
-        header("location:./vehicle.php");
+        if($status == "พร้อมใช้งาน"){
+            $sql = "UPDATE `vehicle` SET `comment` = NULL WHERE `vehicle`.`VID` = $VID";
+            updateData($sql);
+        }
+        echo $sql;
+        // header("location:./vehicle.php");
         break;
     case "deletevehicle":
         $VID = $_POST['VID'];
