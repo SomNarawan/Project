@@ -24,6 +24,7 @@ $DATA = getReport1($PID, $dateStart, $dateEnd);
         <th style="width: 300px;">วันที่ออกปฏิบัติการ</th>
         <th style="width: 300px;">บริษัท</th>
         <th style="width: 200px;">จุดบริการ</th>
+        <th style="width: 200px;">ความคิดเห็น</th>
     </tr>
     <?php
     for ($i = 1; $i < count($DATA); $i++) {
@@ -36,6 +37,7 @@ $DATA = getReport1($PID, $dateStart, $dateEnd);
                     <td style=\"text-align: center;\">$date</td>
                     <td>{$DATA[$i]['DOName']}</td>
                     <td>{$DATA[$i]['SPName']}</td>
+                    <td style=\"text-align: center;\">{$DATA[$i]['comment']}</td>
                 </tr>";
     }
     ?>

@@ -119,13 +119,14 @@ function getReport1($PID = 0, $dateStart = "", $dateEnd = "")
     if ($dateEnd != "") {
         $WHERE .= " AND `operation`.`dateOperation` <= '$dateEnd' ";
     }
-    $sql = "SELECT `people`.`PID`,`people`.`Title`,`people`.`FName`,`people`.`LName`,`people`.`NName`,`operation`.`dateOperation`,`dep_of_opera`.`DOName`,`servicepoint`.`SPName`
+    $sql = "SELECT `people`.`PID`,`people`.`Title`,`people`.`FName`,`people`.`LName`,`people`.`NName`,`operation`.`dateOperation`,`dep_of_opera`.`DOName`,`servicepoint`.`SPName`,IFNULL(`comment`.`Comment`,'-') as comment
     FROM `detail_serv_of_dep`
     INNER JOIN `people` ON  `detail_serv_of_dep`.`PID` = `people`.`PID`
     INNER JOIN `serv_of_dep` ON `serv_of_dep`.`SPDID` = `detail_serv_of_dep`.`SPDID`
     INNER JOIN `dep_of_opera` ON `dep_of_opera`.`DOID` = `serv_of_dep`.`DOID`
     INNER JOIN `operation` ON `operation`.`OID` =`dep_of_opera`.`OID`
     INNER JOIN `servicepoint` ON `servicepoint`.`SPID` = `serv_of_dep`.`SPID`
+    LEFT JOIN `comment` ON `comment`.`PID`=`people`.`PID`AND `comment`.`DOID`= `dep_of_opera`.`DOID`
     WHERE `operation`.`status`='ฉบับจริง'  $WHERE
     ORDER BY `people`.`FName`,`people`.`LName`,`people`.`NName`,`operation`.`dateOperation`,`dep_of_opera`.`DOName`,`servicepoint`.`SPName`";
     $data = selectData($sql);
