@@ -127,7 +127,7 @@ function getReport1($PID = 0, $dateStart = "", $dateEnd = "")
     INNER JOIN `operation` ON `operation`.`OID` =`dep_of_opera`.`OID`
     INNER JOIN `servicepoint` ON `servicepoint`.`SPID` = `serv_of_dep`.`SPID`
     LEFT JOIN `comment` ON `comment`.`PID`=`people`.`PID`AND `comment`.`DOID`= `dep_of_opera`.`DOID`
-    WHERE `operation`.`status`='ฉบับจริง'  $WHERE
+    WHERE `operation`.`status`='ฉบับจริง' AND `comment`.`Type`='F' $WHERE
     ORDER BY `people`.`FName`,`people`.`LName`,`people`.`NName`,`operation`.`dateOperation`,`dep_of_opera`.`DOName`,`servicepoint`.`SPName`";
     $data = selectData($sql);
     return $data;
