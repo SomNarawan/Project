@@ -446,12 +446,13 @@ switch ($action) {
             INNER JOIN `operation` ON `operation`.`OID` = `dep_of_opera`.`OID`
             INNER JOIN `serv_of_dep` ON  `serv_of_dep`.`DOID`= `dep_of_opera`.`DOID`
             INNER JOIN `detail_serv_of_dep` ON `detail_serv_of_dep`.`SPDID` = `serv_of_dep`.`SPDID`
-            WHERE `detail_serv_of_dep`.`PID`=$PID
+            WHERE `detail_serv_of_dep`.`PID`=$PID AND `operation`.`status`='ฉบับจริง'
             GROUP BY `dep_of_opera`.`DOID`,`dep_of_opera`.`DOName`,`operation`.`dateOperation`
             ORDER BY `operation`.`dateOperation` DESC ,`dep_of_opera`.`DOName`";
         } else {
             $sql = "SELECT `dep_of_opera`.`DOID`,`dep_of_opera`.`DOName`,`operation`.`dateOperation` FROM `dep_of_opera`
             INNER JOIN `operation` ON `operation`.`OID` = `dep_of_opera`.`OID`
+            WHERE `operation`.`status`='ฉบับจริง'
             GROUP BY `dep_of_opera`.`DOID`,`dep_of_opera`.`DOName`,`operation`.`dateOperation`
             ORDER BY `operation`.`dateOperation` DESC ,`dep_of_opera`.`DOName`";
         }
