@@ -1,16 +1,19 @@
-<?php
+<?php  
+//export.php  
 session_start();
-$PID = $_POST['IDPeople'];
-$dateStart = $_POST['date1'];
-$dateEnd = $_POST['date2'];
-$_SESSION['IDPeople'] = $_POST['IDPeople'];
-$_SESSION['date1'] = $_POST['date1'];
-$_SESSION['date2'] = $_POST['date2'];
+
+$strExcelFileName="Report.xls";
+header("Content-Type: application/x-msexcel; name=\"$strExcelFileName\"");
+header("Content-Disposition: inline; filename=\"$strExcelFileName\"");
+header("Pragma:no-cache");
+
+$PID = $_SESSION['IDPeople'];
+$dateStart = $_SESSION['date1'];
+$dateEnd = $_SESSION['date2'];
 include_once("dbConnect.php");
 include_once("./query.php");
-$DATA = getReport1($PID, $dateStart, $dateEnd);
+$DATA = getReport1($_SESSION['IDPeople'], $_SESSION['date1'], $_SESSION['date2']);
 ?>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <style>
     table,
     th,
@@ -18,10 +21,10 @@ $DATA = getReport1($PID, $dateStart, $dateEnd);
         border: 1px solid black;
         border-collapse: collapse;
     }
-</style><br><br>
-<form method="post" action="export.php">&emsp;&emsp;&emsp;
+</style>
+<form method="post" action="export.php">
      <input type="submit" id="export" name="export" class="btn btn-success" value="Export" />
-    </form><br>
+    </form><br><br><br>
 <table align="center">
     <tr style="text-align: center;">
         <th style="width: 100px;">ลำดับ</th>
